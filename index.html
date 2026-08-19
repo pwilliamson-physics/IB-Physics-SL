@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IB Physics SL Workbooks</title>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --card-bg: #ffffff;
+    --border: #e2e6ea;
+    --accent: #1e5b8f;
+    --accent-light: #e8f1fb;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --placeholder-bg: #fafbfc;
+    --placeholder-border: #d7dce2;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+  header {
+    background: linear-gradient(135deg, #1e5b8f, #2d7dc0);
+    color: white;
+    padding: 3rem 1.5rem 2.5rem;
+    text-align: center;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 2.25rem;
+    letter-spacing: 0.02em;
+  }
+  header p {
+    margin: 0.5rem 0 0;
+    opacity: 0.9;
+    font-size: 1.05rem;
+  }
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+  .topic {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+  .topic.placeholder {
+    background: var(--placeholder-bg);
+    border: 1px dashed var(--placeholder-border);
+  }
+  .topic-header {
+    padding: 1.1rem 1.5rem;
+    background: var(--accent-light);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .topic.placeholder .topic-header {
+    background: transparent;
+    border-bottom: 1px dashed var(--placeholder-border);
+  }
+  .topic-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--accent);
+  }
+  .topic.placeholder .topic-header h2 {
+    color: var(--muted);
+  }
+  .status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+  }
+  .status.ready {
+    background: #d7f0e0;
+    color: #1c7a44;
+  }
+  .status.pending {
+    background: #eef0f2;
+    color: var(--muted);
+  }
+  .resource-list {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0;
+  }
+  .resource-list li {
+    padding: 0.9rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .resource-list li:last-child {
+    border-bottom: none;
+  }
+  .resource-list a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  .resource-list a:hover {
+    text-decoration: underline;
+  }
+  .resource-list p {
+    margin: 0.3rem 0 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+  .empty-note {
+    padding: 1rem 1.5rem;
+    color: var(--muted);
+    font-style: italic;
+    font-size: 0.92rem;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    padding-bottom: 2rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>IB Physics SL Workbooks</h1>
+  <p>A growing library of workbooks and resources, organised by topic</p>
+</header>
+
+<main>
+
+  <!-- Astrophysics -->
+  <section class="topic">
+    <div class="topic-header">
+      <h2>Astrophysics</h2>
+      <span class="status ready">1 resource</span>
+    </div>
+    <ul class="resource-list">
+      <li>
+        <a href="modules/astrophysics/astrophysics-project.html">Reading the Light of the Universe — IB HL Astrophysics Guided Research</a>
+        <p>A week-long guided research project in which each student picks a real star and pulls its own data from the SIMBAD and Gaia archives, then works through five stages — the thermal model (Wien's law, Stefan–Boltzmann, luminosity), the wave model (Doppler shift and Hubble's law), stellar equilibrium and fusion, evolution on the HR diagram, and distance/radius from parallax — before synthesising it all into an argument about the star's fate and the future of the Universe. Includes three assessment options: a written investigation, a comparative poster with oral defence, or a structured exam-style paper.</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- CSP -->
+  <section class="topic">
+    <div class="topic-header">
+      <h2>CSP</h2>
+      <span class="status ready">1 resource</span>
+    </div>
+    <ul class="resource-list">
+      <li>
+        <a href="modules/CSP/Energy_Balance_and_Greenhouse_Effect_Workbook.html">Energy Balance &amp; the Greenhouse Effect — Student Workbook</a>
+        <p>A two-lesson workbook on radiation, emissivity, the solar constant and albedo, followed by Earth's energy balance and the greenhouse effect. Includes a synthesis task on real planetary energy budgets, an interactive inverse-square-law simulation, and the brief for the 10-hour Collaborative Sciences Project investigating albedo or foliage energy shielding, with an understanding checklist and self-marking answer key.</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Currents and Circuits -->
+  <section class="topic">
+    <div class="topic-header">
+      <h2>Currents and Circuits</h2>
+      <span class="status ready">1 resource</span>
+    </div>
+    <ul class="resource-list">
+      <li>
+        <a href="modules/current_and_circuits/01_current_and_circuits.html">Current and Circuits — Student Workbook</a>
+        <p>A complete, consolidated workbook covering the whole topic in one place: cells and circuit diagrams, charge and current, potential difference and Kirchhoff's laws, series and parallel circuits, conductors/insulators and the origin of resistance, resistance/Ohm's law and I–V characteristics, resistivity, combining resistors, emf and internal resistance, electrical power, and variable resistors and potentiometers, with a glossary.</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Electromagnetism -->
+  <section class="topic placeholder">
+    <div class="topic-header">
+      <h2>Electromagnetism</h2>
+      <span class="status pending">Coming soon</span>
+    </div>
+    <p class="empty-note">No resources yet — workbooks for this module are planned.</p>
+  </section>
+
+  <!-- Mechanics -->
+  <section class="topic placeholder">
+    <div class="topic-header">
+      <h2>Mechanics</h2>
+      <span class="status pending">Coming soon</span>
+    </div>
+    <p class="empty-note">No resources yet — workbooks for this module are planned.</p>
+  </section>
+
+  <!-- Nuclear Physics -->
+  <section class="topic placeholder">
+    <div class="topic-header">
+      <h2>Nuclear Physics</h2>
+      <span class="status pending">Coming soon</span>
+    </div>
+    <p class="empty-note">No resources yet — workbooks for this module are planned.</p>
+  </section>
+
+  <!-- Thermal Physics -->
+  <section class="topic placeholder">
+    <div class="topic-header">
+      <h2>Thermal Physics</h2>
+      <span class="status pending">Coming soon</span>
+    </div>
+    <p class="empty-note">No resources yet — workbooks for this module are planned.</p>
+  </section>
+
+  <!-- Waves -->
+  <section class="topic placeholder">
+    <div class="topic-header">
+      <h2>Waves</h2>
+      <span class="status pending">Coming soon</span>
+    </div>
+    <p class="empty-note">No resources yet — workbooks for this module are planned.</p>
+  </section>
+
+</main>
+
+<footer>
+  <p>IB Physics SL Workbooks resource index</p>
+</footer>
+
+</body>
+</html>
