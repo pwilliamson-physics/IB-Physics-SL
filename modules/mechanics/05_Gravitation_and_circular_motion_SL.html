@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gravitation and Circular Motion (SL) — Student Workbook</title>
+<style>
+  :root{
+    --navy:#173a5e; --teal:#0e7c86; --teal-dark:#0a5b62; --amber:#d98324;
+    --soft-blue:#eaf3fb; --soft-amber:#fdf1e2; --soft-green:#eaf7ee; --soft-grey:#f4f6f8;
+    --line:#b9c6d3; --ink:#1f2933; --border:#d7e0e8;
+    --purple:#6b4c9a; --soft-purple:#f1ebf9;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); background:#f7f9fb; line-height:1.55; font-size:16.5px; padding-top:56px;}
+  .layout{display:flex; min-height:calc(100vh - 56px);}
+  nav.sidebar{width:250px; flex-shrink:0; background:var(--navy); color:#fff; padding:1.25rem 1rem; position:sticky; top:56px; height:calc(100vh - 56px); overflow-y:auto;}
+  nav.sidebar h1{font-size:1.05rem; line-height:1.3; margin:0 0 1rem 0; color:#fff;}
+  nav.sidebar a{display:block; color:#cfe3ee; text-decoration:none; font-size:0.88rem; padding:0.4rem 0.5rem; border-radius:6px; margin-bottom:0.15rem;}
+  nav.sidebar a:hover{background:rgba(255,255,255,0.12); color:#fff;}
+  nav.sidebar .tag{display:inline-block; background:var(--amber); color:#fff; font-size:0.68rem; padding:0.1rem 0.4rem; border-radius:4px; margin-left:0.3rem; vertical-align:middle;}
+  main{flex:1; max-width:920px; margin:0 auto; padding:2rem 2.5rem 5rem 2.5rem;}
+  .cover{background:linear-gradient(135deg,var(--navy),var(--teal-dark)); color:#fff; border-radius:14px; padding:2.5rem 2.5rem; margin-bottom:2rem;}
+  .cover h1{margin:0 0 0.4rem 0; font-size:1.9rem;}
+  .cover p.sub{margin:0; font-size:1.05rem; color:#dceaf0;}
+  .cover .meta{margin-top:1.2rem; font-size:0.9rem; color:#cfe3ee;}
+  .name-box{margin-top:1.4rem; background:rgba(255,255,255,0.1); border:1px dashed rgba(255,255,255,0.5); border-radius:8px; padding:0.9rem 1.1rem;}
+  .name-box label{display:block; font-size:0.8rem; color:#dceaf0; margin-bottom:0.2rem;}
+  .name-box .fill{display:block; width:100%; border:none; border-bottom:1px solid #dceaf0; height:1.6rem; background:transparent; color:#fff; font-size:1rem; font-family:inherit; padding:0; outline:none;}
+  .name-box .fill::placeholder{color:rgba(255,255,255,0.5);}
+  .goals{background:rgba(255,255,255,0.12); border-left:4px solid #fff; border-radius:6px; padding:0.9rem 1.1rem; font-size:0.92rem; color:#fff;}
+  .goals ul{margin:0.4rem 0 0 0; padding-left:1.2rem;}
+
+  section.topic{background:#fff; border:1px solid var(--border); border-radius:12px; padding:1.8rem 2rem; margin-bottom:1.6rem;}
+  section.topic h2{color:var(--navy); font-size:1.4rem; margin-top:0; border-bottom:3px solid var(--amber); padding-bottom:0.4rem;}
+  section.topic h3{color:var(--teal-dark); font-size:1.08rem; margin-top:1.6rem;}
+
+  .keybox{background:var(--soft-blue); border:1px solid #c7ddef; border-radius:8px; padding:0.9rem 1.1rem; margin:0.9rem 0; font-size:0.98rem;}
+  .keybox strong{color:var(--navy);}
+  .eqn{background:#fff; border:1px solid #c7ddef; border-radius:6px; padding:0.6rem 1rem; margin:0.6rem 0; font-size:1.08rem; text-align:center; font-family:"Cambria Math",Cambria,Georgia,serif;}
+  .keyword{background:var(--soft-amber); border-left:4px solid var(--amber); border-radius:6px; padding:0.7rem 1rem; margin:0.9rem 0; font-size:0.92rem;}
+  .keyword b{color:var(--amber);}
+  .example{background:var(--soft-green); border:1px solid #bfe3cc; border-radius:8px; padding:0.9rem 1.1rem; margin:1rem 0;}
+  .example .tag{display:inline-block; background:#3f9a5c; color:#fff; font-size:0.72rem; font-weight:600; letter-spacing:0.03em; padding:0.15rem 0.5rem; border-radius:4px; margin-bottom:0.5rem; text-transform:uppercase;}
+  .stretch-box{background:var(--soft-purple); border:1px solid #d9c9ec; border-radius:8px; padding:0.9rem 1.1rem; margin:1rem 0;}
+  .stretch-box .tag{display:inline-block; background:var(--purple); color:#fff; font-size:0.72rem; font-weight:600; letter-spacing:0.03em; padding:0.15rem 0.5rem; border-radius:4px; margin-bottom:0.5rem; text-transform:uppercase;}
+  .stretch-box strong{color:var(--purple);}
+
+  .question{background:var(--soft-grey); border:1px solid var(--border); border-radius:8px; padding:1rem 1.2rem; margin:1.1rem 0;}
+  .question .qnum{display:inline-block; background:var(--navy); color:#fff; font-weight:700; font-size:0.82rem; width:1.9rem; height:1.9rem; line-height:1.9rem; text-align:center; border-radius:50%; margin-right:0.5rem;}
+  .answer-lines{
+    display:block; width:100%; box-sizing:border-box;
+    background-image:repeating-linear-gradient(to bottom, transparent, transparent 1.65em, var(--line) 1.7em);
+    background-color:transparent;
+    min-height:5.1em; margin:0.6rem 0 0.2rem 0;
+    border:1px solid transparent; border-radius:6px;
+    outline:none; resize:none; overflow:hidden;
+    font:inherit; color:inherit; line-height:1.7em;
+    padding:0.05em 0.4em 0 0.2em;
+  }
+  .answer-lines:focus{
+    border:1px solid var(--teal); background-color:#fbfdff;
+    box-shadow:0 0 0 3px rgba(14,124,134,0.12);
+  }
+  .answer-lines::placeholder{color:#9aa8b4; font-style:italic;}
+  .answer-lines.short{min-height:1.7em;}
+  .answer-lines.long{min-height:8.5em;}
+  .reveal-btn{background:var(--teal); color:#fff; border:none; border-radius:6px; padding:0.35rem 0.8rem; font-size:0.82rem; cursor:pointer; margin-top:0.5rem;}
+  .reveal-btn:hover{background:var(--teal-dark);}
+  .answer-panel{display:none; background:#fff; border:1px dashed #3f9a5c; border-radius:6px; padding:0.7rem 1rem; margin-top:0.6rem; font-size:0.92rem;}
+  .answer-panel.shown{display:block;}
+
+  figure{margin:1.2rem auto; text-align:center; max-width:560px;}
+  figure.wide{max-width:none;}
+  figure svg{max-width:100%; height:auto; max-height:340px;}
+  figcaption{font-size:0.85rem; color:#5b6b78; margin-top:0.4rem;}
+
+  table.eqtable{width:100%; border-collapse:collapse; font-size:0.92rem; margin-top:0.7rem;}
+  table.eqtable th, table.eqtable td{border:1px solid var(--border); padding:0.5rem 0.7rem; text-align:left;}
+  table.eqtable th{background:var(--soft-blue); color:var(--navy);}
+
+  dl.glossary dt{font-weight:700; color:var(--navy); margin-top:0.7rem;}
+  dl.glossary dd{margin-left:0; margin-bottom:0.2rem;}
+
+  .topbar{
+    position:fixed; top:0; left:0; right:0; height:56px; z-index:200;
+    background:#fff; border-bottom:1px solid var(--border); box-shadow:0 2px 8px rgba(0,0,0,0.06);
+    display:flex; align-items:center; gap:0.6rem; padding:0 1.4rem; overflow-x:auto;
+  }
+  .topbar .topbar-title{font-weight:700; color:var(--navy); font-size:0.92rem; margin-right:auto; white-space:nowrap;}
+  .topbar button{background:#fff; color:var(--navy); border:1px solid var(--border); border-radius:50px; padding:0.5rem 1rem; font-size:0.82rem; cursor:pointer; white-space:nowrap; flex-shrink:0;}
+  .topbar button:hover{background:var(--soft-blue);}
+  .topbar button.primary{background:var(--amber); color:#fff; border-color:var(--amber); font-weight:600;}
+  .topbar button.primary:hover{background:#c0721c;}
+  .topbar .save-status{font-size:0.72rem; color:#5b6b78; white-space:nowrap; flex-shrink:0;}
+  @media (max-width: 820px){ .topbar .save-status{display:none;} }
+  @media (max-width: 620px){ .topbar .topbar-title{display:none;} }
+  footer.page{font-size:0.8rem; color:#7c8b98; text-align:center; margin-top:2rem;}
+
+  /* ---------- simulation embed conventions ---------- */
+  .sim-embed{background:#fff; border:1px solid var(--border); border-radius:10px; padding:1rem 1.2rem; margin:1rem 0;}
+  .sim-embed p.instructions{margin:0 0 0.6rem 0; font-size:0.92rem; color:#3a4753;}
+  .sim-frame{width:100%; border:none; display:block; border-radius:8px; height:520px;}
+  .sim-embed-credit{text-align:center; font-size:0.82rem; color:#7c8b98; margin-top:0.6rem;}
+  .sim-print-note{display:none;}
+
+  .sim-launch{
+    background:linear-gradient(135deg,var(--soft-blue),#fff); border:1px solid #c7ddef; border-radius:10px;
+    padding:1.2rem 1.4rem; margin:1.1rem 0; text-align:center;
+  }
+  .sim-launch a.launch-btn{
+    display:inline-block; background:var(--teal); color:#fff; text-decoration:none; font-weight:700;
+    padding:0.65rem 1.4rem; border-radius:8px; margin-top:0.6rem; font-size:0.98rem;
+  }
+  .sim-launch a.launch-btn:hover{background:var(--teal-dark);}
+  .sim-launch p.credit{font-size:0.8rem; color:#5b6b78; margin-top:0.7rem;}
+
+  /* custom-canvas sim layout (wide figure: canvas + controls side by side) */
+  .sim-wrap{display:flex; gap:1.4rem; align-items:flex-start; flex-wrap:wrap; background:#0f1f30; border-radius:10px; padding:1.1rem; }
+  .sim-wrap.stacked{flex-direction:column; align-items:center;}
+  .sim-wrap.stacked .sim-canvas-box{margin:0 auto;}
+  .sim-wrap.stacked .sim-controls{width:100%; max-width:480px; flex:none;}
+  .sim-canvas-box{flex:0 0 auto;}
+  .sim-canvas-box canvas{display:block; border-radius:8px; background:#0f1f30;}
+  .sim-controls{flex:1 1 220px; min-width:220px; color:#dceaf0; font-size:0.9rem;}
+  .sim-controls h4{margin:0 0 0.6rem 0; color:#fff; font-size:0.95rem;}
+  .sim-row{margin-bottom:0.9rem;}
+  .sim-row label{display:block; margin-bottom:0.3rem;}
+  .sim-row input[type="range"]{width:100%;}
+  .sim-readout{background:rgba(255,255,255,0.08); border-radius:6px; padding:0.6rem 0.8rem; font-size:0.86rem; line-height:1.6;}
+  .sim-btns{margin-top:0.8rem; display:flex; gap:0.5rem; flex-wrap:wrap;}
+  .sim-btns button{background:var(--teal); color:#fff; border:none; border-radius:6px; padding:0.4rem 0.9rem; font-size:0.82rem; cursor:pointer;}
+  .sim-btns button:hover{background:var(--teal-dark);}
+  .sim-btns button.alt{background:transparent; border:1px solid rgba(255,255,255,0.4); color:#dceaf0;}
+  .sim-btns button.alt:hover{background:rgba(255,255,255,0.1);}
+  .sim-tabs{display:flex; gap:0.4rem; margin-bottom:0.9rem; flex-wrap:wrap;}
+  .sim-tabs button{background:rgba(255,255,255,0.08); color:#dceaf0; border:1px solid rgba(255,255,255,0.25); border-radius:6px; padding:0.35rem 0.7rem; font-size:0.8rem; cursor:pointer;}
+  .sim-tabs button.active{background:var(--teal); color:#fff; border-color:var(--teal);}
+
+  @media print{
+    nav.sidebar, .topbar, .reveal-btn{display:none !important;}
+    .layout{display:block;}
+    main{max-width:100%; padding:0; margin:0;}
+    body{background:#fff; font-size:11.5pt; padding-top:0;}
+    section.topic{border:none; box-shadow:none; padding:0; margin:0 0 1.2rem 0; page-break-inside:avoid;}
+    .cover{page-break-after:always; border-radius:0;}
+    .answer-panel{display:none !important;}
+    body.answers-visible .answer-panel{display:block !important; border-style:solid;}
+    a{color:inherit; text-decoration:none;}
+    .page-break{page-break-before:always;}
+    .answer-lines{border-color:transparent !important; box-shadow:none !important; color:#000;}
+    .answer-lines::placeholder{color:transparent;}
+    .name-box .fill{color:#000; border-bottom-color:#5b6b78;}
+    .name-box .fill::placeholder{color:transparent;}
+    .sim-frame, .sim-embed-credit, .sim-embed p.instructions, .sim-wrap{display:none !important;}
+    .sim-print-note{display:block !important; text-align:center; font-size:0.85rem; color:#5b6b78; padding:0.9rem; border:1px dashed #b9c6d3; border-radius:8px; margin:0.6rem 0;}
+    .sim-launch{display:none !important;}
+  }
+</style>
+</head>
+<body>
+<div class="topbar no-print">
+  <span class="topbar-title">Gravitation and Circular Motion (SL)</span>
+  <button onclick="revealAll()">Show all answers</button>
+  <button onclick="hideAll()">Hide all answers</button>
+  <button onclick="clearMyAnswers()">Clear my answers</button>
+  <span class="save-status">Answers are not saved automatically — print or copy your work before closing this tab</span>
+  <button class="primary" onclick="window.print()">🖨️ Print / Save as PDF</button>
+</div>
+<div class="layout">
+  <nav class="sidebar no-print">
+    <h1>Gravitation and Circular Motion <span class="tag">SL</span></h1>
+    <a href="#cover">Cover &amp; goals</a>
+    <a href="#s1">1. Newton's law of gravitation</a>
+    <a href="#s2">2. Gravitational field strength</a>
+    <a href="#s3">3. Circular motion</a>
+    <a href="#s4">4. Kepler's laws of orbital motion</a>
+    <a href="#s5">5. Orbital speed</a>
+    <a href="#sG">Glossary</a>
+  </nav>
+
+  <main>
+    <section class="cover" id="cover">
+      <h1>Gravitation and Circular Motion (SL)</h1>
+      <p class="sub">Every planet, moon, star and satellite is held on its path by the same force: gravity, acting between any two masses in the universe. This workbook builds up the physics of that force from scratch — starting with the force itself and the field it creates, then turning to the mathematics of circular motion that explains why a satellite orbits rather than falls straight down. Space turns out to be the cleanest possible laboratory for circular motion, since gravity is often the only force acting.</p>
+      <div class="goals" style="margin-top:1.3rem;">
+        <strong style="color:#fff;">By the end of this workbook you should be able to:</strong>
+        <ul>
+          <li>state and apply Newton's law of gravitation for point masses, and describe the conditions under which an extended body can be treated as a point mass</li>
+          <li>define gravitational field strength as the force per unit mass on a small point mass, and sketch gravitational field lines</li>
+          <li>describe circular motion in terms of angular velocity, centripetal acceleration and centripetal force, and explain why a centripetal force changes an object's direction even when its speed stays constant</li>
+          <li>state Kepler's three laws of orbital motion, and derive Kepler's third law, T&sup2; &prop; r&sup3;, from Newton's law of gravitation and circular motion</li>
+          <li>derive and use the equation for orbital speed, v<sub>orb</sub> = &radic;(GM / r)</li>
+        </ul>
+      </div>
+      <div class="name-box">
+        <label>Name</label><input type="text" class="fill" id="studentName" autocomplete="name">
+      </div>
+    </section>
+
+    <!-- ================= SECTION 1: NEWTON'S LAW OF GRAVITATION ================= -->
+    <section class="topic" id="s1">
+      <h2>1. Newton's law of gravitation</h2>
+      <p>Every object with mass attracts every other object with mass. This might seem surprising — you are not aware of being pulled towards your desk, your chair, or the person sitting next to you — but the attraction is there. It is simply too weak to notice unless at least one of the masses involved is enormous, such as a planet.</p>
+      <p>Isaac Newton's insight, in the seventeenth century, was that the force pulling an apple to the ground and the force keeping the Moon in orbit around the Earth are exactly the same force. He proposed that <strong>every</strong> pair of masses in the universe attracts every other pair — this is why the law is called <em>universal</em> gravitation.</p>
+
+      <div class="keybox"><strong>Key idea.</strong> The gravitational force between two point masses is proportional to the product of the masses, and inversely proportional to the square of the distance between them. It is always attractive — gravity only ever pulls, never pushes.</div>
+
+      <div class="eqn">gravitational force, F = Gm<sub>1</sub>m<sub>2</sub> / r&sup2;</div>
+
+      <div class="keyword"><b>G, the gravitational constant:</b> the constant of proportionality in Newton's law of gravitation, G = 6.67 &times; 10<sup>&minus;11</sup> N m&sup2; kg<sup>&minus;2</sup>. It is often called "Big G" to distinguish it from g, the gravitational field strength. G is believed to have the same value everywhere in the universe and at all times.</div>
+
+      <p>Because G is so small, the gravitational force between two ordinary-sized objects — two people, or a person and a building — is far too small to detect. It only becomes significant when at least one mass is planet-sized or larger.</p>
+
+      <figure>
+        <svg viewBox="0 0 460 210" width="460" height="210" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="mF1" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#173a5e"/></marker>
+          </defs>
+          <!-- row 0: separation r -->
+          <circle cx="70" cy="40" r="13" fill="#173a5e"/>
+          <circle cx="200" cy="40" r="13" fill="#0e7c86"/>
+          <text x="70" y="63" font-size="12" fill="#3a4753" text-anchor="middle">m<tspan font-size="9" baseline-shift="sub">1</tspan></text>
+          <text x="200" y="63" font-size="12" fill="#3a4753" text-anchor="middle">m<tspan font-size="9" baseline-shift="sub">2</tspan></text>
+          <line x1="83" y1="40" x2="121" y2="40" stroke="#173a5e" stroke-width="2.2" marker-end="url(#mF1)"/>
+          <line x1="187" y1="40" x2="149" y2="40" stroke="#173a5e" stroke-width="2.2" marker-end="url(#mF1)"/>
+          <text x="135" y="26" font-size="13" fill="#173a5e" text-anchor="middle" font-weight="600">F</text>
+          <text x="135" y="80" font-size="12" fill="#5b6b78" text-anchor="middle">r</text>
+          <line x1="15" y1="72" x2="445" y2="72" stroke="#d7e0e8" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <!-- row 1: separation 2r -->
+          <circle cx="70" cy="105" r="13" fill="#173a5e"/>
+          <circle cx="300" cy="105" r="13" fill="#0e7c86"/>
+          <line x1="83" y1="105" x2="103" y2="105" stroke="#173a5e" stroke-width="2.2" marker-end="url(#mF1)"/>
+          <line x1="287" y1="105" x2="267" y2="105" stroke="#173a5e" stroke-width="2.2" marker-end="url(#mF1)"/>
+          <text x="185" y="91" font-size="13" fill="#173a5e" text-anchor="middle" font-weight="600">F/4</text>
+          <text x="185" y="128" font-size="12" fill="#5b6b78" text-anchor="middle">2r</text>
+          <line x1="15" y1="140" x2="445" y2="140" stroke="#d7e0e8" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <!-- row 2: separation 4r -->
+          <circle cx="70" cy="175" r="13" fill="#173a5e"/>
+          <circle cx="410" cy="175" r="13" fill="#0e7c86"/>
+          <line x1="83" y1="175" x2="94" y2="175" stroke="#173a5e" stroke-width="2.2" marker-end="url(#mF1)"/>
+          <line x1="397" y1="175" x2="386" y2="175" stroke="#173a5e" stroke-width="2.2" marker-end="url(#mF1)"/>
+          <text x="240" y="161" font-size="13" fill="#173a5e" text-anchor="middle" font-weight="600">F/16</text>
+          <text x="240" y="198" font-size="12" fill="#5b6b78" text-anchor="middle">4r</text>
+        </svg>
+        <figcaption>Fig. 1.1 The gravitational force between two point masses falls away with the square of their separation: doubling the separation cuts the force to a quarter, and quadrupling it cuts the force to a sixteenth (vectors not drawn to scale). The same size force acts on both masses, in opposite directions — an example of Newton's third law.</figcaption>
+      </figure>
+
+      <h3>Treating extended bodies as point masses</h3>
+      <p>Newton's law is stated for <strong>point masses</strong> — masses concentrated at a single location. Real objects, such as planets, are not points; they are extended spheres of matter. Fortunately, Newton's <em>shell theorem</em> shows that a spherically symmetric object (uniform density, or made of uniform concentric shells) attracts other masses exactly as if all of its mass were concentrated at its centre — provided the other mass is entirely outside it.</p>
+
+      <div class="keyword"><b>Conditions for the point-mass approximation:</b> an extended body can be treated as a point mass, with all of its mass acting at its centre, when it is spherically symmetric (or approximately so, like a planet or star) and the distance to the other mass is measured from its centre, to a location outside the body itself.</div>
+
+      <div class="example">
+        <span class="tag">Worked example 1.1</span>
+        <p>Two asteroids, of mass 2.4 &times; 10<sup>12</sup> kg and 6.0 &times; 10<sup>12</sup> kg, have their centres 850 m apart. Calculate the gravitational force of attraction between them.</p>
+        <p><strong>Working:</strong><br>
+        F = Gm<sub>1</sub>m<sub>2</sub> / r&sup2;<br>
+        F = (6.67 &times; 10<sup>&minus;11</sup> &times; 2.4 &times; 10<sup>12</sup> &times; 6.0 &times; 10<sup>12</sup>) &divide; 850&sup2; ... (complete the calculation, in N)</p>
+      </div>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">1</span><strong>The Earth has a mass of 6.0 &times; 10<sup>24</sup> kg and the Sun has a mass of 2.0 &times; 10<sup>30</sup> kg. Their centres are 1.5 &times; 10<sup>11</sup> m apart. Calculate the gravitational force of attraction between them.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q1')">Show answer</button>
+        <div class="answer-panel" id="q1">F = Gm<sub>1</sub>m<sub>2</sub>/r&sup2; = (6.67 &times; 10<sup>&minus;11</sup> &times; 6.0 &times; 10<sup>24</sup> &times; 2.0 &times; 10<sup>30</sup>) &divide; (1.5 &times; 10<sup>11</sup>)&sup2; &asymp; 3.6 &times; 10<sup>22</sup> N.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">2</span><strong>Estimate the gravitational force of attraction between two students of mass 60 kg, sitting 1.0 m apart, then use your result to explain why we never notice the gravitational pull of nearby objects.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q2')">Show answer</button>
+        <div class="answer-panel" id="q2">F = Gm<sub>1</sub>m<sub>2</sub>/r&sup2; = (6.67 &times; 10<sup>&minus;11</sup> &times; 60 &times; 60) &divide; 1.0&sup2; = 2.4 &times; 10<sup>&minus;7</sup> N. This is roughly ten million times smaller than the weight of a single grain of sand, so it is completely undetectable — G is so small that gravitational forces only become significant when at least one mass is planet-sized or larger.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">3</span><strong>The Moon is not a perfect sphere of uniform density. State the condition under which it is still reasonable to use Newton's law of gravitation with the Moon treated as a point mass, and identify what distance should be used for r in that case.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q3')">Show answer</button>
+        <div class="answer-panel" id="q3">Provided the Moon is approximately spherically symmetric (its density varies mainly with depth rather than direction) and the other mass lies outside the Moon's surface, the shell theorem lets us treat it as a point mass with all its mass acting at its centre. The distance r used in the equation must then be measured from the Moon's centre, not from its surface.</div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 2: GRAVITATIONAL FIELD STRENGTH ================= -->
+    <section class="topic" id="s2">
+      <h2>2. Gravitational field strength and field lines</h2>
+      <p>Newton's law tells us the force between two <em>specific</em> masses. But it is often more useful to describe the space around a mass in general — a region where <em>any</em> other mass would feel a force is called a <strong>gravitational field</strong>. Rather than asking "what force would a 5 kg rock feel here?" and then a different question for a 50 kg rock, we describe the field once, per unit mass, and can then find the force on any mass we like.</p>
+
+      <div class="keybox"><strong>Key idea.</strong> Gravitational field strength, g, at a point is defined as the gravitational force per unit mass experienced by a small point mass placed at that point.</div>
+
+      <div class="eqn">gravitational field strength, g = F / m</div>
+
+      <div class="keyword"><b>Test mass:</b> a small point mass, small enough that its own gravitational field has a negligible effect on the field being measured. Gravitational field strength has SI unit N kg<sup>&minus;1</sup>, which is equivalent to m s<sup>&minus;2</sup> — numerically, g is the same as the acceleration due to gravity, since a = F/m by Newton's second law.</div>
+
+      <p>Combining g = F/m with Newton's law of gravitation, F = GMm/r&sup2;, gives an equation for the field strength around any point mass (or spherically symmetric mass) M:</p>
+
+      <div class="eqn">g = GM / r&sup2;</div>
+
+      <p>Like gravitational force, gravitational field strength follows an inverse square law: double the distance from the centre of a planet and the field strength falls to a quarter; treble it and the field strength falls to a ninth.</p>
+
+      <h3>Field lines</h3>
+      <p>A gravitational field can be drawn as a pattern of <strong>field lines</strong>. Each line shows the direction of the force that a test mass would feel if placed on it — and because gravity is always attractive, field lines always point <em>towards</em> the mass creating the field. Field lines are closer together where the field is stronger, and they never cross (a test mass cannot feel a force in two different directions at the same point).</p>
+
+      <figure>
+        <svg viewBox="0 0 460 190" width="460" height="190" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="mFl" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#0a5b62"/></marker>
+          </defs>
+          <circle cx="110" cy="95" r="34" fill="#eaf3fb" stroke="#173a5e" stroke-width="1.5"/>
+          <text x="110" y="100" font-size="12" fill="#173a5e" text-anchor="middle">M</text>
+          <g stroke="#0a5b62" stroke-width="1.8" marker-end="url(#mFl)">
+            <line x1="110" y1="10" x2="110" y2="54.7"/>
+            <line x1="110" y1="180" x2="110" y2="135.3"/>
+            <line x1="25" y1="95" x2="69.7" y2="95"/>
+            <line x1="195" y1="95" x2="150.3" y2="95"/>
+            <line x1="49" y1="34" x2="81.5" y2="66.5"/>
+            <line x1="171" y1="34" x2="138.5" y2="66.5"/>
+            <line x1="49" y1="156" x2="81.5" y2="123.5"/>
+            <line x1="171" y1="156" x2="138.5" y2="123.5"/>
+          </g>
+          <text x="110" y="176" font-size="12" fill="#3a4753" text-anchor="middle">a. radial field</text>
+
+          <rect x="290" y="145" width="150" height="14" fill="#8a6a4a"/>
+          <g stroke="#0a5b62" stroke-width="1.8" marker-end="url(#mFl)">
+            <line x1="300" y1="45" x2="300" y2="140"/>
+            <line x1="330" y1="45" x2="330" y2="140"/>
+            <line x1="360" y1="45" x2="360" y2="140"/>
+            <line x1="390" y1="45" x2="390" y2="140"/>
+            <line x1="420" y1="45" x2="420" y2="140"/>
+          </g>
+          <text x="365" y="176" font-size="12" fill="#3a4753" text-anchor="middle">b. uniform field</text>
+        </svg>
+        <figcaption>Fig. 2.1 Field lines point towards the mass creating the field, since gravity is attractive. <strong>a</strong> A radial field, such as around a planet — lines get closer together nearer the surface, showing the field is stronger there. <strong>b</strong> A uniform field, such as in a small region close to a planet's surface, where the field lines are evenly spaced and parallel.</figcaption>
+      </figure>
+
+      <h3>Live simulation: the inverse-square field</h3>
+      <p>Drag the slider to move a test mass away from a planet's surface, and watch how both the field lines and the g&ndash;r graph respond. The planet shown has a surface field strength g&#8320; = 9.8 N kg<sup>&minus;1</sup>.</p>
+      <figure class="wide">
+        <div class="sim-wrap">
+          <div class="sim-canvas-box"><canvas id="fieldCanvas" width="480" height="300"></canvas></div>
+          <div class="sim-controls">
+            <h4>Field strength explorer</h4>
+            <div class="sim-row"><label for="fieldSlider">Distance from centre, r = <span id="fieldRVal">1.0</span> R</label><input type="range" id="fieldSlider" min="1" max="6" step="0.1" value="1"></div>
+            <div class="sim-readout" id="fieldReadout">g = 9.80 N kg&minus;1</div>
+          </div>
+        </div>
+        <figcaption>Fig. 2.2 As the test mass moves further from the planet's centre, the field lines it crosses become more widely spaced and its field-strength arrow shrinks — both showing the same inverse square relationship traced out on the graph.</figcaption>
+      </figure>
+
+      <div class="example">
+        <span class="tag">Worked example 2.1</span>
+        <p>Calculate the gravitational field strength at the surface of Mars, given its mass is 6.42 &times; 10<sup>23</sup> kg and its radius is 3.39 &times; 10<sup>6</sup> m.</p>
+        <p><strong>Working:</strong><br>
+        g = GM / r&sup2;<br>
+        g = (6.67 &times; 10<sup>&minus;11</sup> &times; 6.42 &times; 10<sup>23</sup>) &divide; (3.39 &times; 10<sup>6</sup>)&sup2; ... (complete the calculation, in N kg<sup>&minus;1</sup>)</p>
+      </div>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">4</span><strong>A planet has a mass of 4.9 &times; 10<sup>24</sup> kg. Calculate the gravitational field strength at a point 8.2 &times; 10<sup>6</sup> m from its centre.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q4')">Show answer</button>
+        <div class="answer-panel" id="q4">g = GM/r&sup2; = (6.67 &times; 10<sup>&minus;11</sup> &times; 4.9 &times; 10<sup>24</sup>) &divide; (8.2 &times; 10<sup>6</sup>)&sup2; &asymp; 4.9 N kg<sup>&minus;1</sup>.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">5</span><strong>State two rules that gravitational field lines must always obey, and explain, in terms of field lines, what it means for a field to be "uniform".</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q5')">Show answer</button>
+        <div class="answer-panel" id="q5">Field lines never cross, and they are always closer together where the field is stronger. A field is uniform where its field lines are evenly spaced and parallel, so that the field strength has the same magnitude and direction at every point in that region.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">6</span><strong>A gravitational field strength of 5.0 N kg<sup>&minus;1</sup> is measured at the surface of a small moon. Determine the gravitational field strength at a distance of three moon-radii from its centre.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q6')">Show answer</button>
+        <div class="answer-panel" id="q6">Field strength follows an inverse square law with distance from the centre, so at three times the radius the field strength falls to 1/3&sup2; = 1/9 of its surface value: g = 5.0 &divide; 9 = 0.56 N kg<sup>&minus;1</sup>.</div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 3: CIRCULAR MOTION ================= -->
+    <section class="topic" id="s3">
+      <h2>3. Circular motion</h2>
+      <p>Space is the perfect place to study circular motion. A satellite coasting around the Earth has no engine firing, no air resistance, no surface to push against — gravity is the <em>only</em> force acting on it, and yet it moves in a curved path rather than a straight line. To understand why, we first need to describe circular motion itself, before returning to gravity specifically in the sections that follow.</p>
+
+      <h3>Angular velocity</h3>
+      <p>For an object moving in a circle of radius r, the <strong>period</strong>, T, is the time taken for one complete revolution, and the <strong>frequency</strong>, f, is the number of revolutions per second (f = 1/T). Rather than tracking the object's position with distances, it is often more convenient to track the <strong>angle</strong> it has swept through, measured in radians. The rate of change of this angle is the <strong>angular velocity</strong>, &omega;:</p>
+      <div class="eqn">angular velocity, &omega; = &Delta;&theta; / &Delta;t = 2&pi; / T = 2&pi;f</div>
+      <p>Angular velocity is measured in rad s<sup>&minus;1</sup>. Because the object travels a distance of one circumference, 2&pi;r, in one period T, its (tangential) speed is v = 2&pi;r / T, which combines with the equation above to give a direct link between the two descriptions of speed:</p>
+      <div class="eqn">tangential velocity, v = &omega;r</div>
+
+      <h3>Centripetal acceleration and force</h3>
+      <p>An object moving at constant <em>speed</em> around a circle is still accelerating, because its <em>velocity</em> — a vector — is continuously changing direction, even though its magnitude stays fixed. This acceleration points towards the centre of the circle at every instant, which is why it is called <strong>centripetal</strong> ("centre-seeking") acceleration.</p>
+
+      <figure>
+        <svg viewBox="0 0 340 260" width="360" height="275" role="img" aria-labelledby="fig31title fig31desc">
+          <title id="fig31title">Velocity and centripetal acceleration vectors for circular motion</title>
+          <desc id="fig31desc">A circle with a mass at its rightmost point; a downward arrow shows the tangential velocity, and a leftward arrow towards the centre shows the centripetal acceleration.</desc>
+          <defs>
+            <marker id="mV3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#173a5e"/></marker>
+            <marker id="mA3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d98324"/></marker>
+          </defs>
+          <circle cx="150" cy="150" r="100" fill="none" stroke="#b9c6d3" stroke-width="1.5"/>
+          <circle cx="150" cy="150" r="3" fill="#5c6b78"/>
+          <line x1="150" y1="150" x2="245" y2="150" stroke="#b9c6d3" stroke-width="1" stroke-dasharray="3 3"/>
+          <circle cx="250" cy="150" r="7" fill="#173a5e"/>
+          <line x1="250" y1="150" x2="250" y2="205" stroke="#173a5e" stroke-width="2.2" marker-end="url(#mV3)"/>
+          <text x="262" y="185" font-size="13" fill="#173a5e" font-style="italic">v</text>
+          <line x1="250" y1="150" x2="200" y2="150" stroke="#d98324" stroke-width="2.2" marker-end="url(#mA3)"/>
+          <text x="215" y="140" font-size="13" fill="#d98324" font-style="italic">a</text>
+          <text x="150" y="45" text-anchor="middle" font-size="12" fill="#5c6b78">v is always tangential; a always points to the centre</text>
+        </svg>
+        <figcaption>Fig. 3.1 At any point on a circular path, the velocity v is tangential to the circle, while the centripetal acceleration a points radially inward, towards the centre — the two are always perpendicular.</figcaption>
+      </figure>
+
+      <p>Combining v = &omega;r with the standard relationship between changing velocity direction and acceleration gives two equivalent forms:</p>
+      <div class="eqn">centripetal acceleration, a = v&sup2; / r = &omega;&sup2;r</div>
+      <p>By Newton's second law, a resultant force must cause this acceleration. This resultant is called the <strong>centripetal force</strong> — not a new, separate kind of force, but simply whatever combination of real forces (tension, gravity, friction, the normal force, and so on) happens to supply the net inward force needed. Because it is always directed perpendicular to the object's velocity, a centripetal force can never speed the object up or slow it down — it only ever changes the <em>direction</em> of the velocity, which is exactly why the motion stays circular rather than straight.</p>
+      <div class="eqn">centripetal force, F = mv&sup2; / r = m&omega;&sup2;r</div>
+
+      <div class="keybox"><strong>Key idea.</strong> "Centripetal force" is not a new physical force acting alongside gravity, tension, friction, etc. — it is the <em>name given to the resultant</em> of whatever real forces are acting, when that resultant points towards the centre of a circular path. Because this resultant is always perpendicular to the velocity, it changes the object's direction, not the magnitude of its speed. Always identify the actual, physical force(s) providing it before using F = mv&sup2;/r.</div>
+
+      <h3>Live simulation: circular motion vectors</h3>
+      <p>Adjust the radius and the angular velocity of the orbiting mass and watch how the tangential velocity vector and the centripetal force vector respond.</p>
+      <figure class="wide">
+        <div class="sim-wrap">
+          <div class="sim-canvas-box"><canvas id="cmCanvas" width="480" height="300"></canvas></div>
+          <div class="sim-controls">
+            <h4>Circular motion explorer</h4>
+            <div class="sim-row"><label for="cmRadiusSlider">Radius, r = <span id="cmRVal">1.5</span> m</label><input type="range" id="cmRadiusSlider" min="0.5" max="2.5" step="0.1" value="1.5"></div>
+            <div class="sim-row"><label for="cmOmegaSlider">Angular velocity, &omega; = <span id="cmOmegaVal">2.0</span> rad s&minus;1</label><input type="range" id="cmOmegaSlider" min="0.5" max="4" step="0.1" value="2.0"></div>
+            <div class="sim-readout" id="cmReadout">v = 3.00 m s&minus;1<br>a = 6.00 m s&minus;2</div>
+          </div>
+        </div>
+        <figcaption>Fig. 3.2 A mass (2.0 kg) moves at constant angular velocity around a circle of radius r; the blue arrow shows its tangential velocity, the amber arrow its centripetal acceleration.</figcaption>
+      </figure>
+
+      <div class="example">
+        <span class="tag">Worked example 3.1</span>
+        <p>A stone of mass 60 g is tied to a string and whirled in a horizontal circle of radius 50 cm. The string snaps when the tension exceeds 14 N. Calculate the maximum speed at which the stone can be whirled without the string snapping.</p>
+        <p><strong>Working:</strong></p>
+        <p>The tension provides the centripetal force, so at the maximum speed: F = mv&sup2;/r &rArr; 14 = (0.060)v&sup2; / (0.50)</p>
+        <p>v&sup2; = 14 &times; 0.50 / 0.060 ... (complete the rearrangement and take the square root to find v, in m s<sup>&minus;1</sup>)</p>
+      </div>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">7</span><strong>A car of mass 1200 kg goes around a bend of radius 25 m at a constant 11.1 m s<sup>&minus;1</sup>. Calculate the magnitude of the centripetal force acting on it, and state which real force provides it.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q7')">Show answer</button>
+        <div class="answer-panel" id="q7">F = mv&sup2;/r = 1200 &times; (11.1)&sup2; / 25 ... (complete the calculation, in N). This force is provided by friction between the tyres and the road.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">8</span><strong>A satellite completes one orbit of the Earth every 92 minutes at an angular velocity &omega;. Calculate &omega; in rad s<sup>&minus;1</sup>.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q8')">Show answer</button>
+        <div class="answer-panel" id="q8">&omega; = 2&pi;/T = 2&pi; / (92 &times; 60) ... (complete the calculation, in rad s<sup>&minus;1</sup>)</div>
+      </div>
+      <div class="question">
+        <span class="qnum">9</span><strong>Explain why a passenger in a car going around a bend at constant speed still feels a sideways force from their seatbelt, even though their speed is not changing.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q9')">Show answer</button>
+        <div class="answer-panel" id="q9">Speed being constant does not mean velocity is constant, because velocity is a vector and its direction is continuously changing as the car turns. This changing direction is itself an acceleration (centripetal acceleration, directed towards the centre of the turn). By Newton's second law this requires a resultant force towards the centre; the seatbelt (along with friction from the seat) provides part of this force on the passenger, which is felt as a sideways push. Because this force is always perpendicular to the passenger's velocity, it changes their direction but not their speed.</div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 4: KEPLER'S LAWS OF ORBITAL MOTION ================= -->
+    <section class="topic" id="s4">
+      <h2>4. Kepler's laws of orbital motion</h2>
+      <p>Long before Newton explained <em>why</em> planets move as they do, the astronomer Johannes Kepler worked out, from decades of careful naked-eye observations by Tycho Brahe, exactly <em>how</em> they move. His three laws, published in the early 1600s, describe the motion of every planet, moon, and satellite — and, as you will see, they follow directly from Newton's law of gravitation and circular motion, applied to an orbit.</p>
+
+      <div class="keybox"><strong>Kepler's three laws.</strong>
+        <br>1. The orbit of a planet is an ellipse, with the Sun at one focus.
+        <br>2. A line joining a planet to the Sun sweeps out equal areas in equal times.
+        <br>3. The square of a planet's orbital period is proportional to the cube of its orbital radius (semi-major axis): T&sup2; &prop; r&sup3;.
+      </div>
+
+      <h3>Live simulation: exploring Kepler's laws</h3>
+      <p>This simulation (inspired by the interactive Kepler's laws tool by Dr Jones Physics) has three tabs, one for each law. Use the controls in each tab to see the law in action.</p>
+      <figure class="wide">
+        <div class="sim-wrap">
+          <div class="sim-canvas-box">
+            <div class="sim-tabs no-print">
+              <button id="keplerTab1" class="active" onclick="keplerSwitchTab(1)">1. Elliptical orbits</button>
+              <button id="keplerTab2" onclick="keplerSwitchTab(2)">2. Equal areas</button>
+              <button id="keplerTab3" onclick="keplerSwitchTab(3)">3. T&sup2; &prop; r&sup3;</button>
+            </div>
+            <canvas id="keplerCanvas" width="480" height="300"></canvas>
+          </div>
+          <div class="sim-controls">
+            <h4 id="keplerHeading">Orbital eccentricity</h4>
+            <div class="sim-row" id="keplerRow1"><label for="keplerEccSlider">Eccentricity, e = <span id="keplerEccVal">0.00</span></label><input type="range" id="keplerEccSlider" min="0" max="0.8" step="0.05" value="0"></div>
+            <div class="sim-row" id="keplerRow2" style="display:none;"><label for="keplerTimeSlider">Orbital position (time)</label><input type="range" id="keplerTimeSlider" min="0" max="100" step="1" value="0"></div>
+            <div class="sim-row" id="keplerRow3" style="display:none;"><label for="keplerRadiusSlider">Orbital radius, r = <span id="keplerRVal">1.0</span> AU</label><input type="range" id="keplerRadiusSlider" min="0.4" max="5" step="0.1" value="1.0"></div>
+            <div class="sim-readout" id="keplerReadout">Circular orbit (e = 0): the Sun sits at the centre.</div>
+          </div>
+        </div>
+        <figcaption>Fig. 4.1 Tab 1: dragging the eccentricity slider morphs the orbit from a circle towards a stretched ellipse, with the Sun fixed at one focus. Tab 2: equal-area sweeps in equal time intervals, shown shaded. Tab 3: orbital period versus radius for the simulated system, compared with the T&sup2; &prop; r&sup3; prediction.</figcaption>
+        <p class="sim-embed-credit no-print">Simulation design inspired by the Kepler's Laws interactive by Dr Jones Physics (drjonesphysics.com).</p>
+      </figure>
+
+      <h3>Deriving Kepler's third law</h3>
+      <p>For a planet of mass m in a (near-)circular orbit of radius r around a star of mass M, gravity provides the centripetal force. This derivation connects two ideas you already know — Newton's law of gravitation and circular motion — into a brand new result, so it is worth working through one step at a time.</p>
+
+      <div class="stretch-box"><span class="tag">Must learn</span> This is a <strong>must learn</strong> derivation. Make sure you can reproduce every step below from Newton's law of gravitation and the centripetal force equation, rather than just quoting the final result.</div>
+
+      <p>Start with Newton's law of gravitation set equal to the centripetal force required for a circular orbit:</p>
+      <div class="eqn">GMm / r&sup2; = mv&sup2; / r</div>
+
+      <p>Cancel the mass of the orbiting planet, m, from both sides:</p>
+      <div class="eqn">GM / r&sup2; = v&sup2; / r</div>
+
+      <p>Replace v with the orbital speed, v = 2&pi;r / T:</p>
+      <div class="eqn">GM / r&sup2; = (2&pi;r / T)&sup2; / r</div>
+
+      <p>Simplify and rearrange to find the final relationship:</p>
+      <div class="eqn">T&sup2; = (4&pi;&sup2; / GM) r&sup3;</div>
+
+      <p>Since 4&pi;&sup2;/GM is constant for a given central mass M, this confirms T&sup2; &prop; r&sup3; — and shows the constant of proportionality depends only on the mass being orbited, not on the orbiting mass or its speed.</p>
+
+      <div class="example">
+        <span class="tag">Worked example 4.1</span>
+        <p>Io, one of Jupiter's moons, orbits at a mean radius of 4.22 &times; 10<sup>8</sup> m with a period of 1.53 &times; 10<sup>5</sup> s. Use this to estimate the mass of Jupiter.</p>
+        <p><strong>Working:</strong></p>
+        <p>T&sup2; = (4&pi;&sup2; / GM) r&sup3; &rArr; M = 4&pi;&sup2; r&sup3; / (G T&sup2;)</p>
+        <p>M = 4&pi;&sup2; &times; (4.22 &times; 10<sup>8</sup>) &sup3; / [(6.67 &times; 10<sup>&minus;11</sup>) &times; (1.53 &times; 10<sup>5</sup>) &sup2;] ... (complete the calculation, in kg)</p>
+      </div>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">10</span><strong>State, in your own words, what Kepler's second law tells us about a planet's speed at different points in its elliptical orbit.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q10')">Show answer</button>
+        <div class="answer-panel" id="q10">Because the planet sweeps out equal areas in equal times, it must move faster when it is closer to the Sun (where the swept triangle is short and wide) and slower when it is further away (where the swept triangle is long and narrow), so that both triangles have the same area in the same time interval.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">11</span><strong>Two moons orbit the same planet. Moon A has an orbital radius 4 times greater than moon B. Calculate the ratio of their orbital periods, T<sub>A</sub> / T<sub>B</sub>.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q11')">Show answer</button>
+        <div class="answer-panel" id="q11">T&sup2; &prop; r&sup3;, so T<sub>A</sub>/T<sub>B</sub> = (r<sub>A</sub>/r<sub>B</sub>)<sup>3/2</sup> = 4<sup>3/2</sup> = 8. Moon A takes 8 times longer to complete an orbit than moon B.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">12</span><strong>Explain why Kepler's third law derivation above (using circular-orbit centripetal force) still gives the correct relationship between T and r for an elliptical orbit, provided r is taken as the semi-major axis.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q12')">Show answer</button>
+        <div class="answer-panel" id="q12">A full derivation for an ellipse requires more advanced mathematics than the circular-orbit case, but it produces exactly the same result, T&sup2; = (4&pi;&sup2;/GM)a&sup3;, with the orbital radius r replaced by the semi-major axis a. The circular-orbit derivation shown is a special case (e = 0) of this more general result, which is why it correctly predicts the constant of proportionality 4&pi;&sup2;/GM.</div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 5: ORBITAL SPEED ================= -->
+    <section class="topic" id="s5">
+      <h2>5. Orbital speed</h2>
+      <p>A satellite orbiting a planet is undergoing circular motion, and the only force providing the centripetal force is gravity. This lets us find exactly how fast a satellite must travel to stay in a given circular orbit — using nothing more than Newton's law of gravitation and the centripetal force equation from Section 3.</p>
+
+      <p>For a satellite of mass m in a stable circular orbit of radius r around a planet of mass M, gravity alone supplies the centripetal force:</p>
+      <div class="eqn">GMm / r&sup2; = mv&sup2; / r</div>
+      <p>The satellite's mass m cancels — orbital speed does not depend on the mass of the orbiting object, only on the mass being orbited and the orbital radius:</p>
+      <div class="eqn">orbital speed, v<sub>orb</sub> = &radic;(GM / r)</div>
+
+      <div class="keybox"><strong>Key idea.</strong> A satellite in a smaller (lower) orbit must travel <em>faster</em> to stay in that orbit, since v<sub>orb</sub> = &radic;(GM/r) increases as r decreases. This is why low-orbiting satellites, such as the International Space Station, complete an orbit in around 90 minutes, while satellites in much higher orbits can take 24 hours or longer.</div>
+
+      <h3>Live simulation: orbital speed and orbital radius</h3>
+      <p>Drag the slider to place a satellite into a wider or narrower circular orbit, and watch how the orbital speed needed to stay in that orbit changes. The planet shown has a surface orbital speed v<sub>0</sub> = 7.9 km s<sup>&minus;1</sup> (roughly Earth's value, ignoring the atmosphere).</p>
+      <figure class="wide">
+        <div class="sim-wrap">
+          <div class="sim-canvas-box"><canvas id="orbSpeedCanvas" width="480" height="300"></canvas></div>
+          <div class="sim-controls">
+            <h4>Orbital speed explorer</h4>
+            <div class="sim-row"><label for="orbSpeedSlider">Orbital radius, r = <span id="orbSpeedRVal">1.0</span> R</label><input type="range" id="orbSpeedSlider" min="1" max="6" step="0.1" value="1"></div>
+            <div class="sim-readout" id="orbSpeedReadout">v<sub>orb</sub> = 7.90 km s&minus;1</div>
+          </div>
+        </div>
+        <figcaption>Fig. 5.1 As the satellite's orbital radius increases, both the length of its velocity arrow and the v<sub>orb</sub>&ndash;r graph show the same inverse-square-root relationship, v<sub>orb</sub> &prop; 1/&radic;r.</figcaption>
+      </figure>
+
+      <div class="example">
+        <span class="tag">Worked example 5.1</span>
+        <p>Calculate the orbital speed of a satellite orbiting the Earth (mass 5.97 &times; 10<sup>24</sup> kg) at an altitude of 400 km, so that its distance from the Earth's centre is 6.77 &times; 10<sup>6</sup> m.</p>
+        <p><strong>Working:</strong></p>
+        <p>v<sub>orb</sub> = &radic;(GM/r) = &radic;[(6.67 &times; 10<sup>&minus;11</sup> &times; 5.97 &times; 10<sup>24</sup>) / (6.77 &times; 10<sup>6</sup>)] ... (complete the calculation, in km s<sup>&minus;1</sup>)</p>
+      </div>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">13</span><strong>A satellite orbits a planet of mass 4.9 &times; 10<sup>24</sup> kg at a radius of 8.0 &times; 10<sup>6</sup> m. Calculate its orbital speed.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q13')">Show answer</button>
+        <div class="answer-panel" id="q13">v<sub>orb</sub> = &radic;(GM/r) = &radic;[(6.67 &times; 10<sup>&minus;11</sup> &times; 4.9 &times; 10<sup>24</sup>) / (8.0 &times; 10<sup>6</sup>)] ... (complete the calculation, in m s<sup>&minus;1</sup>)</div>
+      </div>
+      <div class="question">
+        <span class="qnum">14</span><strong>Two satellites, A and B, orbit the same planet in circular orbits. Satellite A has a smaller orbital radius than satellite B. Use v<sub>orb</sub> = &radic;(GM/r) to state and explain which satellite has the greater orbital speed.</strong>
+        <textarea class="answer-lines" rows="5" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q14')">Show answer</button>
+        <div class="answer-panel" id="q14">Since v<sub>orb</sub> = &radic;(GM/r), for the same central mass M the orbital speed decreases as the orbital radius r increases. Satellite A has the smaller radius, so it has the greater orbital speed. Physically, satellite A experiences a stronger gravitational field strength (g = GM/r&sup2; is larger at smaller r), so a larger centripetal force per unit mass is available, requiring a greater speed to keep it moving in its (smaller) circular path rather than spiralling inward.</div>
+      </div>
+    </section>
+
+    <section class="topic" id="sG">
+      <h2>Glossary</h2>
+      <dl class="glossary">
+        <dt>Gravitational field</dt><dd>A region of space in which a mass experiences a force due to the presence of another mass.</dd>
+        <dt>Gravitational field strength, g</dt><dd>The gravitational force per unit mass at a point in a field; g = F/m = GM/r&sup2;, units N kg<sup>&minus;1</sup>.</dd>
+        <dt>Field line</dt><dd>A line showing the direction of the gravitational force on a small point mass at each point; for an attractive field, lines point towards the mass creating the field.</dd>
+        <dt>Point mass</dt><dd>An approximation treating an object's entire mass as concentrated at a single point, valid outside a spherically symmetric body (measuring from its centre).</dd>
+        <dt>Centripetal force</dt><dd>The resultant of the real force(s) acting on an object moving in a circle, directed towards the centre and perpendicular to its velocity; F = mv&sup2;/r = m&omega;&sup2;r.</dd>
+        <dt>Centripetal acceleration</dt><dd>The acceleration of an object moving in a circle at constant speed, directed towards the centre; a = v&sup2;/r = &omega;&sup2;r.</dd>
+        <dt>Angular velocity, &omega;</dt><dd>The rate of change of angle swept, in radians per second; &omega; = 2&pi;/T = 2&pi;f, related to linear speed by v = &omega;r.</dd>
+        <dt>Kepler's laws</dt><dd>Three empirical laws describing orbital motion: orbits are ellipses with the Sun/planet at one focus; equal areas are swept in equal times; T&sup2; &prop; r&sup3;.</dd>
+        <dt>Orbital speed</dt><dd>The speed needed to maintain a stable circular orbit at a given radius; v<sub>orb</sub> = &radic;(GM/r).</dd>
+      </dl>
+    </section>
+
+    <footer class="page no-print">Gravitation and Circular Motion Workbook (SL) · Part of the Mechanics workbook set.</footer>
+  </main>
+</div>
+
+<script>
+/* ---------- text answer toggles ---------- */
+function toggleAnswer(id){ document.getElementById(id).classList.toggle('shown'); }
+function revealAll(){
+  document.querySelectorAll('.answer-panel').forEach(function(el){ el.classList.add('shown'); });
+  document.body.classList.add('answers-visible');
+}
+function hideAll(){
+  document.querySelectorAll('.answer-panel').forEach(function(el){ el.classList.remove('shown'); });
+  document.body.classList.remove('answers-visible');
+}
+
+/* ---------- fill in online: autosize ---------- */
+let fillableEls = [];
+
+function autosize(el){
+  if(el.tagName !== 'TEXTAREA') return;
+  el.style.height = 'auto';
+  el.style.height = Math.max(el.scrollHeight, el.offsetHeight) + 'px';
+}
+
+function initFillables(){
+  fillableEls = Array.prototype.slice.call(document.querySelectorAll('.answer-lines, .name-box .fill'));
+  fillableEls.forEach(function(el){
+    autosize(el);
+    el.addEventListener('input', function(){ autosize(el); });
+  });
+}
+
+function clearMyAnswers(){
+  if(!confirm('Clear everything you have typed in this workbook? This cannot be undone.')) return;
+  fillableEls.forEach(function(el){
+    el.value = '';
+    autosize(el);
+  });
+}
+
+window.addEventListener('beforeprint', function(){
+  fillableEls.forEach(autosize);
+});
+
+document.addEventListener('DOMContentLoaded', initFillables);
+
+/* ================= Per-simulation draw-loop scripts ================= */
+/* ---------- Sim 1: fieldCanvas (field strength explorer) ---------- */
+(function(){
+  const canvas = document.getElementById('fieldCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const slider = document.getElementById('fieldSlider');
+  const rValEl = document.getElementById('fieldRVal');
+  const readout = document.getElementById('fieldReadout');
+  const g0 = 9.80;
+  const planetX = 100, planetY = 150, planetR = 42;
+  const maxMarkerX = 246;
+
+  function draw(){
+    const rOverR = parseFloat(slider.value);
+    rValEl.textContent = rOverR.toFixed(1);
+    const g = g0 / (rOverR*rOverR);
+
+    ctx.fillStyle = '#0f1f30';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    /* divider */
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    ctx.beginPath(); ctx.moveTo(262,10); ctx.lineTo(262,290); ctx.stroke();
+
+    /* --- left panel: radial field diagram --- */
+    ctx.fillStyle = '#173a5e';
+    ctx.beginPath(); ctx.arc(planetX, planetY, planetR, 0, 2*Math.PI); ctx.fill();
+    ctx.fillStyle = '#dceaf0';
+    ctx.font = '13px sans-serif'; ctx.textAlign='center';
+    ctx.fillText('M', planetX, planetY+4);
+
+    /* static decorative field lines */
+    ctx.strokeStyle = 'rgba(220,234,240,0.35)';
+    ctx.lineWidth = 1.2;
+    for(let i=0;i<8;i++){
+      const ang = i*Math.PI/4;
+      if(Math.abs(ang) < 0.01) continue; /* skip the active line's angle, drawn separately */
+      const x1 = planetX + (planetR+26)*Math.cos(ang);
+      const y1 = planetY + (planetR+26)*Math.sin(ang);
+      const x2 = planetX + (planetR+6)*Math.cos(ang);
+      const y2 = planetY + (planetR+6)*Math.sin(ang);
+      ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+    }
+
+    /* test mass marker: at r = R (surface) it sits exactly on the planet's edge;
+       beyond that its position is compressed so it still fits in the panel */
+    const surfaceX = planetX + planetR;
+    const markerX = rOverR <= 1 ? surfaceX : surfaceX + (maxMarkerX - surfaceX) * (rOverR - 1) / 5;
+
+    /* active field line (horizontal, from the planet's surface out to the test mass's max reach) */
+    ctx.strokeStyle = '#0e7c86';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(surfaceX, planetY); ctx.lineTo(maxMarkerX, planetY); ctx.stroke();
+
+    ctx.fillStyle = '#d98324';
+    ctx.beginPath(); ctx.arc(markerX, planetY, 6, 0, 2*Math.PI); ctx.fill();
+
+    /* force arrow: always points from the test mass straight at the planet's centre
+       (never past it, never falling short of the true direction). Its length shrinks
+       with distance, exaggerated relative to 1/r² so it stays visible even far out —
+       and is capped at the distance remaining to the centre so it can never overshoot;
+       at the surface (r = R) the arrowhead lands exactly on the centre. */
+    const desiredLen = planetR / rOverR;
+    const availableSpace = markerX - planetX;
+    const arrowLen = Math.min(desiredLen, availableSpace);
+    ctx.strokeStyle = '#d98324';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(markerX, planetY); ctx.lineTo(markerX-arrowLen, planetY); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(markerX-arrowLen, planetY);
+    ctx.lineTo(markerX-arrowLen+7, planetY-4);
+    ctx.lineTo(markerX-arrowLen+7, planetY+4);
+    ctx.closePath(); ctx.fill();
+
+    ctx.fillStyle = '#dceaf0';
+    ctx.font = '10px sans-serif'; ctx.textAlign='left';
+    ctx.fillText('test mass', markerX+8, planetY-10);
+
+    /* --- right panel: g vs r/R graph --- */
+    const gx0 = 300, gx1 = 460, gy0 = 40, gy1 = 260;
+    ctx.strokeStyle = 'rgba(220,234,240,0.6)';
+    ctx.lineWidth = 1.3;
+    ctx.beginPath(); ctx.moveTo(gx0,gy0); ctx.lineTo(gx0,gy1); ctx.lineTo(gx1,gy1); ctx.stroke();
+    ctx.fillStyle = '#dceaf0'; ctx.font = 'bold 12px sans-serif';
+    ctx.textAlign = 'right'; ctx.fillText('r (R)', gx1, gy1+18);
+    ctx.textAlign = 'left'; ctx.fillText('g', gx0-16, gy0+4);
+
+    ctx.strokeStyle = '#0e7c86';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for(let i=0;i<=60;i++){
+      const rr = 1 + (i/60)*5;
+      const gg = g0/(rr*rr);
+      const px = gx0 + (rr-1)/5*(gx1-gx0);
+      const py = gy1 - (gg/g0)*(gy1-gy0);
+      if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+
+    const dotX = gx0 + (rOverR-1)/5*(gx1-gx0);
+    const dotY = gy1 - (g/g0)*(gy1-gy0);
+    ctx.fillStyle = '#d98324';
+    ctx.beginPath(); ctx.arc(dotX,dotY,4.5,0,2*Math.PI); ctx.fill();
+
+    readout.innerHTML = 'g = ' + g.toFixed(2) + ' N kg&minus;1';
+  }
+
+  slider.addEventListener('input', draw);
+  draw();
+})();
+
+/* ---------- Sim 2: cmCanvas (circular motion vectors) ---------- */
+(function(){
+  const canvas = document.getElementById('cmCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const rSlider = document.getElementById('cmRadiusSlider');
+  const omegaSlider = document.getElementById('cmOmegaSlider');
+  const rValEl = document.getElementById('cmRVal');
+  const omegaValEl = document.getElementById('cmOmegaVal');
+  const readout = document.getElementById('cmReadout');
+  const mass = 2.0;
+  const cx = 240, cy = 155;
+  const pxPerM = 48;
+  let angle = 0;
+  let lastT = null;
+
+  function frame(t){
+    if(lastT === null) lastT = t;
+    const dt = Math.min((t-lastT)/1000, 0.05);
+    lastT = t;
+
+    const r = parseFloat(rSlider.value);
+    const omega = parseFloat(omegaSlider.value);
+    angle += omega*dt;
+
+    rValEl.textContent = r.toFixed(1);
+    omegaValEl.textContent = omega.toFixed(1);
+
+    const v = omega*r;
+    const a = omega*omega*r;
+    readout.innerHTML = 'v = ' + v.toFixed(2) + ' m s&minus;1<br>a = ' + a.toFixed(2) + ' m s&minus;2';
+
+    const radiusPx = r*pxPerM;
+
+    ctx.fillStyle = '#0f1f30';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.strokeStyle = 'rgba(220,234,240,0.4)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(cx,cy,radiusPx,0,2*Math.PI); ctx.stroke();
+    ctx.fillStyle = '#9fb4c2';
+    ctx.beginPath(); ctx.arc(cx,cy,3,0,2*Math.PI); ctx.fill();
+
+    const px = cx + radiusPx*Math.cos(angle);
+    const py = cy + radiusPx*Math.sin(angle);
+
+    /* mass */
+    ctx.fillStyle = '#dceaf0';
+    ctx.beginPath(); ctx.arc(px,py,8,0,2*Math.PI); ctx.fill();
+
+    /* velocity vector, tangential */
+    const tvx = -Math.sin(angle), tvy = Math.cos(angle);
+    const vLen = 34;
+    ctx.strokeStyle = '#5fd0e0';
+    ctx.lineWidth = 2.4;
+    ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(px+tvx*vLen, py+tvy*vLen); ctx.stroke();
+    ctx.fillStyle = '#5fd0e0';
+    ctx.beginPath();
+    const vax = px+tvx*vLen, vay = py+tvy*vLen;
+    ctx.moveTo(vax + tvx*8, vay + tvy*8);
+    ctx.lineTo(vax - tvy*4, vay + tvx*4);
+    ctx.lineTo(vax + tvy*4, vay - tvx*4);
+    ctx.closePath(); ctx.fill();
+    ctx.font = '12px sans-serif'; ctx.textAlign='left';
+    ctx.fillText('v', vax + tvx*14, vay + tvy*14 + 4);
+
+    /* acceleration vector, radial inward */
+    const rax = -Math.cos(angle), ray = -Math.sin(angle);
+    const aLen = 30;
+    ctx.strokeStyle = '#d98324';
+    ctx.lineWidth = 2.4;
+    ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(px+rax*aLen, py+ray*aLen); ctx.stroke();
+    ctx.fillStyle = '#d98324';
+    const aax = px+rax*aLen, aay = py+ray*aLen;
+    ctx.beginPath();
+    ctx.moveTo(aax + rax*8, aay + ray*8);
+    ctx.lineTo(aax - ray*4, aay + rax*4);
+    ctx.lineTo(aax + ray*4, aay - rax*4);
+    ctx.closePath(); ctx.fill();
+    ctx.fillStyle = '#d98324';
+    ctx.fillText('a', aax + rax*14 - 4, aay + ray*14 + 4);
+
+    requestAnimationFrame(frame);
+  }
+
+  rSlider.addEventListener('input', function(){});
+  omegaSlider.addEventListener('input', function(){});
+  requestAnimationFrame(frame);
+})();
+
+/* ---------- Sim 3: keplerCanvas (3-tab: ellipse / equal areas / T^2 vs r^3) ---------- */
+(function(){
+  const canvas = document.getElementById('keplerCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const eccSlider = document.getElementById('keplerEccSlider');
+  const timeSlider = document.getElementById('keplerTimeSlider');
+  const radiusSlider = document.getElementById('keplerRadiusSlider');
+  const eccValEl = document.getElementById('keplerEccVal');
+  const rValEl = document.getElementById('keplerRVal');
+  const readout = document.getElementById('keplerReadout');
+  const heading = document.getElementById('keplerHeading');
+  const row1 = document.getElementById('keplerRow1');
+  const row2 = document.getElementById('keplerRow2');
+  const row3 = document.getElementById('keplerRow3');
+  const tabButtons = [document.getElementById('keplerTab1'), document.getElementById('keplerTab2'), document.getElementById('keplerTab3')];
+
+  let activeTab = 1;
+  const cx = 210, cy = 150, aPx = 130;
+
+  function solveKepler(M, e){
+    let E = M;
+    for(let i=0;i<10;i++){
+      E = E - (E - e*Math.sin(E) - M)/(1 - e*Math.cos(E));
+    }
+    return E;
+  }
+
+  function drawTab1(){
+    const e = parseFloat(eccSlider.value);
+    eccValEl.textContent = e.toFixed(2);
+    const b = aPx*Math.sqrt(1-e*e);
+    const c = aPx*e;
+
+    ctx.fillStyle = '#0f1f30';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.strokeStyle = '#5fd0e0';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.ellipse(cx,cy,aPx,b,0,0,2*Math.PI); ctx.stroke();
+
+    /* empty focus */
+    ctx.fillStyle = 'rgba(220,234,240,0.5)';
+    ctx.beginPath(); ctx.arc(cx-c,cy,3,0,2*Math.PI); ctx.fill();
+    ctx.font = '10px sans-serif'; ctx.textAlign='center'; ctx.fillStyle='#9fb4c2';
+    ctx.fillText('empty focus', cx-c, cy+18);
+
+    /* Sun at occupied focus */
+    ctx.fillStyle = '#f4c04a';
+    ctx.beginPath(); ctx.arc(cx+c,cy,9,0,2*Math.PI); ctx.fill();
+    ctx.fillStyle = '#dceaf0';
+    ctx.fillText('Sun', cx+c, cy-16);
+
+    /* center mark */
+    ctx.fillStyle = 'rgba(220,234,240,0.4)';
+    ctx.beginPath(); ctx.arc(cx,cy,2,0,2*Math.PI); ctx.fill();
+
+    if(e < 0.02){
+      readout.innerHTML = 'Circular orbit (e = 0): the Sun sits at the centre.';
+    } else {
+      readout.innerHTML = 'e = ' + e.toFixed(2) + ': the orbit is an ellipse, with the Sun at one focus (not the centre). The empty focus marks the corresponding empty point in space.';
+    }
+  }
+
+  function wedgePoints(e, M0, M1, n){
+    const b = aPx*Math.sqrt(1-e*e);
+    const c = aPx*e;
+    const pts = [];
+    for(let i=0;i<=n;i++){
+      const M = M0 + (M1-M0)*(i/n);
+      const E = solveKepler(M, e);
+      const x = cx + aPx*Math.cos(E);
+      const y = cy + b*Math.sin(E);
+      pts.push([x,y]);
+    }
+    return {pts: pts, focus: [cx+c, cy]};
+  }
+
+  function drawTab2(){
+    const e = 0.55;
+    const b = aPx*Math.sqrt(1-e*e);
+    const c = aPx*e;
+    const frac = parseFloat(timeSlider.value)/100;
+    const dt = 0.09*2*Math.PI;
+
+    ctx.fillStyle = '#0f1f30';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.strokeStyle = 'rgba(95,208,224,0.7)';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.ellipse(cx,cy,aPx,b,0,0,2*Math.PI); ctx.stroke();
+
+    ctx.fillStyle = '#f4c04a';
+    ctx.beginPath(); ctx.arc(cx+c,cy,9,0,2*Math.PI); ctx.fill();
+
+    /* reference wedge near perihelion (fixed) */
+    const wedgeA = wedgePoints(e, 0, dt, 16);
+    ctx.fillStyle = 'rgba(14,124,134,0.55)';
+    ctx.beginPath();
+    ctx.moveTo(wedgeA.focus[0], wedgeA.focus[1]);
+    wedgeA.pts.forEach(function(p){ ctx.lineTo(p[0],p[1]); });
+    ctx.closePath(); ctx.fill();
+
+    /* moving wedge, same duration, starting at slider position */
+    const M0 = frac*2*Math.PI;
+    const wedgeB = wedgePoints(e, M0, M0+dt, 16);
+    ctx.fillStyle = 'rgba(217,131,36,0.55)';
+    ctx.beginPath();
+    ctx.moveTo(wedgeB.focus[0], wedgeB.focus[1]);
+    wedgeB.pts.forEach(function(p){ ctx.lineTo(p[0],p[1]); });
+    ctx.closePath(); ctx.fill();
+
+    readout.innerHTML = 'Both shaded sectors represent the same time interval (9% of the period). They have equal areas, even though the amber sector (further from the Sun) is visibly longer and thinner than the teal one near perihelion — so the planet must move faster when closer to the Sun.';
+  }
+
+  function drawTab3(){
+    const r = parseFloat(radiusSlider.value);
+    rValEl.textContent = r.toFixed(1);
+    const T = Math.pow(r, 1.5);
+
+    ctx.fillStyle = '#0f1f30';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    /* left: schematic circular orbit scaled by r */
+    const lcx = 110, lcy = 150;
+    const orbitPx = 20 + (r/5)*90;
+    ctx.fillStyle = '#f4c04a';
+    ctx.beginPath(); ctx.arc(lcx,lcy,8,0,2*Math.PI); ctx.fill();
+    ctx.strokeStyle = '#5fd0e0';
+    ctx.lineWidth = 1.6;
+    ctx.beginPath(); ctx.arc(lcx,lcy,orbitPx,0,2*Math.PI); ctx.stroke();
+    ctx.fillStyle = '#dceaf0';
+    ctx.beginPath(); ctx.arc(lcx+orbitPx,lcy,5,0,2*Math.PI); ctx.fill();
+
+    /* right: T^2 vs r^3 graph */
+    const gx0 = 260, gx1 = 460, gy0 = 30, gy1 = 260;
+    ctx.strokeStyle = 'rgba(220,234,240,0.6)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(gx0,gy0); ctx.lineTo(gx0,gy1); ctx.lineTo(gx1,gy1); ctx.stroke();
+    ctx.fillStyle = '#9fb4c2'; ctx.font = '10px sans-serif';
+    ctx.textAlign='right'; ctx.fillText('r³ (AU³)', gx1, gy1+16);
+    ctx.textAlign='left'; ctx.fillText('T² (yr²)', gx0-8, gy0-6);
+
+    const maxR3 = 125; /* 5^3 */
+    ctx.strokeStyle = 'rgba(220,234,240,0.5)';
+    ctx.lineWidth = 1.3;
+    ctx.beginPath();
+    ctx.moveTo(gx0, gy1);
+    ctx.lineTo(gx1, gy1-(maxR3/maxR3)*(gy1-gy0));
+    ctx.stroke();
+
+    const r3 = r*r*r;
+    const T2 = T*T;
+    const px = gx0 + (r3/maxR3)*(gx1-gx0);
+    const py = gy1 - (T2/maxR3)*(gy1-gy0);
+    ctx.fillStyle = '#d98324';
+    ctx.beginPath(); ctx.arc(px,py,5,0,2*Math.PI); ctx.fill();
+
+    readout.innerHTML = 'r = ' + r.toFixed(1) + ' AU &rarr; T = ' + T.toFixed(2) + ' years (T² = ' + T2.toFixed(2) + ', r³ = ' + r3.toFixed(2) + '). The point always sits on the T² &prop; r³ line.';
+  }
+
+  window.keplerSwitchTab = function(n){
+    activeTab = n;
+    tabButtons.forEach(function(btn,i){ btn.classList.toggle('active', i===n-1); });
+    row1.style.display = (n===1) ? '' : 'none';
+    row2.style.display = (n===2) ? '' : 'none';
+    row3.style.display = (n===3) ? '' : 'none';
+    if(n===1){ heading.textContent = 'Orbital eccentricity'; drawTab1(); }
+    else if(n===2){ heading.textContent = 'Sweeping equal areas'; drawTab2(); }
+    else { heading.textContent = 'Period vs radius'; drawTab3(); }
+  };
+
+  eccSlider.addEventListener('input', drawTab1);
+  timeSlider.addEventListener('input', drawTab2);
+  radiusSlider.addEventListener('input', drawTab3);
+  drawTab1();
+})();
+
+/* ---------- Sim 4: orbSpeedCanvas (orbital speed vs radius explorer) ---------- */
+(function(){
+  const canvas = document.getElementById('orbSpeedCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const slider = document.getElementById('orbSpeedSlider');
+  const rValEl = document.getElementById('orbSpeedRVal');
+  const readout = document.getElementById('orbSpeedReadout');
+  const v0 = 7.90; /* orbital speed at r = R, km s^-1, matches Worked example 5.1 scale */
+  const planetX = 110, planetY = 150, planetR = 20;
+
+  function draw(){
+    const rOverR = parseFloat(slider.value);
+    rValEl.textContent = rOverR.toFixed(1);
+    const v = v0 / Math.sqrt(rOverR);
+
+    ctx.fillStyle = '#0f1f30';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    /* divider */
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    ctx.beginPath(); ctx.moveTo(262,10); ctx.lineTo(262,290); ctx.stroke();
+
+    /* --- left panel: orbit diagram --- */
+    ctx.fillStyle = '#173a5e';
+    ctx.beginPath(); ctx.arc(planetX, planetY, planetR, 0, 2*Math.PI); ctx.fill();
+    ctx.fillStyle = '#dceaf0';
+    ctx.font = '11px sans-serif'; ctx.textAlign='center';
+    ctx.fillText('M', planetX, planetY+4);
+
+    /* orbit circle, scaled */
+    const orbitR = planetR*rOverR;
+    const clampedOrbitR = Math.min(orbitR, 118);
+    ctx.strokeStyle = 'rgba(220,234,240,0.35)';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.arc(planetX, planetY, clampedOrbitR, 0, 2*Math.PI); ctx.stroke();
+
+    /* satellite marker, at top of orbit */
+    const satX = planetX;
+    const satY = planetY - clampedOrbitR;
+    ctx.fillStyle = '#d98324';
+    ctx.beginPath(); ctx.arc(satX, satY, 6, 0, 2*Math.PI); ctx.fill();
+
+    /* velocity arrow, tangential (to the right), length scaled with v */
+    const arrowLen = Math.max(10*v/v0*4, 8);
+    ctx.strokeStyle = '#5fd0e0';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(satX, satY); ctx.lineTo(satX+arrowLen, satY); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(satX+arrowLen, satY);
+    ctx.lineTo(satX+arrowLen-7, satY-4);
+    ctx.lineTo(satX+arrowLen-7, satY+4);
+    ctx.closePath(); ctx.fillStyle = '#5fd0e0'; ctx.fill();
+
+    ctx.fillStyle = '#dceaf0';
+    ctx.font = '10px sans-serif'; ctx.textAlign='left';
+    ctx.fillText('satellite', satX+8, satY-10);
+
+    /* --- right panel: v vs r/R graph --- */
+    const gx0 = 300, gx1 = 460, gy0 = 40, gy1 = 260;
+    ctx.strokeStyle = 'rgba(220,234,240,0.6)';
+    ctx.lineWidth = 1.3;
+    ctx.beginPath(); ctx.moveTo(gx0,gy0); ctx.lineTo(gx0,gy1); ctx.lineTo(gx1,gy1); ctx.stroke();
+    ctx.fillStyle = '#dceaf0'; ctx.font = 'bold 12px sans-serif';
+    ctx.textAlign = 'right'; ctx.fillText('r (R)', gx1, gy1+18);
+    ctx.textAlign = 'left'; ctx.fillText('v', gx0-16, gy0+4);
+
+    ctx.strokeStyle = '#5fd0e0';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for(let i=0;i<=60;i++){
+      const rr = 1 + (i/60)*5;
+      const vv = v0/Math.sqrt(rr);
+      const px = gx0 + (rr-1)/5*(gx1-gx0);
+      const py = gy1 - (vv/v0)*(gy1-gy0);
+      if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+
+    const dotX = gx0 + (rOverR-1)/5*(gx1-gx0);
+    const dotY = gy1 - (v/v0)*(gy1-gy0);
+    ctx.fillStyle = '#d98324';
+    ctx.beginPath(); ctx.arc(dotX,dotY,4.5,0,2*Math.PI); ctx.fill();
+
+    readout.innerHTML = 'v<sub>orb</sub> = ' + v.toFixed(2) + ' km s&minus;1';
+  }
+
+  slider.addEventListener('input', draw);
+  draw();
+})();
+
+</script>
+</body>
+</html>
