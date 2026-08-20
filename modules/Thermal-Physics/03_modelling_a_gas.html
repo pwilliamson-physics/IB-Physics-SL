@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modelling a Gas (SL) — Student Workbook</title>
+<style>
+  :root{
+    --navy:#173a5e; --teal:#0e7c86; --teal-dark:#0a5b62; --amber:#d98324;
+    --soft-blue:#eaf3fb; --soft-amber:#fdf1e2; --soft-green:#eaf7ee; --soft-grey:#f4f6f8;
+    --line:#b9c6d3; --ink:#1f2933; --border:#d7e0e8;
+    --purple:#6b4c9a; --soft-purple:#f1ebf9;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); background:#f7f9fb; line-height:1.55; font-size:16.5px; padding-top:56px;}
+  .layout{display:flex; min-height:calc(100vh - 56px);}
+  nav.sidebar{width:250px; flex-shrink:0; background:var(--navy); color:#fff; padding:1.25rem 1rem; position:sticky; top:56px; height:calc(100vh - 56px); overflow-y:auto;}
+  nav.sidebar h1{font-size:1.05rem; line-height:1.3; margin:0 0 1rem 0; color:#fff;}
+  nav.sidebar a{display:block; color:#cfe3ee; text-decoration:none; font-size:0.88rem; padding:0.4rem 0.5rem; border-radius:6px; margin-bottom:0.15rem;}
+  nav.sidebar a:hover{background:rgba(255,255,255,0.12); color:#fff;}
+  nav.sidebar .tag{display:inline-block; background:var(--amber); color:#fff; font-size:0.68rem; padding:0.1rem 0.4rem; border-radius:4px; margin-left:0.3rem; vertical-align:middle;}
+  main{flex:1; max-width:920px; margin:0 auto; padding:2rem 2.5rem 5rem 2.5rem;}
+  .cover{background:linear-gradient(135deg,var(--navy),var(--teal-dark)); color:#fff; border-radius:14px; padding:2.5rem 2.5rem; margin-bottom:2rem;}
+  .cover h1{margin:0 0 0.4rem 0; font-size:1.9rem;}
+  .cover p.sub{margin:0; font-size:1.05rem; color:#dceaf0;}
+  .cover .meta{margin-top:1.2rem; font-size:0.9rem; color:#cfe3ee;}
+  .name-box{margin-top:1.4rem; background:rgba(255,255,255,0.1); border:1px dashed rgba(255,255,255,0.5); border-radius:8px; padding:0.9rem 1.1rem;}
+  .name-box label{display:block; font-size:0.8rem; color:#dceaf0; margin-bottom:0.2rem;}
+  .name-box .fill{display:block; width:100%; border:none; border-bottom:1px solid #dceaf0; height:1.6rem; background:transparent; color:#fff; font-size:1rem; font-family:inherit; padding:0; outline:none;}
+  .name-box .fill::placeholder{color:rgba(255,255,255,0.5);}
+  .goals{background:rgba(255,255,255,0.12); border-left:4px solid #fff; border-radius:6px; padding:0.9rem 1.1rem; font-size:0.92rem; color:#fff;}
+  .goals ul{margin:0.4rem 0 0 0; padding-left:1.2rem;}
+
+  section.topic{background:#fff; border:1px solid var(--border); border-radius:12px; padding:1.8rem 2rem; margin-bottom:1.6rem;}
+  section.topic h2{color:var(--navy); font-size:1.4rem; margin-top:0; border-bottom:3px solid var(--amber); padding-bottom:0.4rem;}
+  section.topic h3{color:var(--teal-dark); font-size:1.08rem; margin-top:1.6rem;}
+
+  .keybox{background:var(--soft-blue); border:1px solid #c7ddef; border-radius:8px; padding:0.9rem 1.1rem; margin:0.9rem 0; font-size:0.98rem;}
+  .keybox strong{color:var(--navy);}
+  .eqn{background:#fff; border:1px solid #c7ddef; border-radius:6px; padding:0.6rem 1rem; margin:0.6rem 0; font-size:1.08rem; text-align:center; font-family:"Cambria Math",Cambria,Georgia,serif;}
+  .keyword{background:var(--soft-amber); border-left:4px solid var(--amber); border-radius:6px; padding:0.7rem 1rem; margin:0.9rem 0; font-size:0.92rem;}
+  .keyword b{color:var(--amber);}
+  .example{background:var(--soft-green); border:1px solid #bfe3cc; border-radius:8px; padding:0.9rem 1.1rem; margin:1rem 0;}
+  .example .tag{display:inline-block; background:#3f9a5c; color:#fff; font-size:0.72rem; font-weight:600; letter-spacing:0.03em; padding:0.15rem 0.5rem; border-radius:4px; margin-bottom:0.5rem; text-transform:uppercase;}
+  .stretch-box{background:var(--soft-purple); border:1px solid #d9c9ec; border-radius:8px; padding:0.9rem 1.1rem; margin:1rem 0;}
+  .stretch-box .tag{display:inline-block; background:var(--purple); color:#fff; font-size:0.72rem; font-weight:600; letter-spacing:0.03em; padding:0.15rem 0.5rem; border-radius:4px; margin-bottom:0.5rem; text-transform:uppercase;}
+  .stretch-box strong{color:var(--purple);}
+
+  .question{background:var(--soft-grey); border:1px solid var(--border); border-radius:8px; padding:1rem 1.2rem; margin:1.1rem 0;}
+  .question .qnum{display:inline-block; background:var(--navy); color:#fff; font-weight:700; font-size:0.82rem; width:1.9rem; height:1.9rem; line-height:1.9rem; text-align:center; border-radius:50%; margin-right:0.5rem;}
+  .answer-lines{
+    display:block; width:100%; box-sizing:border-box;
+    background-image:repeating-linear-gradient(to bottom, transparent, transparent 1.65em, var(--line) 1.7em);
+    background-color:transparent;
+    min-height:5.1em; margin:0.6rem 0 0.2rem 0;
+    border:1px solid transparent; border-radius:6px;
+    outline:none; resize:none; overflow:hidden;
+    font:inherit; color:inherit; line-height:1.7em;
+    padding:0.05em 0.4em 0 0.2em;
+  }
+  .answer-lines:focus{
+    border:1px solid var(--teal); background-color:#fbfdff;
+    box-shadow:0 0 0 3px rgba(14,124,134,0.12);
+  }
+  .answer-lines::placeholder{color:#9aa8b4; font-style:italic;}
+  .answer-lines.short{min-height:1.7em;}
+  .answer-lines.long{min-height:8.5em;}
+  .reveal-btn{background:var(--teal); color:#fff; border:none; border-radius:6px; padding:0.35rem 0.8rem; font-size:0.82rem; cursor:pointer; margin-top:0.5rem;}
+  .reveal-btn:hover{background:var(--teal-dark);}
+  .answer-panel{display:none; background:#fff; border:1px dashed #3f9a5c; border-radius:6px; padding:0.7rem 1rem; margin-top:0.6rem; font-size:0.92rem;}
+  .answer-panel.shown{display:block;}
+
+  figure{margin:1.2rem auto; text-align:center; max-width:560px;}
+  figure.wide{max-width:none;}
+  figure svg{max-width:100%; height:auto; max-height:320px;}
+  figcaption{font-size:0.85rem; color:#5b6b78; margin-top:0.4rem;}
+
+  table.eqtable{width:100%; border-collapse:collapse; font-size:0.92rem; margin-top:0.7rem;}
+  table.eqtable th, table.eqtable td{border:1px solid var(--border); padding:0.5rem 0.7rem; text-align:left;}
+  table.eqtable th{background:var(--soft-blue); color:var(--navy);}
+
+  dl.glossary dt{font-weight:700; color:var(--navy); margin-top:0.7rem;}
+  dl.glossary dd{margin-left:0; margin-bottom:0.2rem;}
+
+  .topbar{
+    position:fixed; top:0; left:0; right:0; height:56px; z-index:200;
+    background:#fff; border-bottom:1px solid var(--border); box-shadow:0 2px 8px rgba(0,0,0,0.06);
+    display:flex; align-items:center; gap:0.6rem; padding:0 1.4rem; overflow-x:auto;
+  }
+  .topbar .topbar-title{font-weight:700; color:var(--navy); font-size:0.92rem; margin-right:auto; white-space:nowrap;}
+  .topbar button{background:#fff; color:var(--navy); border:1px solid var(--border); border-radius:50px; padding:0.5rem 1rem; font-size:0.82rem; cursor:pointer; white-space:nowrap; flex-shrink:0;}
+  .topbar button:hover{background:var(--soft-blue);}
+  .topbar button.primary{background:var(--amber); color:#fff; border-color:var(--amber); font-weight:600;}
+  .topbar button.primary:hover{background:#c0721c;}
+  .topbar .save-status{font-size:0.72rem; color:#5b6b78; white-space:nowrap; flex-shrink:0;}
+  @media (max-width: 820px){ .topbar .save-status{display:none;} }
+  @media (max-width: 620px){ .topbar .topbar-title{display:none;} }
+  footer.page{font-size:0.8rem; color:#7c8b98; text-align:center; margin-top:2rem;}
+
+  /* ---------- simulation embed conventions ---------- */
+  .sim-embed{background:#fff; border:1px solid var(--border); border-radius:10px; padding:1rem 1.2rem; margin:1rem 0;}
+  .sim-embed p.instructions{margin:0 0 0.6rem 0; font-size:0.92rem; color:#3a4753;}
+  .sim-frame{width:100%; border:none; display:block; border-radius:8px; height:520px;}
+  .sim-embed-credit{text-align:center; font-size:0.82rem; color:#7c8b98; margin-top:0.6rem;}
+  .sim-print-note{display:none;}
+
+  .sim-launch{
+    background:linear-gradient(135deg,var(--soft-blue),#fff); border:1px solid #c7ddef; border-radius:10px;
+    padding:1.2rem 1.4rem; margin:1.1rem 0; text-align:center;
+  }
+  .sim-launch a.launch-btn{
+    display:inline-block; background:var(--teal); color:#fff; text-decoration:none; font-weight:700;
+    padding:0.65rem 1.4rem; border-radius:8px; margin-top:0.6rem; font-size:0.98rem;
+  }
+  .sim-launch a.launch-btn:hover{background:var(--teal-dark);}
+  .sim-launch p.credit{font-size:0.8rem; color:#5b6b78; margin-top:0.7rem;}
+
+  /* custom-canvas sim layout (wide figure: canvas + controls side by side) */
+  .sim-wrap{display:flex; gap:1.4rem; align-items:flex-start; flex-wrap:wrap; background:#0f1f30; border-radius:10px; padding:1.1rem; }
+  .sim-canvas-box{flex:0 0 auto;}
+  .sim-canvas-box canvas{display:block; border-radius:8px; background:#0f1f30;}
+  .sim-controls{flex:1 1 220px; min-width:220px; color:#dceaf0; font-size:0.9rem;}
+  .sim-controls h4{margin:0 0 0.6rem 0; color:#fff; font-size:0.95rem;}
+  .sim-row{margin-bottom:0.9rem;}
+  .sim-row label{display:block; margin-bottom:0.3rem;}
+  .sim-row input[type="range"]{width:100%;}
+  .sim-readout{background:rgba(255,255,255,0.08); border-radius:6px; padding:0.6rem 0.8rem; font-size:0.86rem; line-height:1.6;}
+  .sim-btns{margin-top:0.8rem; display:flex; gap:0.5rem; flex-wrap:wrap;}
+  .sim-btns button{background:var(--teal); color:#fff; border:none; border-radius:6px; padding:0.4rem 0.9rem; font-size:0.82rem; cursor:pointer;}
+  .sim-btns button:hover{background:var(--teal-dark);}
+  .sim-btns button.alt{background:transparent; border:1px solid rgba(255,255,255,0.4); color:#dceaf0;}
+  .sim-btns button.alt:hover{background:rgba(255,255,255,0.1);}
+
+  @media print{
+    nav.sidebar, .topbar, .reveal-btn{display:none !important;}
+    .layout{display:block;}
+    main{max-width:100%; padding:0; margin:0;}
+    body{background:#fff; font-size:11.5pt; padding-top:0;}
+    section.topic{border:none; box-shadow:none; padding:0; margin:0 0 1.2rem 0; page-break-inside:avoid;}
+    .cover{page-break-after:always; border-radius:0;}
+    .answer-panel{display:none !important;}
+    body.answers-visible .answer-panel{display:block !important; border-style:solid;}
+    a{color:inherit; text-decoration:none;}
+    .page-break{page-break-before:always;}
+    .answer-lines{border-color:transparent !important; box-shadow:none !important; color:#000;}
+    .answer-lines::placeholder{color:transparent;}
+    .name-box .fill{color:#000; border-bottom-color:#5b6b78;}
+    .name-box .fill::placeholder{color:transparent;}
+    .sim-frame, .sim-embed-credit, .sim-embed p.instructions, .sim-wrap{display:none !important;}
+    .sim-print-note{display:block !important; text-align:center; font-size:0.85rem; color:#5b6b78; padding:0.9rem; border:1px dashed #b9c6d3; border-radius:8px; margin:0.6rem 0;}
+    .sim-launch{display:none !important;}
+  }
+</style>
+</head>
+<body>
+<div class="topbar no-print">
+  <span class="topbar-title">Modelling a Gas (SL)</span>
+  <button onclick="revealAll()">Show all answers</button>
+  <button onclick="hideAll()">Hide all answers</button>
+  <button onclick="clearMyAnswers()">Clear my answers</button>
+  <span class="save-status">Answers are not saved automatically — print or copy your work before closing this tab</span>
+  <button class="primary" onclick="window.print()">🖨️ Print / Save as PDF</button>
+</div>
+<div class="layout">
+  <nav class="sidebar no-print">
+    <h1>Modelling a Gas <span class="tag">SL</span></h1>
+    <a href="#cover">Cover &amp; goals</a>
+    <a href="#s1">1. Pressure and amount of substance</a>
+    <a href="#s2">2. The kinetic model of a gas</a>
+    <a href="#s3">3. The ideal gas law</a>
+    <a href="#s4">4. Internal energy of an ideal gas</a>
+    <a href="#sG">Glossary</a>
+  </nav>
+
+  <main>
+    <section class="cover" id="cover">
+      <h1>Modelling a Gas (SL)</h1>
+      <p style="margin:0.9rem 0 0 0; max-width:640px; font-size:0.98rem; color:#dceaf0;">Every gas — the air in a tyre, the hydrogen in a star, the helium in a party balloon — behaves according to remarkably simple rules once it is described in terms of pressure, volume, temperature and the number of particles it contains. In this workbook we build that description from scratch: what pressure actually is, how to count an unimaginably large number of particles using the mole, and a model — the <strong>ideal gas</strong> — that treats a gas as a huge number of tiny, randomly-moving particles. We will show that this model's pressure and internal energy can both be derived directly from the mechanics of particle collisions, and combine it with experiment to arrive at the single equation that governs every ideal gas: PV = nRT.</p>
+      <div class="goals" style="margin-top:1.3rem;">
+        <strong style="color:#fff;">By the end of this workbook you should be able to:</strong>
+        <ul>
+          <li>Define pressure, P = F/A, where F is the force acting perpendicular to a surface, and use n = N/N<sub>A</sub> to relate amount of substance, number of particles and the Avogadro constant</li>
+          <li>State the assumptions of the kinetic theory model of an ideal gas, and describe the temperature, pressure and density conditions under which a real gas is well approximated by this model</li>
+          <li>Explain, from a simple analysis of particle collisions with a container's walls, how pressure arises in a gas, and use P = &#8531;&thinsp;&rho;&#10216;v&sup2;&#10217; to relate pressure to the mean square speed of the particles</li>
+          <li>State the empirical gas laws (Boyle's law, the pressure law, Charles' law), and show how they combine into PV/T = constant</li>
+          <li>Use the ideal gas equations PV = Nk<sub>B</sub>T and PV = nRT, and explain the relationship between k<sub>B</sub> and R</li>
+          <li>Calculate the internal energy of an ideal monatomic gas using U = 3/2 Nk<sub>B</sub>T = 3/2 nRT, and explain why it depends only on temperature</li>
+        </ul>
+      </div>
+      <div class="name-box">
+        <label>Name</label><input type="text" class="fill" id="studentName" autocomplete="name">
+      </div>
+    </section>
+
+    <!-- ================= SECTION 1: PRESSURE AND AMOUNT OF SUBSTANCE ================= -->
+    <section class="topic" id="s1">
+      <h2>1. Pressure and amount of substance</h2>
+      <p>Before we can describe how a gas behaves, we need a way to measure its physical state. Two quantities are central to everything that follows in this workbook: <strong>pressure</strong>, which describes how a gas pushes on its surroundings, and <strong>amount of substance</strong>, which is how we count the enormous number of particles a gas sample contains.</p>
+
+      <h3>Pressure</h3>
+      <p>A force acting on a surface has an effect that depends not just on its size, but on the area over which it acts — the same force feels very different applied through a drawing pin than through a flat palm. <strong>Pressure</strong> is defined as the force acting perpendicular (normal) to a surface, per unit area of that surface.</p>
+      <div class="eqn">P = F / A</div>
+      <div class="keybox"><strong>Key idea.</strong> Pressure, P = F/A, where F is the force exerted perpendicular to the surface. SI unit: the pascal, Pa (1 Pa = 1 N m<sup>&minus;2</sup>).</div>
+
+      <div class="example">
+        <span class="tag">Worked example 1.1</span>
+        <p>A student of mass 58 kg stands on one foot. The area of contact between her shoe and the floor is 130 cm². Calculate the pressure she exerts on the floor.</p>
+        <p><strong>Answer:</strong><br>
+        P = F/A = mg/A = (58 &times; 9.81) / (130 &times; 10<sup>&minus;4</sup>)</p>
+      </div>
+
+      <h3>Amount of substance</h3>
+      <p>A gas sample typically contains an enormous number of particles — far too many to count individually. Instead we measure the <strong>amount of substance</strong>, n, in <strong>moles</strong>.</p>
+      <div class="eqn">n = N / N<sub>A</sub></div>
+      <div class="keybox"><strong>Key idea.</strong> The amount of substance, n, as given by n = N/N<sub>A</sub>, where N is the number of particles (atoms or molecules) and N<sub>A</sub> is the <strong>Avogadro constant</strong>, N<sub>A</sub> = 6.02 &times; 10<sup>23</sup> mol<sup>&minus;1</sup>.</div>
+      <div class="keyword"><b>Mole, mol:</b> the SI unit of amount of substance. One mole of a substance contains exactly the Avogadro constant's worth of its defining particles (6.02 &times; 10<sup>23</sup> atoms or molecules) — a number chosen so that a sample's mass in grams, divided by its molar mass in g mol<sup>&minus;1</sup>, gives the amount of substance directly.</div>
+      <p>If you know the mass of a sample and its molar mass (the mass of one mole, in g mol<sup>&minus;1</sup>), you can find n directly: n = mass / molar mass. Combined with n = N/N<sub>A</sub>, this lets you move between mass, moles and number of particles for any sample of gas.</p>
+
+      <div class="example">
+        <span class="tag">Worked example 1.2</span>
+        <p>A sample of neon gas (molar mass 20.2 g mol<sup>&minus;1</sup>) has a mass of 15.0 g. Calculate (a) the number of moles of neon in the sample, (b) the number of neon atoms in the sample.</p>
+        <p><strong>Answer:</strong><br>
+        (a) n = mass / molar mass = 15.0 / 20.2<br>
+        (b) N = n &times; N<sub>A</sub> = (15.0 / 20.2) &times; 6.02 &times; 10<sup>23</sup></p>
+      </div>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">1</span><strong>A crate exerts a force of 450 N through its base, which has an area of 0.25 m². Calculate the pressure the crate exerts on the ground.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q1')">Show answer</button>
+        <div class="answer-panel" id="q1">P = F/A = 450 / 0.25 = 1800 Pa.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">2</span><strong>A gas cylinder contains 3.2 kg of oxygen gas (O&#8322;, molar mass 32.0 g mol<sup>&minus;1</sup>). Calculate (a) the number of moles of oxygen in the cylinder, (b) the number of oxygen molecules in the cylinder.</strong>
+        <textarea class="answer-lines long" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q2')">Show answer</button>
+        <div class="answer-panel" id="q2">(a) n = mass / molar mass = 3200 / 32.0<br>(b) N = n &times; N<sub>A</sub> = (3200 / 32.0) &times; 6.02 &times; 10<sup>23</sup></div>
+      </div>
+      <div class="question">
+        <span class="qnum">3</span><strong>A sample of helium gas (molar mass 4.00 g mol<sup>&minus;1</sup>) contains 1.5 &times; 10<sup>24</sup> atoms. Calculate the mass of the sample, in grams.</strong>
+        <textarea class="answer-lines long" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q3')">Show answer</button>
+        <div class="answer-panel" id="q3">n = N/N<sub>A</sub> = 1.5 &times; 10<sup>24</sup> / 6.02 &times; 10<sup>23</sup>.<br>mass = n &times; molar mass = (1.5 &times; 10<sup>24</sup> / 6.02 &times; 10<sup>23</sup>) &times; 4.00</div>
+      </div>
+      <div class="question">
+        <span class="qnum">4</span><strong>Explain, in terms of force and area, why a sharp knife cuts through food far more easily than a blunt one, even when the same force is applied to both.</strong>
+        <textarea class="answer-lines long" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q4')">Show answer</button>
+        <div class="answer-panel" id="q4">Pressure is force per unit area, P = F/A. A sharp blade has a much smaller contact (edge) area than a blunt one, so for the same applied force it produces a much greater pressure at the point of contact — easily enough to exceed the pressure needed to cut through the food's surface. A blunt blade spreads the same force over a larger area, giving a much lower pressure that may not be enough to cut at all.</div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 2: THE KINETIC MODEL OF A GAS ================= -->
+    <section class="topic" id="s2">
+      <h2>2. The kinetic model of a gas</h2>
+      <p>Why does a gas exert pressure at all, and why does heating a gas at constant volume increase that pressure? To answer questions like these we need a model of what a gas actually <em>is</em> at the particle level — the <strong>kinetic theory</strong> of gases. This section introduces that model, and then shows that a gas's pressure can be derived directly from the mechanics of its particles colliding with the walls of their container.</p>
+
+      <h3>The ideal gas model</h3>
+      <p>Real gases are complicated: their particles have some finite size, and they do attract and repel each other slightly. To make progress mathematically, physicists use a simplified, idealized model: the <strong>ideal gas</strong>.</p>
+      <div class="keybox"><strong>Key idea.</strong> An ideal gas is described by the following assumptions:
+        <ul style="margin:0.5rem 0 0 0; padding-left:1.2rem;">
+          <li>it contains a very large number of identical particles;</li>
+          <li>the volume of the particles themselves is negligible compared with the volume occupied by the gas;</li>
+          <li>the particles move in random directions, with a wide range of speeds;</li>
+          <li>there are no forces between particles except during collisions, so an ideal gas has no (electrical) potential energy between its particles;</li>
+          <li>the particles obey Newton's laws of motion, and all collisions (between particles, and between particles and the container walls) are perfectly elastic.</li>
+        </ul>
+      </div>
+
+      <h3>Real gases and the ideal gas model</h3>
+      <p>No real gas is perfectly ideal — but under most everyday conditions, most real gases behave extremely close to this model, which is exactly why the equations built on it (met later in this workbook) predict real gas behaviour so accurately.</p>
+      <div class="keybox"><strong>Key idea.</strong> An ideal gas is a good approximation to a real gas at <strong>low pressure</strong>, <strong>low density</strong> and <strong>moderate-to-high temperature</strong>. Under these conditions the particles are, on average, far apart, so their own volume is genuinely negligible compared with the volume of the container, and they spend almost all their time too far apart for the (small) forces between them to matter. The model breaks down at <strong>high pressure or high density</strong> (particles are forced close enough together that their own volume and the forces between them are no longer negligible) and at <strong>low temperature</strong> (particles move slowly enough for intermolecular forces to have time to act between collisions — this is exactly what eventually causes a real gas to condense into a liquid, a state the ideal gas model cannot describe at all).</div>
+
+      <figure>
+        <svg viewBox="0 0 460 240" width="460" height="240" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrNavy1" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#173a5e"/></marker>
+            <marker id="arrAmber1" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d98324"/></marker>
+          </defs>
+          <rect x="40" y="40" width="380" height="150" fill="none" stroke="#173a5e" stroke-width="2"/>
+          <circle cx="130" cy="80" r="4.5" fill="#173a5e"/>
+          <line x1="130" y1="80" x2="150" y2="94" stroke="#173a5e" stroke-width="1.5" marker-end="url(#arrNavy1)"/>
+          <circle cx="320" cy="70" r="4.5" fill="#173a5e"/>
+          <line x1="320" y1="70" x2="301" y2="87" stroke="#173a5e" stroke-width="1.5" marker-end="url(#arrNavy1)"/>
+          <circle cx="220" cy="130" r="4.5" fill="#173a5e"/>
+          <line x1="220" y1="130" x2="241" y2="116" stroke="#173a5e" stroke-width="1.5" marker-end="url(#arrNavy1)"/>
+          <circle cx="360" cy="150" r="4.5" fill="#173a5e"/>
+          <line x1="360" y1="150" x2="341" y2="136" stroke="#173a5e" stroke-width="1.5" marker-end="url(#arrNavy1)"/>
+          <circle cx="90" cy="160" r="4.5" fill="#173a5e"/>
+          <line x1="90" y1="160" x2="111" y2="172" stroke="#173a5e" stroke-width="1.5" marker-end="url(#arrNavy1)"/>
+          <circle cx="230" cy="40" r="4.5" fill="#173a5e"/>
+          <line x1="230" y1="40" x2="230" y2="60" stroke="#d98324" stroke-width="2" marker-end="url(#arrAmber1)"/>
+          <text x="230" y="74" text-anchor="middle" font-size="11" fill="#d98324">rebounds off the wall</text>
+          <circle cx="420" cy="110" r="4.5" fill="#173a5e"/>
+          <line x1="420" y1="110" x2="400" y2="110" stroke="#d98324" stroke-width="2" marker-end="url(#arrAmber1)"/>
+          <circle cx="150" cy="190" r="4.5" fill="#173a5e"/>
+          <line x1="150" y1="190" x2="150" y2="170" stroke="#d98324" stroke-width="2" marker-end="url(#arrAmber1)"/>
+        </svg>
+        <figcaption>Fig. 2.1 A gas exerts pressure because its particles are constantly colliding with the walls of their container and rebounding (amber arrows show the rebound direction). By Newton's third law, each collision also exerts an equal and opposite force on the wall itself, perpendicular to its surface — the pressure we measure is the average effect of an enormous number of these collisions, spread over the wall's area. The derivation below makes this precise for one wall of a simple box-shaped container.</figcaption>
+      </figure>
+
+      <h3>From collisions to pressure</h3>
+      <div class="stretch-box"><span class="tag">Must learn</span> This is a <strong>must learn</strong> derivation. Make sure you can reproduce every step below, rather than just quoting the final result.</div>
+      <p>Consider a single particle of mass m, moving with a velocity component v<sub>x</sub> perpendicular to one wall of a cubic container of side l (so the container has volume V = l³ and that wall has area A = l²), as shown in Fig. 2.2.</p>
+
+      <figure>
+        <svg viewBox="0 0 460 230" width="460" height="230" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="mBounceT" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8 Z" fill="#0e7c86"/></marker>
+            <marker id="mBounceA" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8 Z" fill="#d98324"/></marker>
+          </defs>
+          <rect x="60" y="50" width="320" height="110" fill="#eaf3fb"/>
+          <line x1="60" y1="48" x2="60" y2="162" stroke="#173a5e" stroke-width="4"/>
+          <line x1="380" y1="48" x2="380" y2="162" stroke="#173a5e" stroke-width="4"/>
+          <line x1="60" y1="50" x2="380" y2="50" stroke="#173a5e" stroke-width="1.5"/>
+          <line x1="60" y1="160" x2="380" y2="160" stroke="#173a5e" stroke-width="1.5"/>
+
+          <circle cx="345" cy="105" r="6" fill="#173a5e"/>
+          <line x1="288" y1="90" x2="336" y2="90" stroke="#0e7c86" stroke-width="2.4" marker-end="url(#mBounceT)"/>
+          <text x="312" y="80" text-anchor="middle" font-size="13" fill="#0e7c86">+v<tspan font-size="10" dy="2">x</tspan></text>
+          <line x1="336" y1="122" x2="288" y2="122" stroke="#d98324" stroke-width="2.4" marker-end="url(#mBounceA)"/>
+          <text x="312" y="138" text-anchor="middle" font-size="13" fill="#d98324">&minus;v<tspan font-size="10" dy="2">x</tspan></text>
+          <line x1="345" y1="108" x2="345" y2="119" stroke="#5b6b78" stroke-width="1.2" stroke-dasharray="2,2"/>
+
+          <line x1="60" y1="188" x2="380" y2="188" stroke="#5b6b78" stroke-width="1"/>
+          <line x1="60" y1="182" x2="60" y2="194" stroke="#5b6b78" stroke-width="1"/>
+          <line x1="380" y1="182" x2="380" y2="194" stroke="#5b6b78" stroke-width="1"/>
+          <text x="220" y="208" text-anchor="middle" font-size="13" fill="#5b6b78">box length, l</text>
+
+          <text x="390" y="60" font-size="11" fill="#173a5e" text-anchor="start">wall</text>
+          <text x="390" y="74" font-size="11" fill="#173a5e" text-anchor="start">area</text>
+          <text x="390" y="88" font-size="11" fill="#173a5e" text-anchor="start">A = l&sup2;</text>
+        </svg>
+        <figcaption>Fig. 2.2 A particle of mass m approaches the right-hand wall with velocity component +v<sub>x</sub>, and — because the collision is perfectly elastic — rebounds with velocity component &minus;v<sub>x</sub>. Its momentum change is 2mv<sub>x</sub>, directed into the wall; by Newton's third law, the wall feels an equal and opposite push.</figcaption>
+      </figure>
+
+      <p>Because collisions with the walls are perfectly elastic (an assumption of the ideal gas model), the particle's velocity component simply reverses at each collision, from +v<sub>x</sub> to &minus;v<sub>x</sub>. The magnitude of its momentum change at each collision is therefore:</p>
+      <div class="eqn">&Delta;p = 2mv<sub>x</sub></div>
+      <p>Between successive collisions with this same wall, the particle must travel to the opposite wall and back — a distance 2l — at speed v<sub>x</sub>, so the time between collisions is:</p>
+      <div class="eqn">&Delta;t = 2l / v<sub>x</sub></div>
+      <p>By Newton's second law, the average force this one particle exerts on the wall is its rate of change of momentum:</p>
+      <div class="eqn">F = &Delta;p / &Delta;t = 2mv<sub>x</sub> &divide; (2l / v<sub>x</sub>) = mv<sub>x</sub>&sup2; / l</div>
+      <p>Dividing by the wall's area, A = l², gives the pressure due to this single particle (using l &times; A = l&sup3; = V):</p>
+      <div class="eqn">P<sub>1</sub> = F / A = mv<sub>x</sub>&sup2; / V</div>
+      <p>A real gas contains N particles, not one — each contributing to the pressure in the same way, but with its own value of v<sub>x</sub>. Summing over all N particles, and writing &#10216;v<sub>x</sub>&sup2;&#10217; for the <em>average</em> value of v<sub>x</sub>&sup2; across all of them:</p>
+      <div class="eqn">P = Nm&#10216;v<sub>x</sub>&sup2;&#10217; / V</div>
+      <p>Each particle moves randomly in three dimensions, so on average it is equally likely to be moving in the x, y or z direction: &#10216;v<sub>x</sub>&sup2;&#10217; = &#10216;v<sub>y</sub>&sup2;&#10217; = &#10216;v<sub>z</sub>&sup2;&#10217;. Since v&sup2; = v<sub>x</sub>&sup2; + v<sub>y</sub>&sup2; + v<sub>z</sub>&sup2; for every particle, this means &#10216;v<sub>x</sub>&sup2;&#10217; = &#8531;&#10216;v&sup2;&#10217;, where &#10216;v&sup2;&#10217; is the <strong>mean square speed</strong> of the particles. Substituting gives:</p>
+      <div class="eqn">P = &#8531;(Nm/V)&#10216;v&sup2;&#10217;</div>
+      <div class="keybox"><strong>Key idea.</strong> The change in momentum of particles due to collisions with a given surface gives rise to pressure in gases. Since density &rho; = Nm/V (the total mass of the N particles, each of mass m, divided by the container's volume), this result can be written P = &#8531;&rho;&#10216;v&sup2;&#10217; — pressure is related to the average of (translational speed)&sup2; of the gas's molecules.</div>
+      <div class="keyword"><b>Mean square speed, &#10216;v&sup2;&#10217;:</b> the average value of (particle speed)&sup2; across every particle in the gas — not the same number as (average speed)&sup2;, since squaring first and then averaging gives more weight to fast particles. Its square root, &radic;&#10216;v&sup2;&#10217;, is called the <strong>root-mean-square (rms) speed</strong>, often written v<sub>rms</sub>, and has ordinary units of speed, m s<sup>&minus;1</sup>.</div>
+
+      <h3>Live simulation: from collisions to pressure</h3>
+      <p>Drag the sliders to change the particle's speed v<sub>x</sub> and the box length l, and watch how the time between collisions and the force on the wall respond.</p>
+      <figure class="wide">
+        <div class="sim-wrap">
+          <div class="sim-canvas-box"><canvas id="bounceCanvas" width="460" height="260"></canvas></div>
+          <div class="sim-controls">
+            <h4>One particle, one wall</h4>
+            <div class="sim-row"><label for="bounceVxSlider">Particle speed, v<sub>x</sub> = <span id="bounceVxVal">400</span> m s&minus;1</label><input type="range" id="bounceVxSlider" min="200" max="800" step="10" value="400"></div>
+            <div class="sim-row"><label for="bounceLSlider">Box length, l = <span id="bounceLVal">0.30</span> m</label><input type="range" id="bounceLSlider" min="0.10" max="0.50" step="0.01" value="0.30"></div>
+            <div class="sim-readout" id="bounceReadout">Drag the sliders to begin.</div>
+          </div>
+        </div>
+        <figcaption>Fig. 2.3 A single particle (mass m = 5.0 &times; 10<sup>&minus;26</sup> kg, roughly that of a small gas molecule) bouncing between two walls of a box. The force and pressure from one particle alone are minute — it takes on the order of 10²³ such collisions every second, across the whole wall, for a measurable pressure to result.</figcaption>
+      </figure>
+
+      <div class="example">
+        <span class="tag">Worked example 2.1</span>
+        <p>A sample of gas has density 1.31 kg m<sup>&minus;3</sup>. The root-mean-square speed of its molecules is 480 m s<sup>&minus;1</sup>. Calculate the pressure of the gas.</p>
+        <p><strong>Answer:</strong><br>
+        P = &#8531;&rho;&#10216;v&sup2;&#10217; = &#8531;&rho;v<sub>rms</sub>&sup2; = &#8531; &times; 1.31 &times; 480&sup2;</p>
+      </div>
+
+      <div class="example">
+        <span class="tag">Worked example 2.2</span>
+        <p>A gas of density 0.850 kg m<sup>&minus;3</sup> exerts a pressure of 2.4 &times; 10<sup>5</sup> Pa. Calculate the root-mean-square speed of its molecules.</p>
+        <p><strong>Answer:</strong><br>
+        P = &#8531;&rho;v<sub>rms</sub>&sup2;<br>
+        v<sub>rms</sub> = &radic;(3P/&rho;) = &radic;[(3 &times; 2.4 &times; 10<sup>5</sup>) / 0.850]</p>
+      </div>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">5</span><strong>State four assumptions of the kinetic theory model of an ideal gas.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q5')">Show answer</button>
+        <div class="answer-panel" id="q5">Any four of: the gas contains a very large number of identical particles; the volume of the particles is negligible compared with the volume of the gas; the particles move randomly with a wide range of speeds; there are no forces between particles except during collisions; the particles obey Newton's laws of motion; all collisions are perfectly elastic.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">6</span><strong>Explain, in terms of the derivation above, why the pressure of a fixed mass of gas increases when it is heated at constant volume.</strong>
+        <textarea class="answer-lines long" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q6')">Show answer</button>
+        <div class="answer-panel" id="q6">Heating the gas increases the average speed of its particles, including &#10216;v<sub>x</sub>&sup2;&#10217;. A larger v<sub>x</sub> means each collision transfers more momentum (&Delta;p = 2mv<sub>x</sub>) <em>and</em> happens more often (&Delta;t = 2l/v<sub>x</sub> is smaller) — both increase the average force on the wall. Since P = &#8531;&rho;&#10216;v&sup2;&#10217; and the density &rho; is unchanged (fixed mass, fixed volume), the pressure must increase.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">7</span><strong>Explain why &#10216;v<sub>x</sub>&sup2;&#10217; = &#8531;&#10216;v&sup2;&#10217; for the particles of a gas.</strong>
+        <textarea class="answer-lines long" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q7')">Show answer</button>
+        <div class="answer-panel" id="q7">The particles move in completely random directions, so on average none of the x, y or z directions is preferred over the others: &#10216;v<sub>x</sub>&sup2;&#10217; = &#10216;v<sub>y</sub>&sup2;&#10217; = &#10216;v<sub>z</sub>&sup2;&#10217;. Since v&sup2; = v<sub>x</sub>&sup2; + v<sub>y</sub>&sup2; + v<sub>z</sub>&sup2; for every particle, averaging gives &#10216;v&sup2;&#10217; = 3&#10216;v<sub>x</sub>&sup2;&#10217;, so &#10216;v<sub>x</sub>&sup2;&#10217; = &#8531;&#10216;v&sup2;&#10217;.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">8</span><strong>A sample of argon gas has density 1.78 kg m<sup>&minus;3</sup> and its molecules have a root-mean-square speed of 430 m s<sup>&minus;1</sup>. Calculate the pressure of the gas.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q8')">Show answer</button>
+        <div class="answer-panel" id="q8">P = &#8531;&rho;v<sub>rms</sub>&sup2; = &#8531; &times; 1.78 &times; 430&sup2;</div>
+      </div>
+      <div class="question">
+        <span class="qnum">9</span><strong>A gas has density 2.4 kg m<sup>&minus;3</sup> and exerts a pressure of 3.1 &times; 10<sup>5</sup> Pa. Calculate the root-mean-square speed of its molecules.</strong>
+        <textarea class="answer-lines long" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q9')">Show answer</button>
+        <div class="answer-panel" id="q9">v<sub>rms</sub> = &radic;(3P/&rho;) = &radic;[(3 &times; 3.1 &times; 10<sup>5</sup>) / 2.4]</div>
+      </div>
+      <div class="question">
+        <span class="qnum">10</span><strong>Explain why the ideal gas model is a good approximation to a real gas at low pressure and low density, but a poor approximation at low temperature.</strong>
+        <textarea class="answer-lines long" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q10')">Show answer</button>
+        <div class="answer-panel" id="q10">At low pressure and low density the particles are, on average, far apart, so the volume of the particles themselves really is negligible compared with the volume of the container, and the particles spend almost all their time far enough apart that intermolecular forces are negligible — matching the model's assumptions closely. At low temperature the particles move more slowly, so intermolecular forces (which the model assumes are zero) have more time to act between collisions — this is what eventually causes a real gas to condense into a liquid, a state the ideal gas model cannot describe at all.</div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 3: THE IDEAL GAS LAW ================= -->
+    <section class="topic" id="s3">
+      <h2>3. The ideal gas law</h2>
+      <p>A fixed amount of gas, n, sealed in a container, can be fully described by three measurable quantities: its pressure P, volume V and temperature T. Experiments carried out over the last few centuries — keeping one of these quantities fixed at a time — found simple, direct relationships between the other two. These are the <strong>empirical gas laws</strong>: "empirical" because they come purely from observation and experiment, not from a theoretical model like the one in Section 2.</p>
+
+      <table class="eqtable">
+        <tr><th>Law</th><th>Held constant</th><th>Relationship</th></tr>
+        <tr><td>Boyle's law</td><td>temperature, T</td><td>P &prop; 1/V, i.e. P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub></td></tr>
+        <tr><td>Pressure law</td><td>volume, V</td><td>P &prop; T (K), i.e. P<sub>1</sub>/T<sub>1</sub> = P<sub>2</sub>/T<sub>2</sub></td></tr>
+        <tr><td>Charles' law</td><td>pressure, P</td><td>V &prop; T (K), i.e. V<sub>1</sub>/T<sub>1</sub> = V<sub>2</sub>/T<sub>2</sub></td></tr>
+      </table>
+      <div class="keybox"><strong>Key idea.</strong> In every empirical gas law, temperature must be measured in <strong>kelvin</strong>, not degrees Celsius — the proportionality only holds on the absolute scale, since only kelvin has its zero at the point where, in this model, particle motion (and so pressure) would fall to zero.</div>
+
+      <h3>Explore each gas law</h3>
+      <div class="sim-embed">
+        <p class="instructions">Boyle's law: change the volume of the gas and watch how the pressure responds at constant temperature.</p>
+        <iframe class="sim-frame" src="https://www.drjonesphysics.com/boyles-law" loading="lazy" title="Boyle's law simulation"></iframe>
+        <p class="sim-print-note">Interactive simulation — open the online version of this workbook to launch it.</p>
+        <p class="sim-embed-credit">Simulation by <a href="https://www.drjonesphysics.com/boyles-law" target="_blank" rel="noopener">Dr Jones Physics</a>.</p>
+      </div>
+      <div class="sim-embed">
+        <p class="instructions">The pressure law: heat the gas at constant volume and watch how the pressure responds.</p>
+        <iframe class="sim-frame" src="https://www.drjonesphysics.com/pressure-law" loading="lazy" title="Pressure law simulation"></iframe>
+        <p class="sim-print-note">Interactive simulation — open the online version of this workbook to launch it.</p>
+        <p class="sim-embed-credit">Simulation by <a href="https://www.drjonesphysics.com/pressure-law" target="_blank" rel="noopener">Dr Jones Physics</a>.</p>
+      </div>
+      <div class="sim-embed">
+        <p class="instructions">Charles' law: heat the gas at constant pressure and watch how the volume responds.</p>
+        <iframe class="sim-frame" src="https://www.drjonesphysics.com/charles" loading="lazy" title="Charles' law simulation"></iframe>
+        <p class="sim-print-note">Interactive simulation — open the online version of this workbook to launch it.</p>
+        <p class="sim-embed-credit">Simulation by <a href="https://www.drjonesphysics.com/charles" target="_blank" rel="noopener">Dr Jones Physics</a>.</p>
+      </div>
+
+      <div class="example">
+        <span class="tag">Worked example 3.1</span>
+        <p>A sample of gas has a volume of 480 cm³ at a pressure of 1.0 &times; 10<sup>5</sup> Pa. The gas is compressed at constant temperature until its pressure is 2.4 &times; 10<sup>5</sup> Pa. Calculate its new volume.</p>
+        <p><strong>Answer:</strong><br>
+        P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub><br>
+        V<sub>2</sub> = P<sub>1</sub>V<sub>1</sub> / P<sub>2</sub> = (1.0 &times; 10<sup>5</sup> &times; 480) / (2.4 &times; 10<sup>5</sup>)</p>
+      </div>
+
+      <h3>Combining the gas laws</h3>
+      <p>The three empirical laws are all special cases of one more general relationship: for a fixed amount of gas, PV/T is constant.</p>
+      <div class="eqn">PV / T = constant, or P<sub>1</sub>V<sub>1</sub>/T<sub>1</sub> = P<sub>2</sub>V<sub>2</sub>/T<sub>2</sub></div>
+      <div class="keybox"><strong>Key idea.</strong> The ideal gas law equation can be derived from the empirical gas laws for constant pressure, constant volume and constant temperature: PV/T = constant.</div>
+      <p>This tells us how P, V and T are related for a <em>fixed</em> amount of gas — but it says nothing about how much gas there is. Experiments show that, at constant temperature and pressure, volume is directly proportional to the amount of gas, n. Combining this with PV/T = constant gives the full <strong>ideal gas law</strong> (also called the equation of state for an ideal gas):</p>
+      <div class="eqn">PV = nRT</div>
+      <div class="keybox"><strong>Key idea.</strong> The equations governing the behaviour of ideal gases: PV = Nk<sub>B</sub>T and PV = nRT, where R is the <strong>universal (molar) gas constant</strong>, R = 8.31 J K<sup>&minus;1</sup> mol<sup>&minus;1</sup>, and k<sub>B</sub> is the <strong>Boltzmann constant</strong>, k<sub>B</sub> = 1.38 &times; 10<sup>&minus;23</sup> J K<sup>&minus;1</sup>. Since n = N/N<sub>A</sub>, the two forms are linked by k<sub>B</sub> = R/N<sub>A</sub> — R is simply the macroscopic (per mole) version of the same constant that k<sub>B</sub> expresses per particle.</div>
+      <p>An <strong>ideal gas</strong> is defined as a gas that obeys PV = nRT perfectly, for any P, V, T and n. As you saw in Section 2, real gases obey this equation very closely under most everyday conditions.</p>
+
+      <div class="example">
+        <span class="tag">Worked example 3.2</span>
+        <p>A cylinder of volume 8.0 &times; 10<sup>&minus;3</sup> m³ contains an ideal gas at a pressure of 3.0 &times; 10<sup>5</sup> Pa and a temperature of 290 K. Calculate the amount of gas, in moles, in the cylinder.</p>
+        <p><strong>Answer:</strong><br>
+        PV = nRT<br>
+        n = PV / RT = (3.0 &times; 10<sup>5</sup> &times; 8.0 &times; 10<sup>&minus;3</sup>) / (8.31 &times; 290)</p>
+      </div>
+
+      <div class="sim-launch">
+        <p>Explore how pressure, volume, temperature and the number of particles are all linked for an ideal gas, using PhET's <em>Gas Properties</em> simulation. Try holding volume constant and heating the gas, or pushing the wall in at constant temperature, and watch the pressure gauge respond.</p>
+        <a class="launch-btn" href="https://phet.colorado.edu/en/simulations/gas-properties" target="_blank" rel="noopener">Launch simulation &#8599;</a>
+        <p class="credit">Simulation: <em>Gas Properties</em> by PhET Interactive Simulations, University of Colorado Boulder.</p>
+      </div>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">11</span><strong>State Boyle's law, in words, and give its equation.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q11')">Show answer</button>
+        <div class="answer-panel" id="q11">For a fixed amount of gas at constant temperature, the pressure is inversely proportional to the volume: P &prop; 1/V, or P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub>.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">12</span><strong>A fixed mass of gas at a pressure of 1.4 &times; 10<sup>5</sup> Pa and a temperature of 15 °C occupies a volume of 620 cm³. The gas is heated at constant volume until its pressure is 1.9 &times; 10<sup>5</sup> Pa. Calculate its final temperature in °C.</strong>
+        <textarea class="answer-lines long" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q12')">Show answer</button>
+        <div class="answer-panel" id="q12">Convert to kelvin first: T<sub>1</sub> = 15 + 273 = 288 K.<br>P<sub>1</sub>/T<sub>1</sub> = P<sub>2</sub>/T<sub>2</sub><br>T<sub>2</sub> = P<sub>2</sub>T<sub>1</sub> / P<sub>1</sub> = (1.9 &times; 10<sup>5</sup> &times; 288) / (1.4 &times; 10<sup>5</sup>)<br>Then subtract 273 to convert the answer back to °C.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">13</span><strong>A weather balloon contains 4.5 mol of helium at a pressure of 1.0 &times; 10<sup>5</sup> Pa and a temperature of 293 K. Calculate the volume of the balloon.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q13')">Show answer</button>
+        <div class="answer-panel" id="q13">PV = nRT<br>V = nRT / P = (4.5 &times; 8.31 &times; 293) / (1.0 &times; 10<sup>5</sup>)</div>
+      </div>
+      <div class="question">
+        <span class="qnum">14</span><strong>Explain why PV = nRT can be written as PV = Nk<sub>B</sub>T, and state how k<sub>B</sub> and R are related.</strong>
+        <textarea class="answer-lines long" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q14')">Show answer</button>
+        <div class="answer-panel" id="q14">The amount of substance n is related to the number of particles N by n = N/N<sub>A</sub>. Substituting into PV = nRT gives PV = (N/N<sub>A</sub>)RT = N(R/N<sub>A</sub>)T. Defining k<sub>B</sub> = R/N<sub>A</sub> gives PV = Nk<sub>B</sub>T. k<sub>B</sub> is simply R "per particle" rather than "per mole": k<sub>B</sub> = R/N<sub>A</sub> = 8.31 / (6.02 &times; 10<sup>23</sup>).</div>
+      </div>
+      <div class="question">
+        <span class="qnum">15</span><strong>A syringe contains gas at a pressure of 1.0 &times; 10<sup>5</sup> Pa and a volume of 60 cm³. The plunger is pushed in, at constant temperature, until the volume is 25 cm³. Calculate the new pressure of the gas.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q15')">Show answer</button>
+        <div class="answer-panel" id="q15">P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub><br>P<sub>2</sub> = P<sub>1</sub>V<sub>1</sub>/V<sub>2</sub> = (1.0 &times; 10<sup>5</sup> &times; 60) / 25</div>
+      </div>
+      <div class="question">
+        <span class="qnum">16</span><strong>Explain why the empirical gas laws only hold if temperature is measured in kelvin, and not in degrees Celsius.</strong>
+        <textarea class="answer-lines long" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q16')">Show answer</button>
+        <div class="answer-panel" id="q16">The gas laws state direct proportionalities, such as P &prop; T or V &prop; T — a direct proportion requires that doubling T doubles the other quantity, which is only true if T = 0 corresponds to the quantity itself being zero. The Celsius scale has an arbitrary zero (the freezing point of water), so P &prop; T(°C) is false: at 0 °C a gas certainly does not have zero pressure. The kelvin scale's zero, by contrast, is absolute zero — the temperature at which, in this model, particle motion (and so pressure) would fall to zero — so the proportionality only holds when T is measured in kelvin.</div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 4: INTERNAL ENERGY OF AN IDEAL GAS ================= -->
+    <section class="topic" id="s4">
+      <h2>4. Internal energy of an ideal gas</h2>
+      <p>The internal energy of a substance is the sum of the total random kinetic energy and total random potential energy of all its particles. For an ideal gas this simplifies dramatically: because the model assumes there are no forces between particles (Section 2), an ideal gas has no potential energy at all. Its internal energy is purely the total random <em>translational</em> kinetic energy of its particles.</p>
+
+      <h3>Deriving the internal energy equation</h3>
+      <p>Sections 2 and 3 give us two independent expressions for the quantity PV. Setting them equal to each other lets us find the average kinetic energy of a single gas particle — and from there, the total internal energy of the gas.</p>
+      <p>From Section 2, multiplying P = &#8531;&rho;&#10216;v&sup2;&#10217; by V, and using &rho;V = Nm:</p>
+      <div class="eqn">PV = &#8531;Nm&#10216;v&sup2;&#10217;</div>
+      <p>From Section 3, the ideal gas law:</p>
+      <div class="eqn">PV = Nk<sub>B</sub>T</div>
+      <p>Setting these two expressions for PV equal to each other, and cancelling N from both sides:</p>
+      <div class="eqn">k<sub>B</sub>T = &#8531;m&#10216;v&sup2;&#10217;</div>
+      <p>Multiplying both sides by 3/2 (i.e. rearranging to isolate &#8531;m&#10216;v&sup2;&#10217;, the average translational kinetic energy of one particle):</p>
+      <div class="eqn">average translational KE of one particle = &#8531;m&#10216;v&sup2;&#10217; = 3/2 k<sub>B</sub>T</div>
+      <p>A gas of N particles therefore has total internal energy N times this amount:</p>
+      <div class="eqn">U = N &times; 3/2 k<sub>B</sub>T = 3/2 Nk<sub>B</sub>T</div>
+      <div class="keybox"><strong>Key idea.</strong> The internal energy, U, of an ideal monatomic gas is related to the number of molecules (or amount of substance) by:</div>
+      <div class="eqn">U = 3/2 Nk<sub>B</sub>T = 3/2 nRT</div>
+      <p>(using Nk<sub>B</sub> = N(R/N<sub>A</sub>) = (N/N<sub>A</sub>)R = nR). So, on average, each particle in an ideal gas has translational kinetic energy 3/2 k<sub>B</sub>T — and N particles together have total internal energy 3/2 Nk<sub>B</sub>T.</p>
+
+      <div class="keybox"><strong>Key idea.</strong> Because it has no potential energy, the internal energy of an ideal gas depends <em>only</em> on its temperature — not on its pressure or volume individually. Two samples of the same ideal gas at the same temperature have the same internal energy, however different their pressure and volume happen to be.</div>
+
+      <div class="stretch-box">
+        <span class="tag">Worth knowing</span>
+        <strong>Monatomic vs molecular gases.</strong> U = 3/2 Nk<sub>B</sub>T applies to a <em>monatomic</em> ideal gas (single atoms, such as helium or argon), whose particles can only have translational kinetic energy. Most real gases are molecular (O&#8322;, N&#8322;, CO&#8322;...), and their molecules can also rotate and vibrate, storing extra internal energy in those motions. This makes their internal energy larger, for the same n and T, than the monatomic formula predicts — but the monatomic case is the one this course focuses on, since it is the simplest to calculate exactly.
+      </div>
+
+      <div class="example">
+        <span class="tag">Worked example 4.1</span>
+        <p>Calculate the internal energy of 2.0 mol of a monatomic ideal gas at a temperature of 310 K.</p>
+        <p><strong>Answer:</strong><br>
+        U = 3/2 nRT = 1.5 &times; 2.0 &times; 8.31 &times; 310</p>
+      </div>
+
+      <div class="example">
+        <span class="tag">Worked example 4.2</span>
+        <p>The temperature of 0.40 mol of a monatomic ideal gas increases from 288 K to 320 K. Calculate the change in internal energy of the gas.</p>
+        <p><strong>Answer:</strong><br>
+        &Delta;U = 3/2 nR&Delta;T = 1.5 &times; 0.40 &times; 8.31 &times; (320 &minus; 288)</p>
+      </div>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">17</span><strong>Calculate the total internal energy of 1.0 mol of a monatomic ideal gas at 0 °C.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q17')">Show answer</button>
+        <div class="answer-panel" id="q17">U = 3/2 nRT = 1.5 &times; 1.0 &times; 8.31 &times; 273</div>
+      </div>
+      <div class="question">
+        <span class="qnum">18</span><strong>Explain why the internal energy of an ideal gas depends only on its temperature, and not on its pressure or volume individually.</strong>
+        <textarea class="answer-lines long" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q18')">Show answer</button>
+        <div class="answer-panel" id="q18">An ideal gas has no potential energy, because the model assumes there are no forces between its particles. So its internal energy is entirely kinetic. The average translational kinetic energy of a particle, 3/2 k<sub>B</sub>T, is set only by the temperature — it doesn't matter what volume the gas occupies or what pressure it happens to be at. So for a fixed N (or n), U = 3/2 Nk<sub>B</sub>T depends only on T.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">19</span><strong>A sample of 2.5 &times; 10<sup>24</sup> atoms of a monatomic ideal gas has a total internal energy of 5200 J. Calculate the temperature of the gas.</strong>
+        <textarea class="answer-lines long" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q19')">Show answer</button>
+        <div class="answer-panel" id="q19">U = 3/2 Nk<sub>B</sub>T<br>T = 2U / (3Nk<sub>B</sub>) = (2 &times; 5200) / (3 &times; 2.5 &times; 10<sup>24</sup> &times; 1.38 &times; 10<sup>&minus;23</sup>)</div>
+      </div>
+      <div class="question">
+        <span class="qnum">20</span><strong>0.80 mol of a monatomic ideal gas is cooled from 400 K to 250 K. Calculate the change in internal energy of the gas, and state whether internal energy was transferred into or out of the gas.</strong>
+        <textarea class="answer-lines long" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q20')">Show answer</button>
+        <div class="answer-panel" id="q20">&Delta;U = 3/2 nR&Delta;T = 1.5 &times; 0.80 &times; 8.31 &times; (250 &minus; 400)<br>Since &Delta;T is negative, &Delta;U is negative — the internal energy decreased, so energy was transferred out of the gas.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">21</span><strong>Starting from P = &#8531;&rho;&#10216;v&sup2;&#10217; and PV = Nk<sub>B</sub>T, show that the average translational kinetic energy of a single gas particle is 3/2 k<sub>B</sub>T.</strong>
+        <textarea class="answer-lines long" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q21')">Show answer</button>
+        <div class="answer-panel" id="q21">Multiplying P = &#8531;&rho;&#10216;v&sup2;&#10217; by V, and using &rho;V = Nm, gives PV = &#8531;Nm&#10216;v&sup2;&#10217;. Since also PV = Nk<sub>B</sub>T, these are equal: Nk<sub>B</sub>T = &#8531;Nm&#10216;v&sup2;&#10217;. Cancelling N and rearranging: k<sub>B</sub>T = &#8531;m&#10216;v&sup2;&#10217;, so multiplying both sides by 3/2 gives &#8531;m&#10216;v&sup2;&#10217; = 3/2 k<sub>B</sub>T. Since &#8531;m&#10216;v&sup2;&#10217; is the average translational kinetic energy of one particle, this is exactly 3/2 k<sub>B</sub>T.</div>
+      </div>
+    </section>
+
+    <section class="topic" id="sG">
+      <h2>Glossary</h2>
+      <dl class="glossary">
+        <dt>Pressure, P</dt><dd>Force acting perpendicular to a surface, per unit area: P = F/A. SI unit: pascal, Pa.</dd>
+        <dt>Amount of substance, n</dt><dd>A measure of the number of particles in a sample, in moles: n = N/N<sub>A</sub>.</dd>
+        <dt>Avogadro constant, N<sub>A</sub></dt><dd>The number of particles in one mole of a substance: N<sub>A</sub> = 6.02 &times; 10<sup>23</sup> mol<sup>&minus;1</sup>.</dd>
+        <dt>Ideal gas</dt><dd>A theoretical model of a gas whose particles have negligible volume, exert no forces on each other except during perfectly elastic collisions, and obey PV = nRT exactly.</dd>
+        <dt>Density, &rho;</dt><dd>Mass per unit volume of a gas sample; for N particles each of mass m in volume V, &rho; = Nm/V.</dd>
+        <dt>Mean square speed, &#10216;v&sup2;&#10217;</dt><dd>The average value of (particle speed)&sup2; across all particles in a gas. Its square root is the root-mean-square (rms) speed, v<sub>rms</sub>.</dd>
+        <dt>Universal (molar) gas constant, R</dt><dd>The constant in PV = nRT; R = 8.31 J K<sup>&minus;1</sup> mol<sup>&minus;1</sup>.</dd>
+        <dt>Boltzmann constant, k<sub>B</sub></dt><dd>The "per particle" version of the gas constant, k<sub>B</sub> = R/N<sub>A</sub> = 1.38 &times; 10<sup>&minus;23</sup> J K<sup>&minus;1</sup>.</dd>
+        <dt>Internal energy, U</dt><dd>The total random kinetic and potential energy of all the particles in a system. For an ideal monatomic gas, U = 3/2 Nk<sub>B</sub>T = 3/2 nRT.</dd>
+      </dl>
+    </section>
+
+    <footer class="page no-print">Modelling a Gas Workbook (SL) · Part of the Thermal Physics workbook set.</footer>
+  </main>
+</div>
+
+<script>
+/* ---------- text answer toggles ---------- */
+function toggleAnswer(id){ document.getElementById(id).classList.toggle('shown'); }
+function revealAll(){
+  document.querySelectorAll('.answer-panel').forEach(function(el){ el.classList.add('shown'); });
+  document.body.classList.add('answers-visible');
+}
+function hideAll(){
+  document.querySelectorAll('.answer-panel').forEach(function(el){ el.classList.remove('shown'); });
+  document.body.classList.remove('answers-visible');
+}
+
+/* ---------- fill in online: autosize ---------- */
+let fillableEls = [];
+
+function autosize(el){
+  if(el.tagName !== 'TEXTAREA') return;
+  el.style.height = 'auto';
+  el.style.height = Math.max(el.scrollHeight, el.offsetHeight) + 'px';
+}
+
+function initFillables(){
+  fillableEls = Array.prototype.slice.call(document.querySelectorAll('.answer-lines, .name-box .fill'));
+  fillableEls.forEach(function(el){
+    autosize(el);
+    el.addEventListener('input', function(){ autosize(el); });
+  });
+}
+
+function clearMyAnswers(){
+  if(!confirm('Clear everything you have typed in this workbook? This cannot be undone.')) return;
+  fillableEls.forEach(function(el){
+    el.value = '';
+    autosize(el);
+  });
+}
+
+window.addEventListener('beforeprint', function(){
+  fillableEls.forEach(autosize);
+});
+
+document.addEventListener('DOMContentLoaded', initFillables);
+
+/* ================= Fig 2.3 sim: bouncing particle (collisions -> pressure) ================= */
+(function(){
+  const canvas = document.getElementById('bounceCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const vxSlider = document.getElementById('bounceVxSlider');
+  const lSlider = document.getElementById('bounceLSlider');
+  const vxVal = document.getElementById('bounceVxVal');
+  const lVal = document.getElementById('bounceLVal');
+  const readout = document.getElementById('bounceReadout');
+  const m = 5.0e-26; /* kg, roughly the mass of a small gas molecule */
+
+  const boxLeft = 40, boxRight = 420, boxY = 60, boxH = 140;
+  let posFrac = 0.5;
+  let dir = 1;
+  let lastT = null;
+
+  function frame(t){
+    if(lastT === null) lastT = t;
+    const dt = Math.min((t - lastT) / 1000, 0.05);
+    lastT = t;
+
+    const vx = parseFloat(vxSlider.value);
+    const l = parseFloat(lSlider.value);
+    vxVal.textContent = vx.toFixed(0);
+    lVal.textContent = l.toFixed(2);
+
+    const boxW = boxRight - boxLeft;
+    const pxSpeed = 0.55 * vx; /* px/s, scaled for a clear, comfortable animation */
+    posFrac += dir * (pxSpeed * dt) / boxW;
+    if(posFrac >= 1){ posFrac = 1; dir = -1; }
+    if(posFrac <= 0){ posFrac = 0; dir = 1; }
+
+    const dtCollision = 2 * l / vx;
+    const F = m * vx * vx / l;
+    const A = l * l;
+    const P1 = F / A;
+
+    ctx.fillStyle = '#0f1f30';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.strokeStyle = '#5fd0e0';
+    ctx.lineWidth = 2.5;
+    ctx.strokeRect(boxLeft, boxY, boxW, boxH);
+
+    const px = boxLeft + posFrac * boxW;
+    const py = boxY + boxH / 2;
+    ctx.fillStyle = '#d98324';
+    ctx.beginPath(); ctx.arc(px, py, 7, 0, 2 * Math.PI); ctx.fill();
+
+    const arrowLen = 26 * dir;
+    ctx.strokeStyle = '#dceaf0';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px + arrowLen, py); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(px + arrowLen, py);
+    ctx.lineTo(px + arrowLen - 7 * dir, py - 4);
+    ctx.lineTo(px + arrowLen - 7 * dir, py + 4);
+    ctx.closePath(); ctx.fillStyle = '#dceaf0'; ctx.fill();
+    ctx.font = '11px sans-serif'; ctx.textAlign = 'center'; ctx.fillStyle = '#dceaf0';
+    ctx.fillText('vx', px + arrowLen * 1.6, py - 10);
+
+    ctx.strokeStyle = 'rgba(220,234,240,0.5)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(boxLeft, boxY + boxH + 14); ctx.lineTo(boxRight, boxY + boxH + 14); ctx.stroke();
+    ctx.fillStyle = '#9fb4c2'; ctx.font = '11px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('box length, l = ' + l.toFixed(2) + ' m', (boxLeft + boxRight) / 2, boxY + boxH + 32);
+
+    readout.innerHTML =
+      'Time between collisions with one wall, &Delta;t = 2l/v<sub>x</sub> = ' + (dtCollision * 1000).toFixed(2) + ' ms<br>' +
+      'Force on that wall from this one particle, F = mv<sub>x</sub>&sup2;/l &asymp; ' + F.toExponential(2) + ' N<br>' +
+      'Pressure from this one particle alone, P<sub>1</sub> = F/A &asymp; ' + P1.toExponential(2) + ' Pa';
+
+    requestAnimationFrame(frame);
+  }
+
+  vxSlider.addEventListener('input', function(){});
+  lSlider.addEventListener('input', function(){});
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
