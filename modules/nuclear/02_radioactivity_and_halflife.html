@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radioactivity &amp; Half-Life — Student Workbook</title>
+<style>
+  :root{
+    --navy:#173a5e; --teal:#0e7c86; --teal-dark:#0a5b62; --amber:#d98324;
+    --soft-blue:#eaf3fb; --soft-amber:#fdf1e2; --soft-green:#eaf7ee; --soft-grey:#f4f6f8;
+    --line:#b9c6d3; --ink:#1f2933; --border:#d7e0e8;
+    --purple:#6b4c9a; --soft-purple:#f1ebf9;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); background:#f7f9fb; line-height:1.55; font-size:16.5px; padding-top:56px;}
+  .layout{display:flex; min-height:calc(100vh - 56px);}
+  nav.sidebar{width:250px; flex-shrink:0; background:var(--navy); color:#fff; padding:1.25rem 1rem; position:sticky; top:56px; height:calc(100vh - 56px); overflow-y:auto;}
+  nav.sidebar h1{font-size:1.05rem; line-height:1.3; margin:0 0 1rem 0; color:#fff;}
+  nav.sidebar a{display:block; color:#cfe3ee; text-decoration:none; font-size:0.88rem; padding:0.4rem 0.5rem; border-radius:6px; margin-bottom:0.15rem;}
+  nav.sidebar a:hover{background:rgba(255,255,255,0.12); color:#fff;}
+  nav.sidebar .tag{display:inline-block; background:var(--amber); color:#fff; font-size:0.68rem; padding:0.1rem 0.4rem; border-radius:4px; margin-left:0.3rem; vertical-align:middle;}
+  main{flex:1; max-width:920px; margin:0 auto; padding:2rem 2.5rem 5rem 2.5rem;}
+  .cover{background:linear-gradient(135deg,var(--navy),var(--teal-dark)); color:#fff; border-radius:14px; padding:2.5rem 2.5rem; margin-bottom:2rem;}
+  .cover h1{margin:0 0 0.4rem 0; font-size:1.9rem;}
+  .cover p.sub{margin:0; font-size:1.05rem; color:#dceaf0;}
+  .cover .meta{margin-top:1.2rem; font-size:0.9rem; color:#cfe3ee;}
+  .name-box{margin-top:1.4rem; background:rgba(255,255,255,0.1); border:1px dashed rgba(255,255,255,0.5); border-radius:8px; padding:0.9rem 1.1rem;}
+  .name-box label{display:block; font-size:0.8rem; color:#dceaf0; margin-bottom:0.2rem;}
+  .name-box .fill{display:block; width:100%; border:none; border-bottom:1px solid #dceaf0; height:1.6rem; background:transparent; color:#fff; font-size:1rem; font-family:inherit; padding:0; outline:none;}
+  .name-box .fill::placeholder{color:rgba(255,255,255,0.5);}
+  .goals{background:rgba(255,255,255,0.12); border-left:4px solid #fff; border-radius:6px; padding:0.9rem 1.1rem; font-size:0.92rem; color:#fff;}
+  .goals ul{margin:0.4rem 0 0 0; padding-left:1.2rem;}
+
+  section.topic{background:#fff; border:1px solid var(--border); border-radius:12px; padding:1.8rem 2rem; margin-bottom:1.6rem;}
+  section.topic h2{color:var(--navy); font-size:1.4rem; margin-top:0; border-bottom:3px solid var(--amber); padding-bottom:0.4rem;}
+  section.topic h3{color:var(--teal-dark); font-size:1.08rem; margin-top:1.6rem;}
+
+  .keybox{background:var(--soft-blue); border:1px solid #c7ddef; border-radius:8px; padding:0.9rem 1.1rem; margin:0.9rem 0; font-size:0.98rem;}
+  .keybox strong{color:var(--navy);}
+  .eqn{background:#fff; border:1px solid #c7ddef; border-radius:6px; padding:0.6rem 1rem; margin:0.6rem 0; font-size:1.08rem; text-align:center; font-family:"Cambria Math",Cambria,Georgia,serif;}
+  .keyword{background:var(--soft-amber); border-left:4px solid var(--amber); border-radius:6px; padding:0.7rem 1rem; margin:0.9rem 0; font-size:0.92rem;}
+  .keyword b{color:var(--amber);}
+  .example{background:var(--soft-green); border:1px solid #bfe3cc; border-radius:8px; padding:0.9rem 1.1rem; margin:1rem 0;}
+  .example .tag{display:inline-block; background:#3f9a5c; color:#fff; font-size:0.72rem; font-weight:600; letter-spacing:0.03em; padding:0.15rem 0.5rem; border-radius:4px; margin-bottom:0.5rem; text-transform:uppercase;}
+  .stretch-box{background:var(--soft-purple); border:1px solid #d9c9ec; border-radius:8px; padding:0.9rem 1.1rem; margin:1rem 0;}
+  .stretch-box .tag{display:inline-block; background:var(--purple); color:#fff; font-size:0.72rem; font-weight:600; letter-spacing:0.03em; padding:0.15rem 0.5rem; border-radius:4px; margin-bottom:0.5rem; text-transform:uppercase;}
+  .stretch-box strong{color:var(--purple);}
+
+  .question{background:var(--soft-grey); border:1px solid var(--border); border-radius:8px; padding:1rem 1.2rem; margin:1.1rem 0;}
+  .question .qnum{display:inline-block; background:var(--navy); color:#fff; font-weight:700; font-size:0.82rem; width:1.9rem; height:1.9rem; line-height:1.9rem; text-align:center; border-radius:50%; margin-right:0.5rem;}
+  .answer-lines{
+    display:block; width:100%; box-sizing:border-box;
+    background-image:repeating-linear-gradient(to bottom, transparent, transparent 1.65em, var(--line) 1.7em);
+    background-color:transparent;
+    min-height:5.1em; margin:0.6rem 0 0.2rem 0;
+    border:1px solid transparent; border-radius:6px;
+    outline:none; resize:none; overflow:hidden;
+    font:inherit; color:inherit; line-height:1.7em;
+    padding:0.05em 0.4em 0 0.2em;
+  }
+  .answer-lines:focus{
+    border:1px solid var(--teal); background-color:#fbfdff;
+    box-shadow:0 0 0 3px rgba(14,124,134,0.12);
+  }
+  .answer-lines::placeholder{color:#9aa8b4; font-style:italic;}
+  .answer-lines.short{min-height:1.7em;}
+  .answer-lines.long{min-height:8.5em;}
+  .reveal-btn{background:var(--teal); color:#fff; border:none; border-radius:6px; padding:0.35rem 0.8rem; font-size:0.82rem; cursor:pointer; margin-top:0.5rem;}
+  .reveal-btn:hover{background:var(--teal-dark);}
+  .answer-panel{display:none; background:#fff; border:1px dashed #3f9a5c; border-radius:6px; padding:0.7rem 1rem; margin-top:0.6rem; font-size:0.92rem;}
+  .answer-panel.shown{display:block;}
+
+  figure{margin:1.2rem auto; text-align:center; max-width:560px;}
+  figure.wide{max-width:none;}
+  figure svg{max-width:100%; height:auto; max-height:320px;}
+  figcaption{font-size:0.85rem; color:#5b6b78; margin-top:0.4rem;}
+
+  table.eqtable{width:100%; border-collapse:collapse; font-size:0.92rem; margin-top:0.7rem;}
+  table.eqtable th, table.eqtable td{border:1px solid var(--border); padding:0.5rem 0.7rem; text-align:left;}
+  table.eqtable th{background:var(--soft-blue); color:var(--navy);}
+
+  dl.glossary dt{font-weight:700; color:var(--navy); margin-top:0.7rem;}
+  dl.glossary dd{margin-left:0; margin-bottom:0.2rem;}
+
+  .topbar{
+    position:fixed; top:0; left:0; right:0; height:56px; z-index:200;
+    background:#fff; border-bottom:1px solid var(--border); box-shadow:0 2px 8px rgba(0,0,0,0.06);
+    display:flex; align-items:center; gap:0.6rem; padding:0 1.4rem; overflow-x:auto;
+  }
+  .topbar .topbar-title{font-weight:700; color:var(--navy); font-size:0.92rem; margin-right:auto; white-space:nowrap;}
+  .topbar button{background:#fff; color:var(--navy); border:1px solid var(--border); border-radius:50px; padding:0.5rem 1rem; font-size:0.82rem; cursor:pointer; white-space:nowrap; flex-shrink:0;}
+  .topbar button:hover{background:var(--soft-blue);}
+  .topbar button.primary{background:var(--amber); color:#fff; border-color:var(--amber); font-weight:600;}
+  .topbar button.primary:hover{background:#c0721c;}
+  .topbar .save-status{font-size:0.72rem; color:#5b6b78; white-space:nowrap; flex-shrink:0;}
+  @media (max-width: 820px){ .topbar .save-status{display:none;} }
+  @media (max-width: 620px){ .topbar .topbar-title{display:none;} }
+  footer.page{font-size:0.8rem; color:#7c8b98; text-align:center; margin-top:2rem;}
+
+  /* ---------- simulation embed conventions ---------- */
+  .sim-embed{background:#fff; border:1px solid var(--border); border-radius:10px; padding:1rem 1.2rem; margin:1rem 0;}
+  .sim-embed p.instructions{margin:0 0 0.6rem 0; font-size:0.92rem; color:#3a4753;}
+  .sim-frame{width:100%; border:none; display:block; border-radius:8px; height:520px;}
+  .sim-embed-credit{text-align:center; font-size:0.82rem; color:#7c8b98; margin-top:0.6rem;}
+  .sim-print-note{display:none;}
+
+  .sim-launch{
+    background:linear-gradient(135deg,var(--soft-blue),#fff); border:1px solid #c7ddef; border-radius:10px;
+    padding:1.2rem 1.4rem; margin:1.1rem 0; text-align:center;
+  }
+  .sim-launch a.launch-btn{
+    display:inline-block; background:var(--teal); color:#fff; text-decoration:none; font-weight:700;
+    padding:0.65rem 1.4rem; border-radius:8px; margin-top:0.6rem; font-size:0.98rem;
+  }
+  .sim-launch a.launch-btn:hover{background:var(--teal-dark);}
+  .sim-launch p.credit{font-size:0.8rem; color:#5b6b78; margin-top:0.7rem;}
+
+  /* custom-canvas sim layout (wide figure: canvas + controls side by side) */
+  .sim-wrap{display:flex; gap:1.4rem; align-items:flex-start; flex-wrap:wrap; background:#0f1f30; border-radius:10px; padding:1.1rem; }
+  .sim-canvas-box{flex:0 0 auto;}
+  .sim-canvas-box canvas{display:block; border-radius:8px; background:#0f1f30;}
+  .sim-controls{flex:1 1 220px; min-width:220px; color:#dceaf0; font-size:0.9rem;}
+  .sim-controls h4{margin:0 0 0.6rem 0; color:#fff; font-size:0.95rem;}
+  .sim-row{margin-bottom:0.9rem;}
+  .sim-row label{display:block; margin-bottom:0.3rem;}
+  .sim-row input[type="range"]{width:100%;}
+  .sim-readout{background:rgba(255,255,255,0.08); border-radius:6px; padding:0.6rem 0.8rem; font-size:0.86rem; line-height:1.6;}
+  .sim-btns{margin-top:0.8rem; display:flex; gap:0.5rem; flex-wrap:wrap;}
+  .sim-btns button{background:var(--teal); color:#fff; border:none; border-radius:6px; padding:0.4rem 0.9rem; font-size:0.82rem; cursor:pointer;}
+  .sim-btns button:hover{background:var(--teal-dark);}
+  .sim-btns button.alt{background:transparent; border:1px solid rgba(255,255,255,0.4); color:#dceaf0;}
+  .sim-btns button.alt:hover{background:rgba(255,255,255,0.1);}
+
+  @media print{
+    nav.sidebar, .topbar, .reveal-btn{display:none !important;}
+    .layout{display:block;}
+    main{max-width:100%; padding:0; margin:0;}
+    body{background:#fff; font-size:11.5pt; padding-top:0;}
+    section.topic{border:none; box-shadow:none; padding:0; margin:0 0 1.2rem 0; page-break-inside:avoid;}
+    .cover{page-break-after:always; border-radius:0;}
+    .answer-panel{display:none !important;}
+    body.answers-visible .answer-panel{display:block !important; border-style:solid;}
+    a{color:inherit; text-decoration:none;}
+    .page-break{page-break-before:always;}
+    .answer-lines{border-color:transparent !important; box-shadow:none !important; color:#000;}
+    .answer-lines::placeholder{color:transparent;}
+    .name-box .fill{color:#000; border-bottom-color:#5b6b78;}
+    .name-box .fill::placeholder{color:transparent;}
+    .sim-frame, .sim-embed-credit, .sim-embed p.instructions, .sim-wrap{display:none !important;}
+    .sim-print-note{display:block !important; text-align:center; font-size:0.85rem; color:#5b6b78; padding:0.9rem; border:1px dashed #b9c6d3; border-radius:8px; margin:0.6rem 0;}
+    .sim-launch{display:none !important;}
+  }
+</style>
+</head>
+<body>
+<div class="topbar no-print">
+  <span class="topbar-title">Radioactivity &amp; Half-Life (SL)</span>
+  <button onclick="revealAll()">Show all answers</button>
+  <button onclick="hideAll()">Hide all answers</button>
+  <button onclick="clearMyAnswers()">Clear my answers</button>
+  <span class="save-status">Answers are not saved automatically — print or copy your work before closing this tab</span>
+  <button class="primary" onclick="window.print()">🖨️ Print / Save as PDF</button>
+</div>
+<div class="layout">
+  <nav class="sidebar no-print">
+    <h1>Radioactivity &amp; Half-Life <span class="tag">SL</span></h1>
+    <a href="#cover">Cover &amp; goals</a>
+    <a href="#s1">1. What is radioactivity?</a>
+    <a href="#s2">2. The strong nuclear force</a>
+    <a href="#s3">3. Detecting radiation &amp; background</a>
+    <a href="#s4">4. Alpha, beta and gamma decay</a>
+    <a href="#s5">5. Penetrating power &amp; ionizing ability</a>
+    <a href="#s6">6. Randomness, activity &amp; half-life</a>
+    <a href="#sG">Glossary</a>
+  </nav>
+
+  <main>
+    <section class="cover" id="cover">
+      <h1>Radioactivity &amp; Half-Life (SL)</h1>
+      <p style="margin:0.9rem 0 0 0; max-width:640px; font-size:0.98rem; color:#dceaf0;">Some nuclei are unstable, and without any warning or external trigger, they spontaneously fall apart — a process called radioactive decay. This workbook asks what actually holds a nucleus together in the first place, what changes inside it when it decays, how the radiation it releases behaves as it travels through matter, and why the decay of any one nucleus is completely unpredictable even though the decay of billions of them together follows a precise mathematical pattern.</p>
+      <div class="goals" style="margin-top:1.3rem;">
+        <strong style="color:#fff;">By the end of this workbook you should be able to:</strong>
+        <ul>
+          <li>Describe the strong nuclear force as a short-range, attractive force acting between nucleons, and explain why it is needed to hold a nucleus together.</li>
+          <li>Describe the changes in the nucleus following alpha, beta-minus, beta-plus and gamma decay, and write balanced decay equations for each, including the neutrino and antineutrino.</li>
+          <li>Compare the penetrating power and ionizing ability of alpha particles, beta particles and gamma rays, and explain how background radiation affects count-rate measurements.</li>
+          <li>Explain the random and spontaneous nature of radioactive decay, and describe how activity and count rate change over successive, integer numbers of half-lives.</li>
+        </ul>
+      </div>
+      <div class="name-box">
+        <label>Name</label><input type="text" class="fill" id="studentName" autocomplete="name">
+      </div>
+    </section>
+
+    <!-- ================= SECTION 1 ================= -->
+    <section class="topic" id="s1">
+      <h2>1. What is radioactivity?</h2>
+      <p>The nucleus of an atom is normally left alone once it forms. But some nuclei are <strong>unstable</strong>: without any warning or external cause, they can spontaneously change, throwing out a particle and/or a high-energy photon. This process is called <strong>radioactivity</strong>, and when a nucleus does this we say it has <strong>decayed</strong> or <strong>transmuted</strong> — because emitting a charged particle changes the proton number, turning the atom into a different element (a different isotope of a different element) entirely.</p>
+
+      <div class="stretch-box">
+        <span class="tag">Historical note</span>
+        <p><strong>A history in three names.</strong> In 1896 Henri Becquerel noticed, almost by accident, that a uranium compound could blacken a photographic plate even in complete darkness — uranium was emitting some kind of energetic radiation on its own. Marie and Pierre Curie then discovered more radioactive elements, including polonium and radium, and physicists soon realised there were three distinct types of radiation coming from these materials. Having no idea what they actually were, they simply named them after the first three letters of the Greek alphabet: <strong>alpha (α)</strong>, <strong>beta (β)</strong> and <strong>gamma (γ)</strong> — names that have stuck ever since.</p>
+      </div>
+
+      <p>A few key terms are used throughout this topic:</p>
+      <ul>
+        <li><strong>Radioactive</strong> — describes a substance containing unstable nuclei that will emit radiation.</li>
+        <li><strong>Radioisotope</strong> / <strong>radionuclide</strong> — an isotope or nuclide with an unstable nucleus.</li>
+        <li><strong>Transmutation</strong> — when a nuclide changes into a different element by emitting a particle.</li>
+        <li><strong>Daughter product</strong> — the new nuclide left behind after a "parent" radionuclide emits a particle.</li>
+      </ul>
+
+      <div class="keybox"><strong>Example:</strong> A nucleus of <sup>235</sup><sub>92</sub>U is unstable. At some unpredictable moment it emits an alpha particle (<sup>4</sup><sub>2</sub>He), transmuting into <sup>231</sup><sub>90</sub>Th — the daughter product, a different isotope of a different element. Note that "isotope" and "nuclide" are used almost interchangeably here; "nuclide" just emphasises that we're talking about the nucleus itself.</div>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">1</span><strong>Explain, in your own words, the difference between "radioactive decay" and ordinary chemical or biological decay.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q1')">Show answer</button>
+        <div class="answer-panel" id="q1">This is descriptive — check your wording against Section 1 and with your teacher. A good answer should mention that radioactive decay happens inside the nucleus, is random and spontaneous (no external trigger, unlike rotting or rusting), and typically transmutes the atom into a different element.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">2</span><strong>A nucleus of thorium-232 decays by emitting an alpha particle.</strong> Name the daughter product's element if the resulting proton number is 88, and state whether the daughter is a different isotope of thorium or a different element entirely. (You are not expected to memorise element names from proton numbers — look this one up.)
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q2')">Show answer</button>
+        <div class="answer-panel" id="q2">Radium (Z = 88) — a different element entirely, not just a different isotope of thorium, because the proton number has changed.</div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 2 ================= -->
+    <section class="topic" id="s2">
+      <h2>2. The strong nuclear force</h2>
+      <p>A nucleus containing more than one proton has an obvious problem: like charges repel, so every proton packed inside it should push every other proton away with a large electrostatic (Coulomb) force. Since nuclei plainly do not fly apart, some other force — stronger than electrostatic repulsion at nuclear distances — must be holding them together.</p>
+
+      <div class="keybox"><strong>Key idea.</strong> The <strong>strong nuclear force</strong> is a short-range, attractive force that acts between any two nucleons — proton–proton, proton–neutron or neutron–neutron alike — regardless of charge. At the tiny separations found inside a nucleus (a few femtometres), it is far stronger than the electrostatic repulsion between protons, so it dominates and binds the nucleus together.</div>
+
+      <div class="keyword"><b>Femtometre (fm):</b> 1 fm = 10⁻¹⁵ m — roughly the size of a nucleon, and the typical range of the strong nuclear force.</div>
+
+      <figure>
+        <svg viewBox="0 0 380 200" width="380" height="200" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#0e7c86" stroke-width="1.6" stroke-dasharray="3 2">
+            <line x1="140" y1="100" x2="168" y2="100"/>
+            <line x1="140" y1="100" x2="154" y2="124"/>
+            <line x1="140" y1="100" x2="126" y2="124"/>
+            <line x1="140" y1="100" x2="112" y2="100"/>
+            <line x1="140" y1="100" x2="126" y2="76"/>
+            <line x1="140" y1="100" x2="154" y2="76"/>
+            <line x1="168" y1="100" x2="154" y2="124"/>
+            <line x1="154" y1="124" x2="126" y2="124"/>
+            <line x1="126" y1="124" x2="112" y2="100"/>
+            <line x1="112" y1="100" x2="126" y2="76"/>
+            <line x1="126" y1="76" x2="154" y2="76"/>
+            <line x1="154" y1="76" x2="168" y2="100"/>
+          </g>
+          <circle cx="140" cy="100" r="13" fill="#d98324"/>
+          <circle cx="168" cy="100" r="13" fill="#7c8b98"/>
+          <circle cx="154" cy="124" r="13" fill="#d98324"/>
+          <circle cx="126" cy="124" r="13" fill="#7c8b98"/>
+          <circle cx="112" cy="100" r="13" fill="#d98324"/>
+          <circle cx="126" cy="76" r="13" fill="#7c8b98"/>
+          <circle cx="154" cy="76" r="13" fill="#d98324"/>
+          <text x="140" y="150" text-anchor="middle" font-size="11" fill="#0e7c86" font-weight="bold">strong force (short-range)</text>
+          <defs><marker id="cArrow" viewBox="0 0 10 10" markerWidth="7" markerHeight="7" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#a33d5b"/></marker></defs>
+          <line x1="168" y1="100" x2="345" y2="100" stroke="#a33d5b" stroke-width="2" marker-end="url(#cArrow)"/>
+          <text x="345" y="88" text-anchor="end" font-size="11" fill="#a33d5b" font-weight="bold">Coulomb repulsion (long-range)</text>
+        </svg>
+        <figcaption>Fig. 2.1 The strong nuclear force (teal) acts only between neighbouring nucleons, whatever their charge. The electrostatic (Coulomb) repulsion between protons (red) has a much longer range and is still felt across, and far beyond, the whole nucleus.</figcaption>
+      </figure>
+
+      <p>Because the strong force has such a short range, each nucleon really only interacts with its nearest neighbours, no matter how large the nucleus is. Coulomb repulsion, however, has a much longer range: every proton repels <em>every other</em> proton in the nucleus, not just the ones next to it. In small nuclei this is not a problem, but as more protons are packed in, the total repulsion grows faster than the short-range strong-force binding can keep up with — a major reason why very large nuclei tend to be unstable, and part of why radioactive decay happens at all.</p>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">3</span><strong>Explain why a nucleus containing several protons does not simply fly apart due to electrostatic repulsion.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q3')">Show answer</button>
+        <div class="answer-panel" id="q3">The strong nuclear force acts between all nucleons and, at the very short separations inside a nucleus, is stronger than the electrostatic repulsion between protons, so it holds the nucleus together despite that repulsion.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">4</span><strong>Suggest why very large nuclei (with many protons) tend to be less stable than small or medium-sized nuclei.</strong>
+        <textarea class="answer-lines long" rows="6" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q4')">Show answer</button>
+        <div class="answer-panel" id="q4">The strong force is short-range, so each nucleon is only attracted to its nearest neighbours, and total binding grows roughly in proportion to the number of nucleons. Coulomb repulsion is long-range, so every proton repels every other proton, and the total repulsive effect grows faster as more protons are added. In very large nuclei, this long-range repulsion increasingly outweighs the short-range binding, making the nucleus less stable.</div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 3 ================= -->
+    <section class="topic" id="s3">
+      <h2>3. Detecting radiation &amp; background radiation</h2>
+      <p>A typical school setup for investigating radioactivity uses a small sealed <strong>source</strong>, a <strong>Geiger–Müller (GM) tube</strong>, and a <strong>ratemeter</strong> (or counter). Radiation entering the GM tube ionises the gas inside it, producing a tiny burst of current for every particle or photon detected. The ratemeter counts these bursts and displays a <strong>count rate</strong> — typically in counts per second or per minute.</p>
+
+      <figure>
+        <svg viewBox="0 0 480 160" width="480" height="160" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="gmArrow" viewBox="0 0 10 10" markerWidth="7" markerHeight="7" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#4a5568"/></marker></defs>
+          <circle cx="55" cy="80" r="26" fill="#f4dde5" stroke="#a33d5b" stroke-width="2"/>
+          <text x="55" y="84" text-anchor="middle" font-size="11" fill="#a33d5b" font-weight="bold">source</text>
+          <line x1="85" y1="80" x2="150" y2="80" stroke="#4a5568" stroke-width="1.6" stroke-dasharray="3 3" marker-end="url(#gmArrow)"/>
+          <text x="115" y="72" text-anchor="middle" font-size="10" fill="#4a5568">radiation</text>
+          <rect x="155" y="55" width="70" height="50" rx="6" fill="#eef1f8" stroke="#22305a" stroke-width="2"/>
+          <text x="190" y="76" text-anchor="middle" font-size="10.5" fill="#22305a" font-weight="bold">GM</text>
+          <text x="190" y="90" text-anchor="middle" font-size="10.5" fill="#22305a" font-weight="bold">tube</text>
+          <line x1="225" y1="80" x2="290" y2="80" stroke="#4a5568" stroke-width="1.6" marker-end="url(#gmArrow)"/>
+          <rect x="295" y="45" width="120" height="70" rx="8" fill="#dcf0ec" stroke="#1f7a6c" stroke-width="2"/>
+          <text x="355" y="72" text-anchor="middle" font-size="10.5" fill="#1f7a6c" font-weight="bold">ratemeter</text>
+          <text x="355" y="94" text-anchor="middle" font-size="15" fill="#1f7a6c" font-weight="bold" font-family="monospace">24 s⁻¹</text>
+        </svg>
+        <figcaption>Fig. 3.1 Basic components of a radioactivity experiment: source, GM tube, and ratemeter.</figcaption>
+      </figure>
+
+      <div class="keybox"><strong>Why bigger counts are more reliable.</strong> Because decay is random, repeating a count will not give exactly the same result each time. A small average count (say, 9) might genuinely vary between about 6 and 12 from one trial to the next — a single reading could easily be misleading. A large average count (say, 900) varies by a much smaller <em>fraction</em> of its own size, so large count rates give far more reliable data.</div>
+
+      <p>Almost everything around us — rocks, soil, building materials, even our own bodies — contains tiny amounts of naturally radioactive material, and cosmic rays add to the total. This is <strong>background radiation</strong>, and a GM tube will register a small <strong>background count</strong> even with no obvious source nearby (typically 0.25–0.5 s⁻¹ in a school lab). Whenever background radiation is significant compared to the count being measured, it must be subtracted from every reading to find the count rate due to the source alone.</p>
+
+      <div class="example">
+        <span class="tag">Worked example 3.1</span>
+        <p>A count of 42 was recorded from a source over one minute. The background count rate at that location was 0.44 s⁻¹. Determine the count rate from the source alone, adjusted for background.</p>
+        <p><strong>Answer:</strong><br>
+        Background count in that minute = 0.44 × 60 = 26.4<br>
+        Adjusted count from source = 42 − 26.4 = <strong>16 min⁻¹</strong></p>
+      </div>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">5</span><strong>Give two reasons why it is preferable to work with larger count rates in a radioactivity experiment.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q5')">Show answer</button>
+        <div class="answer-panel" id="q5">This is descriptive — see the key-box "Why bigger counts are more reliable": larger counts vary by a smaller fraction of their own size, and are less affected by a fixed background count.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">6</span><strong>In 15 minutes, a count of 5486 was measured with the GM tube directed at a source. The background count rate at that location was 18 per minute.</strong> Calculate the count rate, in counts per second, due to the source alone.
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q6')">Show answer</button>
+        <div class="answer-panel" id="q6">Background count in 15 min = 18 × 15 = 270. Adjusted count = 5486 − 270 = 5216 in 15 min ... (divide by 15 × 60 s to complete the calculation, in s⁻¹).</div>
+      </div>
+      <div class="question">
+        <span class="qnum">7</span><strong>At a location with a background count of 22 min⁻¹, two separate measurements gave count rates of 50 min⁻¹ and 5000 min⁻¹.</strong> Compare how significant the background count is in each case.
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q7')">Show answer</button>
+        <div class="answer-panel" id="q7">For 50 min⁻¹, background (22) is nearly half the total — very significant; for 5000 min⁻¹, background is under 0.5% of the total — barely significant.</div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 4 ================= -->
+    <section class="topic" id="s4">
+      <h2>4. Alpha, beta and gamma decay</h2>
+      <p>Three kinds of radiation can be emitted from a decaying nucleus, and each corresponds to a different underlying change inside it.</p>
+
+      <div class="keybox">
+        <strong>Alpha (α) decay:</strong> An alpha particle is identical to a helium-4 nucleus: two protons and two neutrons bound tightly together, so it carries a nucleon number of 4 and a charge of +2. Emitting one removes 2 protons and 2 neutrons from the parent nucleus:
+        <div class="eqn"><sup>A</sup><sub>Z</sub>X &nbsp;→&nbsp; <sup>A−4</sup><sub>Z−2</sub>Y &nbsp;+&nbsp; <sup>4</sup><sub>2</sub>α</div>
+        For example: <sup>226</sup><sub>88</sub>Ra → <sup>222</sup><sub>86</sub>Rn + <sup>4</sup><sub>2</sub>α.
+      </div>
+
+      <div class="keybox">
+        <strong>Beta-minus (β⁻) decay:</strong> Inside an unstable nucleus, a neutron can convert into a proton, releasing a fast-moving electron (the beta-minus particle) and a new, almost undetectable particle called an <strong>antineutrino</strong>, <em>v̄</em>:
+        <div class="eqn"><sup>1</sup><sub>0</sub>n &nbsp;→&nbsp; <sup>1</sup><sub>1</sub>p &nbsp;+&nbsp; <sup>0</sup><sub>−1</sub>β⁻ &nbsp;+&nbsp; v̄</div>
+        The nucleon number is unchanged, but the proton number increases by one, forming a new element:
+        <div class="eqn"><sup>A</sup><sub>Z</sub>X &nbsp;→&nbsp; <sup>A</sup><sub>Z+1</sub>Y &nbsp;+&nbsp; <sup>0</sup><sub>−1</sub>β⁻ &nbsp;+&nbsp; v̄</div>
+        For example: <sup>90</sup><sub>38</sub>Sr → <sup>90</sup><sub>39</sub>Y + <sup>0</sup><sub>−1</sub>β⁻ + v̄.
+      </div>
+
+      <div class="keybox">
+        <strong>Beta-plus (β⁺) decay:</strong> In a similar process, a proton inside the nucleus can convert into a neutron, releasing a positively charged electron — a <strong>positron</strong>, the antiparticle of the electron — plus a <strong>neutrino</strong>, v:
+        <div class="eqn"><sup>1</sup><sub>1</sub>p &nbsp;→&nbsp; <sup>1</sup><sub>0</sub>n &nbsp;+&nbsp; <sup>0</sup><sub>+1</sub>β⁺ &nbsp;+&nbsp; v</div>
+        <div class="eqn"><sup>A</sup><sub>Z</sub>X &nbsp;→&nbsp; <sup>A</sup><sub>Z−1</sub>Y &nbsp;+&nbsp; <sup>0</sup><sub>+1</sub>β⁺ &nbsp;+&nbsp; v</div>
+        For example: <sup>23</sup><sub>12</sub>Mg → <sup>23</sup><sub>11</sub>Na + <sup>0</sup><sub>+1</sub>β⁺ + v.
+      </div>
+
+      <div class="keybox">
+        <strong>Gamma (γ) decay:</strong> After an alpha or beta decay, the daughter nucleus is often left with excess internal energy — an <strong>excited state</strong>, marked with an asterisk. It settles down by emitting a high-energy photon, a gamma ray, with no change to the nucleon number or proton number at all — no transmutation occurs:
+        <div class="eqn"><sup>234</sup><sub>90</sub>Th* &nbsp;→&nbsp; <sup>234</sup><sub>90</sub>Th &nbsp;+&nbsp; γ</div>
+      </div>
+
+      <div class="stretch-box">
+        <span class="tag">Historical note</span>
+        <p style="margin:0;"><strong>Antimatter isn't just in the movies.</strong> A positron is real antimatter — the film <em>Angels &amp; Demons</em> famously (and dramatically) got the physics roughly right: when a particle meets its antiparticle, both are annihilated and their mass is converted entirely into energy. For an electron–positron pair (each with rest mass 9.11 × 10⁻³¹ kg), E = mc² gives about 1.64 × 10⁻¹³ J released as two gamma-ray photons — which is why beta-plus decay is always accompanied, sooner or later, by annihilation radiation once the positron meets an ordinary electron.</p>
+      </div>
+
+      <div class="example">
+        <span class="tag">Worked example 4.1</span>
+        <p>Write the balanced nuclear equation for the beta-minus decay of carbon-14 (Z = 6) into nitrogen (Z = 7).</p>
+        <p><strong>Answer:</strong><br>
+        <sup>14</sup><sub>6</sub>C → <sup>14</sup><sub>7</sub>N + <sup>0</sup><sub>−1</sub>β⁻ + v̄<br>
+        Check: nucleon numbers 14 = 14 + 0 ✓. Proton numbers 6 = 7 + (−1) ✓.</p>
+      </div>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">8</span><strong>Write the balanced decay equation for the alpha decay of americium-241 (Z = 95) to neptunium (Z = 93).</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q8')">Show answer</button>
+        <div class="answer-panel" id="q8"><sup>241</sup><sub>95</sub>Am → <sup>237</sup><sub>93</sub>Np + <sup>4</sup><sub>2</sub>α.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">9</span><strong>Write the balanced decay equation for the beta-plus decay of sodium-22 (Z = 11) to neon (Z = 10).</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q9')">Show answer</button>
+        <div class="answer-panel" id="q9"><sup>22</sup><sub>11</sub>Na → <sup>22</sup><sub>10</sub>Ne + <sup>0</sup><sub>+1</sub>β⁺ + v.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">10</span><strong>Explain why gamma emission does not change which element a nuclide is.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q10')">Show answer</button>
+        <div class="answer-panel" id="q10">A gamma photon carries no charge and no nucleons, so emitting one changes neither Z nor A — the nuclide (and element) stays exactly the same, just in a lower energy state.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">11</span><strong>Neutrinos and antineutrinos are extremely difficult to detect.</strong> Suggest why, in terms of their charge and mass.
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q11')">Show answer</button>
+        <div class="answer-panel" id="q11">Neutrinos and antineutrinos have no charge (so they cannot ionise matter or be detected via ionisation) and extremely small mass, so they interact only very weakly with other matter and almost never collide with anything.</div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 5 ================= -->
+    <section class="topic" id="s5">
+      <h2>5. Penetrating power and ionizing ability</h2>
+      <p>As radiation passes through matter, it knocks electrons off atoms and molecules — <strong>ionization</strong>. The more strongly a type of radiation ionizes, the more quickly it loses its own energy, and so the less far it can travel: <strong>ionizing ability</strong> and <strong>penetrating power</strong> trade off against each other.</p>
+
+      <table class="eqtable">
+        <tr><th>Property</th><th>Alpha (α)</th><th>Beta-minus (β⁻)</th><th>Gamma (γ)</th></tr>
+        <tr><td>Relative charge</td><td>+2</td><td>−1</td><td>0</td></tr>
+        <tr><td>Relative mass</td><td>4</td><td>1/1840</td><td>0</td></tr>
+        <tr><td>Ionizing ability</td><td>very high</td><td>low</td><td>very low</td></tr>
+        <tr><td>Typical range in air</td><td>≈ 4 cm</td><td>≈ 30 cm</td><td>barely absorbed</td></tr>
+        <tr><td>Stopped by</td><td>a sheet of paper</td><td>≈ 3 mm of aluminium</td><td>intensity halved by ≈ 2 cm of lead</td></tr>
+      </table>
+
+      <figure>
+        <svg viewBox="0 0 600 190" width="600" height="190" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="pArrow" viewBox="0 0 10 10" markerWidth="6" markerHeight="6" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#4a5568"/></marker></defs>
+          <text x="20" y="18" font-size="11" fill="#a33d5b" font-weight="bold">α</text>
+          <line x1="35" y1="15" x2="95" y2="15" stroke="#a33d5b" stroke-width="2.4" marker-end="url(#pArrow)"/>
+          <rect x="100" y="4" width="6" height="24" fill="#4a5568"/>
+          <text x="112" y="18" font-size="9.5" fill="#4a5568">paper — fully absorbed</text>
+
+          <text x="20" y="78" font-size="11" fill="#1f7a6c" font-weight="bold">β⁻</text>
+          <line x1="35" y1="75" x2="180" y2="75" stroke="#1f7a6c" stroke-width="2.4" marker-end="url(#pArrow)"/>
+          <rect x="185" y="60" width="10" height="30" fill="#4a5568"/>
+          <text x="200" y="80" font-size="9.5" fill="#4a5568">3 mm aluminium — fully absorbed</text>
+
+          <text x="20" y="148" font-size="11" fill="#22305a" font-weight="bold">γ</text>
+          <line x1="35" y1="145" x2="340" y2="145" stroke="#22305a" stroke-width="2.4" stroke-dasharray="6 3" marker-end="url(#pArrow)"/>
+          <rect x="345" y="120" width="22" height="50" fill="#4a5568"/>
+          <line x1="372" y1="145" x2="410" y2="145" stroke="#22305a" stroke-width="1.4" stroke-dasharray="6 3" marker-end="url(#pArrow)"/>
+          <text x="345" y="182" font-size="9.5" fill="#4a5568">≈2 cm lead — intensity halved, not stopped</text>
+        </svg>
+        <figcaption>Fig. 5.1 Alpha particles are stopped by paper; beta particles need a few millimetres of aluminium; gamma rays are never fully absorbed, only progressively weakened by thick, dense shielding such as lead.</figcaption>
+      </figure>
+
+      <div class="keybox"><strong>Why alpha is the least penetrating despite carrying the most energy.</strong> Alpha particles are heavy and carry a +2 charge, so they interact very strongly with the electrons in the atoms they pass. As a result, they lose their (typically large) kinetic energy very quickly, causing intense ionization over a very short distance. Beta particles are much lighter and carry only a −1 or +1 charge, so they generally cause less ionization per unit distance and can travel much farther. Gamma rays are uncharged photons, so they interact only occasionally with matter. Most pass straight through without interacting, making them the most penetrating and comparatively difficult to detect.</div>
+
+      <p>Because alpha and beta particles are charged, a beam of either can be deflected by electric or magnetic fields (gamma rays, having no charge, cannot). Alpha particles are deflected far less than beta particles in the same field, because they are much more massive and slower.</p>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">12</span><strong>Explain why a source that only emits alpha radiation is considered low-risk outside the body, but a serious hazard if it gets inside the body (for example, by being inhaled or swallowed).</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q12')">Show answer</button>
+        <div class="answer-panel" id="q12">Outside the body, skin (or even a few cm of air) stops alpha particles before they reach living tissue; if inhaled or swallowed, they ionise very heavily over a very short range directly inside sensitive tissue, causing serious localised damage.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">13</span><strong>Explain why gamma-ray sources are considered dangerous even from outside the body, unlike alpha sources.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q13')">Show answer</button>
+        <div class="answer-panel" id="q13">Gamma rays penetrate deep into (or all the way through) the body from outside, so external gamma sources can still damage internal organs, unlike alpha sources which cannot get in through skin.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">14</span><strong>A beam containing alpha, beta and gamma radiation passes into a strong magnetic field directed into the page.</strong> Describe what happens to each of the three components as it passes through the field.
+        <textarea class="answer-lines long" rows="6" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q14')">Show answer</button>
+        <div class="answer-panel" id="q14">Alpha particles curve one way (they are positively charged) with a large radius of curvature (heavy, fast); beta particles curve the opposite way (negatively charged) with a smaller radius of curvature (light); gamma rays travel straight through, undeflected, since they carry no charge.</div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 6 ================= -->
+    <section class="topic" id="s6">
+      <h2>6. Randomness, activity and half-life</h2>
+      <p>Nobody can predict when any one particular unstable nucleus will decay — each decay is <strong>random</strong> (no pattern) and <strong>spontaneous</strong> (no external cause or trigger). Yet, put a huge number of identical unstable nuclei together, and their overall behaviour becomes remarkably predictable — in exactly the way that a single coin toss is unpredictable, but the fraction of heads from a million tosses is not.</p>
+
+      <div class="keybox"><strong>Activity.</strong> The <strong>activity</strong>, A, of a radioactive source is the number of nuclei decaying every second. Its SI unit is the <strong>becquerel</strong>, Bq, where 1 Bq = one decay per second. A GM tube's count rate is not the same thing as activity (the tube cannot detect every single decay), but count rate is usually assumed to be proportional to activity.</div>
+
+      <p>The activity of every radioactive source falls over time, because as nuclei decay, fewer undecayed nuclei remain to produce further decays. The pattern this follows is an <strong>exponential decrease</strong>: in equal time intervals, the number of undecayed nuclei (and hence the activity, and the count rate) always falls by the <em>same fraction</em> — conventionally one half.</p>
+
+      <figure>
+        <svg viewBox="0 0 420 230" width="420" height="230" xmlns="http://www.w3.org/2000/svg">
+          <line x1="45" y1="200" x2="400" y2="200" stroke="#4a5568" stroke-width="1.5"/>
+          <line x1="45" y1="200" x2="45" y2="15" stroke="#4a5568" stroke-width="1.5"/>
+          <text x="15" y="24" font-size="10" fill="#4a5568">N₀</text>
+          <text x="400" y="216" text-anchor="end" font-size="10" fill="#4a5568">time</text>
+          <path d="M45.0,20.0 L51.8,29.7 L58.6,38.9 L65.4,47.6 L72.2,55.8 L79.0,63.6 L85.8,70.9 L92.6,77.9 L99.4,84.5 L106.2,90.7 L113.0,96.6 L119.8,102.2 L126.6,107.5 L133.4,112.5 L140.2,117.2 L147.0,121.7 L153.8,125.9 L160.6,129.9 L167.4,133.7 L174.2,137.2 L181.0,140.6 L187.8,143.8 L194.6,146.9 L201.4,149.7 L208.2,152.4 L215.0,155.0 L221.8,157.4 L228.6,159.7 L235.4,161.9 L242.2,164.0 L249.0,165.9 L255.8,167.7 L262.6,169.5 L269.4,171.1 L276.2,172.7 L283.0,174.2 L289.8,175.5 L296.6,176.9 L303.4,178.1 L310.2,179.3 L317.0,180.4 L323.8,181.5 L330.6,182.5 L337.4,183.4 L344.2,184.3 L351.0,185.2 L357.8,186.0 L364.6,186.7 L371.4,187.4 L378.2,188.1 L385.0,188.8 L391.8,189.4 L398.6,189.9 L400.0,190.0" fill="none" stroke="#a33d5b" stroke-width="2.4"/>
+          <line x1="45" y1="110" x2="400" y2="110" stroke="#c9c2ab" stroke-width="1" stroke-dasharray="3 3"/>
+          <text x="15" y="114" font-size="10" fill="#4a5568">N₀/2</text>
+          <line x1="45" y1="155" x2="400" y2="155" stroke="#c9c2ab" stroke-width="1" stroke-dasharray="3 3"/>
+          <text x="12" y="159" font-size="10" fill="#4a5568">N₀/4</text>
+          <line x1="45" y1="178" x2="400" y2="178" stroke="#c9c2ab" stroke-width="1" stroke-dasharray="3 3"/>
+          <text x="12" y="182" font-size="10" fill="#4a5568">N₀/8</text>
+          <line x1="130" y1="200" x2="130" y2="15" stroke="#c9c2ab" stroke-width="1" stroke-dasharray="2 2"/>
+          <line x1="215" y1="200" x2="215" y2="15" stroke="#c9c2ab" stroke-width="1" stroke-dasharray="2 2"/>
+          <line x1="300" y1="200" x2="300" y2="15" stroke="#c9c2ab" stroke-width="1" stroke-dasharray="2 2"/>
+          <text x="130" y="216" text-anchor="middle" font-size="10" fill="#4a5568">T½</text>
+          <text x="215" y="216" text-anchor="middle" font-size="10" fill="#4a5568">2T½</text>
+          <text x="300" y="216" text-anchor="middle" font-size="10" fill="#4a5568">3T½</text>
+        </svg>
+        <figcaption>Fig. 6.1 A radioactive decay curve: the number of undecayed nuclei (or the activity, or the count rate) halves in every successive half-life, T½ — an exponential decrease that, in theory, never quite reaches zero.</figcaption>
+      </figure>
+
+      <div class="keybox"><strong>Half-life.</strong> The <strong>half-life</strong>, T½, of a radionuclide is the time taken for half of its undecayed nuclei to decay — equivalently, the time taken for its activity (or count rate) to halve. Half-lives range from tiny fractions of a second to billions of years, but the value is always fixed for a given nuclide — it never speeds up or slows down.</div>
+
+      <div class="example">
+        <span class="tag">Worked example 6.1</span>
+        <p>Radium-226 has a half-life of 1620 years. A 0.010 g source contains 30% radium-226 and no other radionuclide. Calculate the mass of radium-226 remaining after 3240 years.</p>
+        <p><strong>Answer:</strong><br>
+        3240 years = 2 half-lives, so the fraction remaining = (1/2)² = 1/4.<br>
+        Mass remaining = ¼ × 0.30 × 0.010 = <strong>7.5 × 10⁻⁴ g</strong></p>
+      </div>
+
+      <h3>Live simulation: watching random decay produce a smooth curve</h3>
+      <p>Every atom below starts undecayed. Each time you advance one half-life, every <em>still-undecayed</em> atom gets an independent 50% chance of decaying — exactly like a real radioactive sample, where nobody can predict which particular nucleus goes next. Watch how this random, atom-by-atom process still produces the same smooth halving curve as Fig. 6.1, step after integer step.</p>
+      <figure class="wide">
+        <div class="sim-wrap">
+          <div class="sim-canvas-box"><canvas id="decayCanvas" width="480" height="300"></canvas></div>
+          <div class="sim-controls">
+            <h4>Half-life decay simulator</h4>
+            <div class="sim-readout" id="decayReadout">Half-lives elapsed, n = 0<br>Undecayed atoms: 64 / 64</div>
+            <div class="sim-btns">
+              <button onclick="decaySimAdvance()">Advance one half-life →</button>
+              <button class="alt" onclick="decaySimReset()">Reset</button>
+            </div>
+          </div>
+        </div>
+        <figcaption>Fig. 6.2 Left: 64 simulated nuclei (teal = undecayed, grey = decayed) — each undecayed atom independently has a 50% chance of decaying every time you advance one half-life. Right: the resulting count of undecayed atoms at each integer half-life (bars), compared with the theoretical N₀(1/2)ⁿ prediction (dashed line).</figcaption>
+      </figure>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">15</span><strong>The half-life of francium-221 is 4.8 minutes.</strong> Calculate the fraction of a sample remaining undecayed after 24.0 minutes.
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q15')">Show answer</button>
+        <div class="answer-panel" id="q15">24.0 minutes = 5 half-lives, fraction remaining = (1/2)⁵ = 1/32 ≈ 0.031.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">16</span><strong>A radioactive element has a half-life of 80 minutes and an initial count rate of 1000 min⁻¹.</strong> Determine how long it takes for the count rate to fall to 250 min⁻¹.
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q16')">Show answer</button>
+        <div class="answer-panel" id="q16">1000 → 250 is a fall to 1/4, i.e. 2 half-lives = 160 minutes.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">17</span><strong>Explain, in terms of undecayed nuclei, why the activity of a source keeps decreasing even though its half-life stays constant.</strong>
+        <textarea class="answer-lines long" rows="6" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q17')">Show answer</button>
+        <div class="answer-panel" id="q17">Each undecayed nucleus always has the same fixed chance of decaying in a given half-life, which is why the half-life itself never changes. But activity depends on how many undecayed nuclei remain, and that number keeps falling as nuclei decay — so even with a constant half-life, the number of decays per second (the activity) keeps decreasing.</div>
+      </div>
+    </section>
+
+    <!-- ================= GLOSSARY ================= -->
+    <section class="topic" id="sG">
+      <h2>Glossary</h2>
+      <dl class="glossary">
+        <dt>Nucleon</dt><dd>A proton or a neutron; the particles that make up an atomic nucleus.</dd>
+        <dt>Isotope</dt><dd>One of two or more atoms of the same element (same proton number Z) with different numbers of neutrons.</dd>
+        <dt>Strong nuclear force</dt><dd>A short-range, attractive force acting between any two nucleons, strong enough at nuclear distances to overcome the electrostatic repulsion between protons.</dd>
+        <dt>Radioactive decay</dt><dd>The random, spontaneous process by which an unstable nucleus emits a particle and/or a high-energy photon, often transmuting into a different nuclide.</dd>
+        <dt>Radionuclide (radioisotope)</dt><dd>An isotope or nuclide with an unstable nucleus, capable of radioactive decay.</dd>
+        <dt>Transmutation</dt><dd>The change of a nuclide into a different element, caused by the emission of a charged particle.</dd>
+        <dt>Daughter product</dt><dd>The new nuclide left behind after a "parent" radionuclide emits a particle.</dd>
+        <dt>Alpha particle (α)</dt><dd>A helium-4 nucleus (two protons and two neutrons) emitted from a decaying nucleus; highly ionizing but easily stopped, even by paper.</dd>
+        <dt>Beta particle (β)</dt><dd>A fast-moving electron (β⁻) or positron (β⁺) emitted from a decaying nucleus, accompanied by an antineutrino or neutrino respectively.</dd>
+        <dt>Neutrino / antineutrino</dt><dd>An almost undetectable particle, with no charge and extremely small mass, emitted alongside a beta particle in beta-plus or beta-minus decay.</dd>
+        <dt>Gamma ray (γ)</dt><dd>A high-energy photon emitted when a nucleus drops from an excited state to a lower energy state, with no change to its proton or nucleon number.</dd>
+        <dt>Ionization</dt><dd>The process by which radiation knocks electrons off atoms or molecules as it passes through matter.</dd>
+        <dt>Background radiation</dt><dd>The small, ever-present count rate registered by a detector due to naturally occurring radioactive materials and cosmic rays, which must be subtracted from source readings.</dd>
+        <dt>Activity</dt><dd>The number of nuclei decaying per second in a radioactive source, measured in becquerel (Bq).</dd>
+        <dt>Half-life</dt><dd>The time taken for half of the undecayed nuclei in a sample (or its activity, or count rate) to decay away.</dd>
+        <dt>Becquerel (Bq)</dt><dd>The SI unit of activity, equal to one nuclear decay per second.</dd>
+        <dt>Count rate</dt><dd>The number of decay events registered by a detector such as a GM tube per unit time, usually assumed proportional to activity.</dd>
+      </dl>
+    </section>
+
+    <footer class="page no-print">Radioactivity &amp; Half-Life Workbook (SL) · Companion resource: <em>The Nucleus &amp; Atomic Spectra (SL)</em>.</footer>
+  </main>
+</div>
+
+<script>
+/* ---------- text answer toggles ---------- */
+function toggleAnswer(id){ document.getElementById(id).classList.toggle('shown'); }
+function revealAll(){
+  document.querySelectorAll('.answer-panel').forEach(function(el){ el.classList.add('shown'); });
+  document.body.classList.add('answers-visible');
+}
+function hideAll(){
+  document.querySelectorAll('.answer-panel').forEach(function(el){ el.classList.remove('shown'); });
+  document.body.classList.remove('answers-visible');
+}
+
+/* ---------- fill in online: autosize ---------- */
+let fillableEls = [];
+
+function autosize(el){
+  if(el.tagName !== 'TEXTAREA') return;
+  el.style.height = 'auto';
+  el.style.height = Math.max(el.scrollHeight, el.offsetHeight) + 'px';
+}
+
+function initFillables(){
+  fillableEls = Array.prototype.slice.call(document.querySelectorAll('.answer-lines, .name-box .fill'));
+  fillableEls.forEach(function(el){
+    autosize(el);
+    el.addEventListener('input', function(){ autosize(el); });
+  });
+}
+
+function clearMyAnswers(){
+  if(!confirm('Clear everything you have typed in this workbook? This cannot be undone.')) return;
+  fillableEls.forEach(function(el){
+    el.value = '';
+    autosize(el);
+  });
+}
+
+window.addEventListener('beforeprint', function(){
+  fillableEls.forEach(autosize);
+});
+
+document.addEventListener('DOMContentLoaded', initFillables);
+
+/* ---------- Fig 6.2: half-life decay simulator (grid + bar graph) ---------- */
+(function(){
+  const canvas = document.getElementById('decayCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const readout = document.getElementById('decayReadout');
+  const COLS = 8, ROWS = 8, N0 = COLS*ROWS;
+  const cell = 26, gridOx = 22, gridOy = 24;
+
+  let alive = [];
+  let history = []; // count of undecayed atoms at each integer half-life, history[0] = N0
+
+  function resetState(){
+    alive = new Array(N0).fill(true);
+    history = [N0];
+  }
+  resetState();
+
+  function advance(){
+    let stillAlive = 0;
+    for(let i=0;i<alive.length;i++){
+      if(alive[i] && Math.random() < 0.5){ alive[i] = false; }
+      if(alive[i]) stillAlive++;
+    }
+    history.push(stillAlive);
+    draw();
+  }
+
+  function reset(){
+    resetState();
+    draw();
+  }
+
+  function draw(){
+    ctx.fillStyle = '#0f1f30';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    /* --- left: grid of atoms --- */
+    for(let r=0;r<ROWS;r++){
+      for(let c=0;c<COLS;c++){
+        const idx = r*COLS+c;
+        const cx = gridOx + c*cell + cell/2;
+        const cy = gridOy + r*cell + cell/2;
+        ctx.beginPath();
+        ctx.arc(cx,cy,9,0,2*Math.PI);
+        ctx.fillStyle = alive[idx] ? '#5fd0c0' : 'rgba(220,234,240,0.18)';
+        ctx.fill();
+        if(alive[idx]){
+          ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+    }
+    ctx.fillStyle = '#dceaf0';
+    ctx.font = '11px -apple-system, sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('teal = undecayed, grey = decayed', gridOx, gridOy + ROWS*cell + 20);
+
+    /* --- right: bar graph of undecayed count vs half-life step --- */
+    const gx0 = 300, gx1 = 462, gy0 = 20, gy1 = 250;
+    const maxSteps = 9;
+    ctx.strokeStyle = 'rgba(220,234,240,0.6)';
+    ctx.lineWidth = 1.3;
+    ctx.beginPath();
+    ctx.moveTo(gx0,gy0); ctx.lineTo(gx0,gy1); ctx.lineTo(gx1,gy1);
+    ctx.stroke();
+    ctx.fillStyle = '#dceaf0';
+    ctx.font = 'bold 11px -apple-system, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText('n (half-lives)', gx1, gy1+16);
+    ctx.textAlign = 'left';
+    ctx.fillText('N', gx0-14, gy0+2);
+
+    const barSlot = (gx1-gx0)/maxSteps;
+    /* theoretical dashed curve */
+    ctx.strokeStyle = 'rgba(217,131,36,0.9)';
+    ctx.lineWidth = 1.6;
+    ctx.setLineDash([4,3]);
+    ctx.beginPath();
+    for(let n=0;n<=maxSteps;n++){
+      const theo = N0*Math.pow(0.5,n);
+      const px = gx0 + (n+0.5)*barSlot;
+      const py = gy1 - (theo/N0)*(gy1-gy0);
+      if(n===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    /* bars from actual simulated history */
+    for(let n=0;n<history.length && n<=maxSteps;n++){
+      const val = history[n];
+      const barH = (val/N0)*(gy1-gy0);
+      const bx = gx0 + n*barSlot + barSlot*0.2;
+      const bw = barSlot*0.6;
+      ctx.fillStyle = '#5fd0c0';
+      ctx.fillRect(bx, gy1-barH, bw, barH);
+    }
+
+    const n = history.length - 1;
+    const remaining = history[history.length-1];
+    readout.innerHTML = 'Half-lives elapsed, n = ' + n + '<br>Undecayed atoms: ' + remaining + ' / ' + N0;
+  }
+
+  window.decaySimAdvance = advance;
+  window.decaySimReset = reset;
+  draw();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Binding Energy &amp; Nuclear Stability — Student Workbook</title>
+<style>
+  :root{
+    --navy:#173a5e; --teal:#0e7c86; --teal-dark:#0a5b62; --amber:#d98324;
+    --soft-blue:#eaf3fb; --soft-amber:#fdf1e2; --soft-green:#eaf7ee; --soft-grey:#f4f6f8;
+    --line:#b9c6d3; --ink:#1f2933; --border:#d7e0e8;
+    --purple:#6b4c9a; --soft-purple:#f1ebf9;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); background:#f7f9fb; line-height:1.55; font-size:16.5px; padding-top:56px;}
+  .layout{display:flex; min-height:calc(100vh - 56px);}
+  nav.sidebar{width:250px; flex-shrink:0; background:var(--navy); color:#fff; padding:1.25rem 1rem; position:sticky; top:56px; height:calc(100vh - 56px); overflow-y:auto;}
+  nav.sidebar h1{font-size:1.05rem; line-height:1.3; margin:0 0 1rem 0; color:#fff;}
+  nav.sidebar a{display:block; color:#cfe3ee; text-decoration:none; font-size:0.88rem; padding:0.4rem 0.5rem; border-radius:6px; margin-bottom:0.15rem;}
+  nav.sidebar a:hover{background:rgba(255,255,255,0.12); color:#fff;}
+  nav.sidebar .tag{display:inline-block; background:var(--amber); color:#fff; font-size:0.68rem; padding:0.1rem 0.4rem; border-radius:4px; margin-left:0.3rem; vertical-align:middle;}
+  main{flex:1; max-width:920px; margin:0 auto; padding:2rem 2.5rem 5rem 2.5rem;}
+  .cover{background:linear-gradient(135deg,var(--navy),var(--teal-dark)); color:#fff; border-radius:14px; padding:2.5rem 2.5rem; margin-bottom:2rem;}
+  .cover h1{margin:0 0 0.4rem 0; font-size:1.9rem;}
+  .cover p.sub{margin:0; font-size:1.05rem; color:#dceaf0;}
+  .cover .meta{margin-top:1.2rem; font-size:0.9rem; color:#cfe3ee;}
+  .name-box{margin-top:1.4rem; background:rgba(255,255,255,0.1); border:1px dashed rgba(255,255,255,0.5); border-radius:8px; padding:0.9rem 1.1rem;}
+  .name-box label{display:block; font-size:0.8rem; color:#dceaf0; margin-bottom:0.2rem;}
+  .name-box .fill{display:block; width:100%; border:none; border-bottom:1px solid #dceaf0; height:1.6rem; background:transparent; color:#fff; font-size:1rem; font-family:inherit; padding:0; outline:none;}
+  .name-box .fill::placeholder{color:rgba(255,255,255,0.5);}
+  .goals{background:rgba(255,255,255,0.12); border-left:4px solid #fff; border-radius:6px; padding:0.9rem 1.1rem; font-size:0.92rem; color:#fff;}
+  .goals ul{margin:0.4rem 0 0 0; padding-left:1.2rem;}
+
+  section.topic{background:#fff; border:1px solid var(--border); border-radius:12px; padding:1.8rem 2rem; margin-bottom:1.6rem;}
+  section.topic h2{color:var(--navy); font-size:1.4rem; margin-top:0; border-bottom:3px solid var(--amber); padding-bottom:0.4rem;}
+  section.topic h3{color:var(--teal-dark); font-size:1.08rem; margin-top:1.6rem;}
+
+  .keybox{background:var(--soft-blue); border:1px solid #c7ddef; border-radius:8px; padding:0.9rem 1.1rem; margin:0.9rem 0; font-size:0.98rem;}
+  .keybox strong{color:var(--navy);}
+  .eqn{background:#fff; border:1px solid #c7ddef; border-radius:6px; padding:0.6rem 1rem; margin:0.6rem 0; font-size:1.08rem; text-align:center; font-family:"Cambria Math",Cambria,Georgia,serif;}
+  .keyword{background:var(--soft-amber); border-left:4px solid var(--amber); border-radius:6px; padding:0.7rem 1rem; margin:0.9rem 0; font-size:0.92rem;}
+  .keyword b{color:var(--amber);}
+  .example{background:var(--soft-green); border:1px solid #bfe3cc; border-radius:8px; padding:0.9rem 1.1rem; margin:1rem 0;}
+  .example .tag{display:inline-block; background:#3f9a5c; color:#fff; font-size:0.72rem; font-weight:600; letter-spacing:0.03em; padding:0.15rem 0.5rem; border-radius:4px; margin-bottom:0.5rem; text-transform:uppercase;}
+  .stretch-box{background:var(--soft-purple); border:1px solid #d9c9ec; border-radius:8px; padding:0.9rem 1.1rem; margin:1rem 0;}
+  .stretch-box .tag{display:inline-block; background:var(--purple); color:#fff; font-size:0.72rem; font-weight:600; letter-spacing:0.03em; padding:0.15rem 0.5rem; border-radius:4px; margin-bottom:0.5rem; text-transform:uppercase;}
+  .stretch-box strong{color:var(--purple);}
+
+  .question{background:var(--soft-grey); border:1px solid var(--border); border-radius:8px; padding:1rem 1.2rem; margin:1.1rem 0;}
+  .question .qnum{display:inline-block; background:var(--navy); color:#fff; font-weight:700; font-size:0.82rem; width:1.9rem; height:1.9rem; line-height:1.9rem; text-align:center; border-radius:50%; margin-right:0.5rem;}
+  .answer-lines{
+    display:block; width:100%; box-sizing:border-box;
+    background-image:repeating-linear-gradient(to bottom, transparent, transparent 1.65em, var(--line) 1.7em);
+    background-color:transparent;
+    min-height:5.1em; margin:0.6rem 0 0.2rem 0;
+    border:1px solid transparent; border-radius:6px;
+    outline:none; resize:none; overflow:hidden;
+    font:inherit; color:inherit; line-height:1.7em;
+    padding:0.05em 0.4em 0 0.2em;
+  }
+  .answer-lines:focus{
+    border:1px solid var(--teal); background-color:#fbfdff;
+    box-shadow:0 0 0 3px rgba(14,124,134,0.12);
+  }
+  .answer-lines::placeholder{color:#9aa8b4; font-style:italic;}
+  .answer-lines.short{min-height:1.7em;}
+  .answer-lines.long{min-height:8.5em;}
+  .reveal-btn{background:var(--teal); color:#fff; border:none; border-radius:6px; padding:0.35rem 0.8rem; font-size:0.82rem; cursor:pointer; margin-top:0.5rem;}
+  .reveal-btn:hover{background:var(--teal-dark);}
+  .answer-panel{display:none; background:#fff; border:1px dashed #3f9a5c; border-radius:6px; padding:0.7rem 1rem; margin-top:0.6rem; font-size:0.92rem;}
+  .answer-panel.shown{display:block;}
+
+  figure{margin:1.2rem auto; text-align:center; max-width:560px;}
+  figure.wide{max-width:none;}
+  figure svg{max-width:100%; height:auto; max-height:320px;}
+  figcaption{font-size:0.85rem; color:#5b6b78; margin-top:0.4rem;}
+
+  table.eqtable{width:100%; border-collapse:collapse; font-size:0.92rem; margin-top:0.7rem;}
+  table.eqtable th, table.eqtable td{border:1px solid var(--border); padding:0.5rem 0.7rem; text-align:left;}
+  table.eqtable th{background:var(--soft-blue); color:var(--navy);}
+
+  dl.glossary dt{font-weight:700; color:var(--navy); margin-top:0.7rem;}
+  dl.glossary dd{margin-left:0; margin-bottom:0.2rem;}
+
+  .topbar{
+    position:fixed; top:0; left:0; right:0; height:56px; z-index:200;
+    background:#fff; border-bottom:1px solid var(--border); box-shadow:0 2px 8px rgba(0,0,0,0.06);
+    display:flex; align-items:center; gap:0.6rem; padding:0 1.4rem; overflow-x:auto;
+  }
+  .topbar .topbar-title{font-weight:700; color:var(--navy); font-size:0.92rem; margin-right:auto; white-space:nowrap;}
+  .topbar button{background:#fff; color:var(--navy); border:1px solid var(--border); border-radius:50px; padding:0.5rem 1rem; font-size:0.82rem; cursor:pointer; white-space:nowrap; flex-shrink:0;}
+  .topbar button:hover{background:var(--soft-blue);}
+  .topbar button.primary{background:var(--amber); color:#fff; border-color:var(--amber); font-weight:600;}
+  .topbar button.primary:hover{background:#c0721c;}
+  .topbar .save-status{font-size:0.72rem; color:#5b6b78; white-space:nowrap; flex-shrink:0;}
+  @media (max-width: 820px){ .topbar .save-status{display:none;} }
+  @media (max-width: 620px){ .topbar .topbar-title{display:none;} }
+  footer.page{font-size:0.8rem; color:#7c8b98; text-align:center; margin-top:2rem;}
+
+  /* ---------- simulation embed conventions ---------- */
+  .sim-embed{background:#fff; border:1px solid var(--border); border-radius:10px; padding:1rem 1.2rem; margin:1rem 0;}
+  .sim-embed p.instructions{margin:0 0 0.6rem 0; font-size:0.92rem; color:#3a4753;}
+  .sim-frame{width:100%; border:none; display:block; border-radius:8px; height:520px;}
+  .sim-embed-credit{text-align:center; font-size:0.82rem; color:#7c8b98; margin-top:0.6rem;}
+  .sim-print-note{display:none;}
+
+  .sim-launch{
+    background:linear-gradient(135deg,var(--soft-blue),#fff); border:1px solid #c7ddef; border-radius:10px;
+    padding:1.2rem 1.4rem; margin:1.1rem 0; text-align:center;
+  }
+  .sim-launch a.launch-btn{
+    display:inline-block; background:var(--teal); color:#fff; text-decoration:none; font-weight:700;
+    padding:0.65rem 1.4rem; border-radius:8px; margin-top:0.6rem; font-size:0.98rem;
+  }
+  .sim-launch a.launch-btn:hover{background:var(--teal-dark);}
+  .sim-launch p.credit{font-size:0.8rem; color:#5b6b78; margin-top:0.7rem;}
+
+  /* ---------- reactor label-the-diagram component ---------- */
+  .reactor-activity{background:#fff; border:1px solid var(--border); border-radius:12px; padding:1.2rem 1rem 1.4rem; margin:1.2rem -2rem; width:calc(100% + 4rem);}
+  .reactor-stage{position:relative; width:760px; max-width:100%; margin:0 auto; overflow-x:auto;}
+  .reactor-stage svg{display:block; width:760px; height:480px;}
+  .dz{
+    position:absolute; min-width:132px; text-align:center; font-size:0.82rem; font-weight:600;
+    padding:0.35rem 0.5rem; border:2px dashed var(--line); border-radius:7px; background:var(--soft-grey);
+    color:#8592a1; cursor:pointer; user-select:none; transition:border-color .15s, background .15s, color .15s;
+  }
+  .dz.filled{border-style:solid; background:var(--soft-blue); color:var(--navy);}
+  .dz.selected{border-color:var(--amber); box-shadow:0 0 0 2px rgba(217,131,36,0.25);}
+  .dz.correct{border-color:#2f9e57; background:var(--soft-green); color:#1f6e3c;}
+  .dz.incorrect{border-color:#c0455a; background:#fbeaec; color:#8c2f3f;}
+  .reactor-static-label{position:absolute; font-size:0.78rem; font-weight:600; color:#4a5568; text-align:center;}
+
+  .label-bank{display:flex; flex-wrap:wrap; gap:0.6rem; margin:1rem 0 0.6rem; padding:0.8rem; background:var(--soft-purple); border-radius:8px; border:1px solid var(--border);}
+  .label-chip{
+    padding:0.4rem 0.8rem; background:#fff; border:2px solid var(--purple); border-radius:20px;
+    font-size:0.85rem; font-weight:600; color:var(--purple); cursor:pointer; user-select:none; transition:all .15s;
+  }
+  .label-chip:hover{background:var(--purple); color:#fff;}
+  .label-chip.selected{background:var(--purple); color:#fff; box-shadow:0 0 0 3px rgba(107,76,154,0.3);}
+  .label-chip.used{opacity:0.35; pointer-events:none; text-decoration:line-through;}
+
+  .reactor-btnrow{display:flex; gap:0.6rem; margin-top:0.9rem; flex-wrap:wrap;}
+  .reactor-btn{
+    padding:0.5rem 1rem; border-radius:7px; border:none; font-size:0.85rem; font-weight:700; cursor:pointer;
+    background:var(--soft-blue); color:var(--navy);
+  }
+  .reactor-btn.primary{background:var(--teal); color:#fff;}
+  .reactor-btn:hover{filter:brightness(0.95);}
+  .reactor-feedback{margin-top:0.7rem; font-size:0.88rem; font-weight:600; min-height:1.2em;}
+
+  @media print{
+    nav.sidebar, .topbar, .reveal-btn{display:none !important;}
+    .layout{display:block;}
+    main{max-width:100%; padding:0; margin:0;}
+    body{background:#fff; font-size:11.5pt; padding-top:0;}
+    section.topic{border:none; box-shadow:none; padding:0; margin:0 0 1.2rem 0; page-break-inside:avoid;}
+    .cover{page-break-after:always; border-radius:0;}
+    .answer-panel{display:none !important;}
+    body.answers-visible .answer-panel{display:block !important; border-style:solid;}
+    a{color:inherit; text-decoration:none;}
+    .page-break{page-break-before:always;}
+    .answer-lines{border-color:transparent !important; box-shadow:none !important; color:#000;}
+    .answer-lines::placeholder{color:transparent;}
+    .name-box .fill{color:#000; border-bottom-color:#5b6b78;}
+    .name-box .fill::placeholder{color:transparent;}
+    .sim-frame, .sim-embed-credit, .sim-embed p.instructions{display:none !important;}
+    .sim-print-note{display:block !important; text-align:center; font-size:0.85rem; color:#5b6b78; padding:0.9rem; border:1px dashed #b9c6d3; border-radius:8px; margin:0.6rem 0;}
+    .sim-launch{display:none !important;}
+  }
+</style>
+</head>
+<body>
+<div class="topbar no-print">
+  <span class="topbar-title">Binding Energy &amp; Nuclear Stability (SL)</span>
+  <button onclick="revealAll()">Show all answers</button>
+  <button onclick="hideAll()">Hide all answers</button>
+  <button onclick="clearMyAnswers()">Clear my answers</button>
+  <span class="save-status">Answers are not saved automatically — print or copy your work before closing this tab</span>
+  <button class="primary" onclick="window.print()">🖨️ Print / Save as PDF</button>
+</div>
+<div class="layout">
+  <nav class="sidebar no-print">
+    <h1>Binding Energy &amp; Nuclear Stability <span class="tag">SL</span></h1>
+    <a href="#cover">Cover &amp; goals</a>
+    <a href="#s1">1. Binding energy &amp; mass defect</a>
+    <a href="#s2">2. Binding energy per nucleon</a>
+    <a href="#s3">3. Fission &amp; chain reactions</a>
+    <a href="#s4">4. Inside a nuclear power plant</a>
+    <a href="#s5">5. Fission products &amp; their management</a>
+    <a href="#sG">Glossary</a>
+  </nav>
+
+  <main>
+    <section class="cover" id="cover">
+      <h1>Binding Energy &amp; Nuclear Stability (SL)</h1>
+      <p style="margin:0.9rem 0 0 0; max-width:640px; font-size:0.98rem; color:#dceaf0;">Every nucleus is, in a real sense, lighter than the sum of its parts — and that missing mass is the key to understanding why nuclear reactions release such enormous amounts of energy. This workbook builds from the definition of binding energy and Einstein's E = mc² up to how a single fission reaction, multiplied billions of times over in a controlled chain reaction, powers a nuclear reactor — and what has to be done with what's left over afterwards.</p>
+      <div class="goals" style="margin-top:1.3rem;">
+        <strong style="color:#fff;">By the end of this workbook you should be able to:</strong>
+        <ul>
+          <li>Define binding energy and mass defect, and use E = mc² to relate a mass defect to the energy released or absorbed in a nuclear reaction.</li>
+          <li>Interpret the binding energy per nucleon curve, and use it to explain why splitting a heavy nucleus releases energy.</li>
+          <li>Describe spontaneous and neutron-induced fission, and explain how a fission chain reaction is sustained and controlled.</li>
+          <li>Describe the role of control rods, the moderator, the heat exchanger and shielding in a nuclear power plant.</li>
+          <li>Describe the properties of nuclear fission products and how they are managed as radioactive waste.</li>
+        </ul>
+      </div>
+      <div class="name-box">
+        <label>Name</label><input type="text" class="fill" id="studentName" autocomplete="name">
+      </div>
+    </section>
+
+    <!-- ================= SECTION 1 ================= -->
+    <section class="topic" id="s1">
+      <h2>1. Binding energy and mass defect</h2>
+      <p>Nucleons inside a nucleus are held together by the strong nuclear force. To pull a nucleus completely apart into its separate, stationary protons and neutrons, energy has to be supplied from outside — in exactly the same way that energy has to be supplied to separate two magnets that are stuck together. This leads to a key definition:</p>
+
+      <div class="keybox"><strong>Binding energy.</strong> The binding energy of a nucleus is the energy that would be needed to completely separate it into individual, stationary protons and neutrons. Equivalently, it is the energy that would be released if a nucleus were assembled from separate nucleons. Binding energy is always taken to be a positive quantity — the more strongly bound (the more stable) a nucleus is, the larger its binding energy.</div>
+
+      <figure>
+        <svg viewBox="0 0 500 190" width="500" height="190" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="beArrow" viewBox="0 0 10 10" markerWidth="6" markerHeight="6" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#4a5568"/></marker></defs>
+          <line x1="60" y1="40" x2="440" y2="40" stroke="#22305a" stroke-width="2.2"/>
+          <text x="250" y="26" font-size="10.5" fill="#22305a" text-anchor="middle">separated, stationary nucleons</text>
+          <line x1="60" y1="150" x2="440" y2="150" stroke="#1f7a6c" stroke-width="2.6"/>
+          <text x="250" y="172" font-size="10.5" fill="#1f7a6c" text-anchor="middle">bound nucleus</text>
+          <line x1="150" y1="58" x2="150" y2="132" stroke="#1f7a6c" stroke-width="2" marker-end="url(#beArrow)"/>
+          <text x="158" y="86" font-size="10" fill="#1f7a6c">energy released</text>
+          <text x="158" y="98" font-size="10" fill="#1f7a6c">when nucleus</text>
+          <text x="158" y="110" font-size="10" fill="#1f7a6c">forms</text>
+          <line x1="350" y1="132" x2="350" y2="58" stroke="#a33d5b" stroke-width="2" marker-end="url(#beArrow)"/>
+          <text x="358" y="86" font-size="10" fill="#a33d5b">binding energy</text>
+          <text x="358" y="98" font-size="10" fill="#a33d5b">supplied to</text>
+          <text x="358" y="110" font-size="10" fill="#a33d5b">separate nucleons</text>
+        </svg>
+        <figcaption>Fig. 1.1 A bound nucleus has less energy than the same nucleons completely separated. The gap between the two levels is the nucleus's binding energy, whichever direction you cross it in.</figcaption>
+      </figure>
+
+      <p>Einstein's mass–energy equivalence, <strong>E = mc²</strong>, tells us that any change in the energy of a system is accompanied by a change in its mass. In everyday processes the mass changes involved are far too small to detect — heating 2.0 kg of water by 5.0 °C transfers Q = mcΔT = 2.0 × 4180 × 5.0 = 4.18 × 10⁴ J into the water, corresponding to a mass increase of only Δm = E/c² ≈ 4.6 × 10⁻¹³ kg. But the energies released in nuclear reactions are millions of times larger relative to the masses involved, so the associated mass changes become measurable — and central to how binding energy is actually calculated.</p>
+
+      <div class="keybox">
+        <strong>Units for very small masses.</strong> Kilograms are inconveniently large for particles as small as nucleons, so nuclear physicists use the (unified) atomic mass unit, u — defined as exactly one twelfth of the mass of a carbon-12 atom.
+        <table class="eqtable">
+          <tr><th>Particle</th><th>Mass / kg</th><th>Mass / u</th><th>Mass / MeV c⁻²</th></tr>
+          <tr><td>electron</td><td>9.109 × 10⁻³¹</td><td>0.000549</td><td>0.511</td></tr>
+          <tr><td>proton</td><td>1.673 × 10⁻²⁷</td><td>1.007276</td><td>938</td></tr>
+          <tr><td>neutron</td><td>1.675 × 10⁻²⁷</td><td>1.008665</td><td>940</td></tr>
+        </table>
+        <p style="margin:10px 0 0; font-size:0.9em;">The conversion between the last two columns uses the fact that <strong>1 u = 931.5 MeV c⁻²</strong> — the energy that would be released if 1 u of mass were entirely converted into energy.</p>
+      </div>
+
+      <div class="example">
+        <span class="tag">Worked example 1.1</span>
+        <p>A helium-4 atom has a mass of 4.00260 u. It consists of 2 protons (1.007276 u each), 2 neutrons (1.008665 u each) and 2 electrons (0.000549 u each). Calculate its mass defect and binding energy.</p>
+        <p><strong>Answer</strong></p>
+        <p>Total mass of separated particles = 2(1.007276) + 2(1.008665) + 2(0.000549) = 4.03298 u<br>
+        Mass defect Δm = 4.03298 − 4.00260 = 0.03038 u</p>
+        <p><strong>Fast method (use 931.5 MeV/u directly):</strong> BE = 0.03038 × 931.5 = <strong>28.3 MeV</strong></p>
+        <p><strong>Slow method (convert to kg and J first):</strong> Δm = 0.03038 × 1.6605×10⁻²⁷ = 5.04×10⁻²⁹ kg; E = Δmc² = 4.53×10⁻¹² J = 2.83×10⁷ eV = <strong>28.3 MeV</strong></p>
+        <p style="font-size:0.9em; font-style:italic;">Both routes must agree — the 931.5 MeV/u shortcut is simply the slow method with the unit conversions already done for you.</p>
+      </div>
+
+      <div class="example">
+        <span class="tag">Worked example 1.2</span>
+        <p>Radium-226 decays by alpha emission: <sup>226</sup><sub>88</sub>Ra → <sup>222</sup><sub>86</sub>Rn + <sup>4</sup><sub>2</sub>α. The rest masses are: Ra-226 = 226.0254 u, Rn-222 = 222.0176 u, alpha particle = 4.0026 u. Calculate the energy released.</p>
+        <p><strong>Answer</strong></p>
+        <p>Δm = (222.0176 + 4.0026) − 226.0254 = −0.0052 u (the products have less mass than the parent)<br>
+        Energy released = 0.0052 × 931.5 = <strong>4.8 MeV</strong>, shared as kinetic energy between the radon nucleus and the alpha particle.</p>
+      </div>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">1</span><strong>A helium-3 nucleus has a mass of 3.014932 u. It consists of two protons (1.007276 u each) and one neutron (1.008665 u).</strong> Calculate its mass defect and binding energy, in MeV.
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q1')">Show answer</button>
+        <div class="answer-panel" id="q1">Total nucleon mass = 2(1.007276) + 1.008665 = 3.023217 u; mass defect = 3.023217 − 3.014932 = 0.008285 u; BE = 0.008285 × 931.5 = 7.72 MeV.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">2</span><strong>A nuclear reaction releases 6.0 MeV of energy.</strong> Calculate the corresponding decrease in mass, in kg.
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q2')">Show answer</button>
+        <div class="answer-panel" id="q2">E = 6.0 MeV = 9.61 × 10⁻¹³ J; Δm = E/c² = (9.61 × 10⁻¹³)/(9.00 × 10¹⁶) ≈ 1.07 × 10⁻²⁹ kg.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">3</span><strong>Explain why binding energy is always quoted as a positive quantity</strong>, even though it represents an energy that would need to be supplied to the nucleus.
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q3')">Show answer</button>
+        <div class="answer-panel" id="q3">Binding energy is defined as the energy that would need to be supplied to separate the nucleus, so a larger, positive binding energy corresponds intuitively to a more stable, more tightly-bound nucleus — the convention keeps "bigger number = more stable" true.</div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 2 ================= -->
+    <section class="topic" id="s2">
+      <h2>2. Binding energy per nucleon</h2>
+      <p>Bigger nuclei naturally have more total binding energy, simply because they contain more nucleons — so total binding energy on its own is not a fair way to compare how stable different nuclides are. Instead, physicists divide by the number of nucleons:</p>
+
+      <div class="keybox"><strong>Binding energy per nucleon.</strong> binding energy per nucleon = (total binding energy) / (number of nucleons, A). This is a much better guide to a nucleus's stability: the larger the binding energy per nucleon, the more tightly bound — and more stable — the nucleus is.</div>
+
+      <figure>
+        <svg viewBox="0 0 500 240" width="500" height="240" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="curveArrow" viewBox="0 0 10 10" markerWidth="6" markerHeight="6" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#4a5568"/></marker></defs>
+          <line x1="50" y1="210" x2="480" y2="210" stroke="#4a5568" stroke-width="1.5" marker-end="url(#curveArrow)"/>
+          <line x1="50" y1="210" x2="50" y2="15" stroke="#4a5568" stroke-width="1.5" marker-end="url(#curveArrow)"/>
+          <text x="12" y="25" font-size="10" fill="#4a5568">BE per</text>
+          <text x="12" y="37" font-size="10" fill="#4a5568">nucleon</text>
+          <text x="475" y="225" font-size="10" fill="#4a5568" text-anchor="end">nucleon number, A</text>
+          <path d="M51.8,210.0 L53.5,186.5 L55.2,150.3 L57.0,60.7 L60.5,97.4 L62.2,91.6 L65.8,73.6 L69.2,63.7 L71.0,47.9 L72.8,52.3 L74.5,52.2 L78.0,41.6 L81.5,46.0 L83.2,45.8 L85.0,40.4 L90.2,38.8 L92.0,35.6 L97.2,34.1 L99.0,31.7 L104.2,31.0 L106.0,30.7 L111.2,30.1 L118.2,29.4 L120.0,28.5 L128.8,28.0 L134.0,25.8 L139.2,25.4 L141.0,24.7 L146.2,25.0 L148.0,24.4 L151.5,24.4 L158.5,24.3 L160.2,25.2 L162.0,25.6 L176.0,25.7 L179.5,25.8 L190.0,26.1 L197.0,26.0 L204.0,25.6 L207.5,27.8 L211.0,30.3 L221.5,27.7 L228.5,28.3 L235.5,28.9 L249.5,29.9 L260.0,30.5 L277.5,32.0 L281.0,32.1 L291.5,32.8 L295.0,33.2 L296.8,34.2 L302.0,36.6 L316.0,36.0 L326.5,36.8 L337.0,37.8 L340.5,38.1 L354.5,39.3 L365.0,40.4 L372.0,41.0 L386.0,42.2 L391.2,42.7 L394.8,42.9 L403.5,43.3 L414.0,43.9 L415.8,44.3 L449.0,48.7 L456.0,49.2 L461.2,49.7 L466.5,50.2 L468.2,50.4" fill="none" stroke="#a33d5b" stroke-width="2.2"/>
+          <circle cx="57.0" cy="60.7" r="2.6" fill="#1f7a6c"/>
+          <text x="15" y="88" font-size="9.5" fill="#1f7a6c">He-4</text>
+          <circle cx="71.0" cy="47.9" r="2.6" fill="#1f7a6c"/>
+          <circle cx="78.0" cy="41.6" r="2.6" fill="#1f7a6c"/>
+          <text x="58" y="17" font-size="9.5" fill="#1f7a6c">C-12, O-16</text>
+          <circle cx="148.0" cy="24.4" r="2.6" fill="#22305a"/>
+          <circle cx="158.5" cy="24.3" r="3.4" fill="#22305a"/>
+          <text x="168" y="13" font-size="9.5" fill="#22305a">Ni-62 — peak of the curve</text>
+          <text x="168" y="25" font-size="9.5" fill="#22305a">(Fe-56 almost identical)</text>
+          <circle cx="414.0" cy="43.9" r="2.6" fill="#1f7a6c"/>
+          <text x="345" y="66" font-size="9.5" fill="#1f7a6c">Pb-208</text>
+          <circle cx="461.2" cy="49.7" r="2.6" fill="#1f7a6c"/>
+          <circle cx="466.5" cy="50.2" r="2.6" fill="#1f7a6c"/>
+          <text x="392" y="82" font-size="9.5" fill="#1f7a6c">U-235, U-238</text>
+          <line x1="95" y1="165" x2="145" y2="95" stroke="#1f7a6c" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#curveArrow)"/>
+          <text x="55" y="185" font-size="10" fill="#1f7a6c" font-weight="bold">fusion →</text>
+          <line x1="415" y1="145" x2="345" y2="90" stroke="#a33d5b" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#curveArrow)"/>
+          <text x="395" y="165" font-size="10" fill="#a33d5b" font-weight="bold">← fission</text>
+        </svg>
+        <figcaption>Fig. 2.1 The binding energy per nucleon curve, plotted from real nuclide mass data. The curve peaks at nickel-62 (8.79 MeV/nucleon), fractionally higher than iron-56 — both fission of heavy nuclei and fusion of light nuclei move the products towards this peak, releasing energy.</figcaption>
+      </figure>
+
+      <p>Two features of this curve matter enormously:</p>
+      <ul>
+        <li>The curve rises steeply for the lightest nuclides, reaches a broad maximum around iron-56 and nickel-62 (binding energy per nucleon ≈ 8.8 MeV), and then declines slowly for heavier nuclides.</li>
+        <li>Above about A = 60, the curve is <strong>almost flat</strong> — adding more nucleons keeps increasing the <em>total</em> binding energy, but barely changes the binding energy <em>per nucleon</em>, because the strong force is short-range: each nucleon only really interacts with its nearest neighbours, however large the nucleus grows.</li>
+      </ul>
+
+      <div class="keybox">
+        <strong>Why fission releases energy.</strong> Nuclear fission is the splitting of a massive nucleus into two smaller nuclei. Because the fragments sit further up (further left along) the curve than the original heavy nucleus, they are more tightly bound — the reaction releases energy. (The same logic works in reverse for fusion, the joining of two very light nuclei: the product sits further up the curve than the reactants, so fusion releases energy too — it is simply not part of this course.)
+      </div>
+
+      <p>Either way, the products end up with <em>less total mass</em> than the reactants — the "missing" mass has been converted directly into the kinetic energy of the products, via E = mc².</p>
+
+      <div class="example">
+        <span class="tag">Worked example 2.1</span>
+        <p>Iron-56 has a binding energy per nucleon of about 8.8 MeV. Estimate the total binding energy of one mole of iron-56 nuclei, in joules.</p>
+        <p><strong>Answer</strong></p>
+        <p>Total binding energy per nucleus = 56 × 8.8 = 493 MeV = 493 × 10⁶ × 1.60 × 10⁻¹⁹ J = 7.89 × 10⁻¹¹ J<br>
+        For one mole (6.02 × 10²³ nuclei): total ≈ (7.89 × 10⁻¹¹) × (6.02 × 10²³) = <strong>4.75 × 10¹³ J</strong> — for comparison, a similar mass of coal releases roughly a million times less energy when burned.</p>
+      </div>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">4</span><strong>Use a binding energy per nucleon of about 8.8 MeV for nickel-62</strong> to estimate its total binding energy, in MeV.
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q4')">Show answer</button>
+        <div class="answer-panel" id="q4">62 × 8.8 ≈ 546 MeV.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">5</span><strong>A uranium-238 nucleus (binding energy per nucleon ≈ 7.6 MeV) fissions into two nuclei each of nucleon number 119 (binding energy per nucleon ≈ 8.5 MeV).</strong> Estimate the energy released, in MeV.
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q5')">Show answer</button>
+        <div class="answer-panel" id="q5">BE before = 238 × 7.6 = 1808.8 MeV; BE after = 2 × (119 × 8.5) = 2023 MeV; energy released ≈ 2023 − 1808.8 ≈ 214 MeV.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">6</span><strong>Explain, in terms of the binding energy curve, why splitting a nucleus that is already close to iron-56 would not release energy.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q6')">Show answer</button>
+        <div class="answer-panel" id="q6">Iron-56 already sits at (or essentially at) the peak of the curve, so splitting it would produce fragments with a similar or lower binding energy per nucleon — no energy is released (and energy may even need to be supplied).</div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 3 ================= -->
+    <section class="topic" id="s3">
+      <h2>3. Fission and chain reactions</h2>
+      <h3>Energy released in fission</h3>
+
+      <div class="keybox">
+        <strong>Spontaneous fission:</strong> some very heavy nuclides (such as uranium-238 or californium-252) occasionally split apart entirely on their own, with no external trigger — one further mode of radioactive decay available to the heaviest nuclides, alongside alpha and beta decay.<br><br>
+        <strong>Induced fission:</strong> a nucleus (such as uranium-235) is made to split by capturing a slow-moving ("thermal") neutron, forming a highly unstable compound nucleus that immediately splits into two fission fragments plus further neutrons. This is the process harnessed in nuclear reactors, since each reaction releases more neutrons that can go on to trigger further fissions.
+      </div>
+
+      <div class="example">
+        <span class="tag">Worked example 3.1 — energy from a single fission</span>
+        <p>A slow-moving neutron is captured by a uranium-235 nucleus, which undergoes induced fission to produce barium-144 and krypton-89, releasing further neutrons.</p>
+        <p>(a) Write a balanced nuclear equation for this reaction.<br>
+        (b) Using the rest masses below, calculate the energy released, in MeV.</p>
+        <p>Rest mass of ¹₀n = 1.0087 u &nbsp;·&nbsp; ²³⁵₉₂U = 235.0439 u &nbsp;·&nbsp; ¹⁴⁴₅₆Ba = 143.9229 u &nbsp;·&nbsp; ⁸⁹₃₆Kr = 88.9178 u &nbsp;·&nbsp; 1 u = 931.5 MeV/c²</p>
+        <p><strong>Answer</strong></p>
+        <p>(a) ¹₀n + ²³⁵₉₂U → ¹⁴⁴₅₆Ba + ⁸⁹₃₆Kr + 3 ¹₀n<br>
+        (check: mass numbers 1 + 235 = 236 = 144 + 89 + 3; protons 92 = 56 + 36 ✓)</p>
+        <p>(b) mass before = 1.0087 + 235.0439 = 236.0526 u<br>
+        mass after = 143.9229 + 88.9178 + 3(1.0087) = 235.8668 u<br>
+        Δm = 236.0526 − 235.8668 = 0.1858 u<br>
+        E = 0.1858 × 931.5 ≈ <strong>173 MeV</strong></p>
+      </div>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">7</span><strong>State one similarity and one difference between spontaneous fission and induced fission.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q7')">Show answer</button>
+        <div class="answer-panel" id="q7">Similarity: both are ways a massive nucleus splits into two smaller, more tightly-bound fragments, releasing energy. Difference: spontaneous fission happens on its own, entirely at random, like any other mode of radioactive decay; induced fission only happens once a nucleus captures an incoming neutron.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">8</span><strong>Plutonium-239 absorbs a slow neutron and undergoes induced fission, producing xenon-134 and zirconium-103 plus further neutrons.</strong> (a) Balance the nuclear equation. (b) Using the rest masses ¹₀n = 1.00867 u, ²³⁹₉₄Pu = 239.0521634 u, ¹³⁴₅₄Xe = 133.9053945 u and ¹⁰³₄₀Zr = 102.92660 u, calculate the energy released, in MeV.
+        <textarea class="answer-lines" rows="6" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q8')">Show answer</button>
+        <div class="answer-panel" id="q8">(a) ¹₀n + ²³⁹₉₄Pu → ¹³⁴₅₄Xe + ¹⁰³₄₀Zr + 3 ¹₀n (mass numbers: 1 + 239 = 240 = 134 + 103 + 3; protons: 94 = 54 + 40 ✓). (b) mass before = 1.00867 + 239.0521634 = 240.0608334 u; mass after = 133.9053945 + 102.92660 + 3(1.00867) = 239.8580045 u; Δm = 0.2028 u; E = 0.2028 × 931.5 ≈ 189 MeV.</div>
+      </div>
+
+      <h3>Chain reactions</h3>
+
+      <div class="keybox">
+        <strong>Chain reaction.</strong> Each induced fission of a U-235 nucleus releases on average two or three new neutrons. If, on average, at least one of these neutrons goes on to cause a further fission, the reaction becomes self-sustaining — a chain reaction. Physicists describe the state of the reaction using the number of fissions each fission goes on to cause, on average:
+        <ul style="margin:0.5rem 0 0 1.2rem;">
+          <li><strong>Subcritical</strong> — fewer than one further fission per fission, on average: the reaction dies away.</li>
+          <li><strong>Critical</strong> — exactly one further fission per fission, on average: the fission rate (and power output) stays constant. This is how a working reactor is operated.</li>
+          <li><strong>Supercritical</strong> — more than one further fission per fission, on average: the fission rate grows, either briefly and under control (to raise a reactor's power output) or uncontrolled (as in a weapon).</li>
+        </ul>
+      </div>
+
+      <div class="sim-launch">
+        <p style="margin:0; font-weight:700; color:var(--navy);">Try it yourself — uranium-235 chain reaction simulator</p>
+        <p style="margin:0.4rem 0 0 0; font-size:0.92rem;">Choose a number of uranium-235 nuclei, populate the grid, then insert some neutrons and watch whether the chain reaction dies out, ticks over steadily, or runs away — and see how the result depends on how densely packed the uranium-235 nuclei are.</p>
+        <a class="launch-btn" href="https://www.drjonesphysics.com/chain" target="_blank" rel="noopener">Open the chain reaction simulation ↗</a>
+        <p class="credit">Simulation by Dr Jones Physics — drjonesphysics.com/chain. Used with permission.</p>
+      </div>
+
+      <div class="stretch-box">
+        <span class="tag">Stretch: why light nuclei make the best moderators</span>
+        <p>The neutrons released by fission travel at roughly 10⁷ m s⁻¹ — far too fast to be efficiently captured by U-235 nuclei, which react best with much slower ("thermal") neutrons. A moderator slows fast neutrons down through repeated elastic collisions with the nuclei of the moderator material. Think of a game of snooker: a moving ball transfers the largest share of its kinetic energy to a stationary ball of similar mass in a head-on collision, but bounces off a much heavier ball having lost almost none of its energy. Since a neutron has almost exactly the same mass as a hydrogen nucleus, water (or "heavy water", containing deuterium) is an extremely effective moderator — each collision can remove a large fraction of a neutron's kinetic energy. Graphite (carbon-12 nuclei, about 12 times a neutron's mass) is a less efficient but still workable alternative, requiring more collisions to achieve the same slowing.</p>
+      </div>
+
+      <div class="question">
+        <span class="qnum">9</span><strong>Use the terms subcritical, critical and supercritical to explain how a nuclear power station keeps its fission chain reaction running at a constant, controllable rate rather than letting it grow uncontrollably.</strong>
+        <textarea class="answer-lines long" rows="6" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q9')">Show answer</button>
+        <div class="answer-panel" id="q9">A working reactor is operated critical: on average exactly one neutron from each fission goes on to cause another fission, so the fission rate — and therefore the power output — stays constant. If the reaction starts to become supercritical, more neutrons are causing new fissions than are being lost, so control rods are inserted further to absorb the excess neutrons and return the reactor to critical; if it becomes subcritical, fewer neutrons cause new fissions than are lost, and the reaction dies away.</div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 4 ================= -->
+    <section class="topic" id="s4">
+      <h2>4. Inside a nuclear power plant</h2>
+      <p>A nuclear power plant is built around the fission chain reaction: it needs a way to control the reaction's rate, a way to sustain it efficiently, a way to move the released energy out to generate electricity, and a way to keep everyone outside safe. Label the diagram below, then read on to see how each part does its job.</p>
+
+      <div class="reactor-activity" id="reactorActivity">
+        <p style="margin-top:0;">Drag each label below onto the correct part of the nuclear power plant diagram (or click a label, then click a target box). The other parts are labelled for you.</p>
+
+        <div class="reactor-stage">
+          <svg viewBox="0 0 760 480" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="rArrow" viewBox="0 0 10 10" markerWidth="6" markerHeight="6" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#8592a1"/></marker>
+              <marker id="arrowRed" viewBox="0 0 10 10" markerWidth="6" markerHeight="6" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#a33d5b"/></marker>
+              <marker id="arrowBlue" viewBox="0 0 10 10" markerWidth="6" markerHeight="6" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#3d7fc4"/></marker>
+            </defs>
+
+            <!-- shielding / containment -->
+            <rect x="70" y="30" width="330" height="400" rx="18" fill="none" stroke="#6b4c9a" stroke-width="7"/>
+
+            <!-- pressure vessel -->
+            <ellipse cx="235" cy="90" rx="110" ry="34" fill="#eaf3fb" stroke="#173a5e" stroke-width="3"/>
+            <rect x="125" y="90" width="220" height="230" fill="#eaf3fb" stroke="#173a5e" stroke-width="3"/>
+            <ellipse cx="235" cy="320" rx="110" ry="34" fill="#eaf3fb" stroke="#173a5e" stroke-width="3"/>
+            <line x1="125" y1="90" x2="125" y2="320" stroke="#173a5e" stroke-width="3"/>
+            <line x1="345" y1="90" x2="345" y2="320" stroke="#173a5e" stroke-width="3"/>
+
+            <!-- moderator shading -->
+            <rect x="155" y="110" width="160" height="195" rx="6" fill="#cfe9ec" opacity="0.9"/>
+
+            <!-- fuel rods (amber) -->
+            <rect x="165" y="130" width="12" height="175" fill="#d98324"/>
+            <rect x="201" y="130" width="12" height="175" fill="#d98324"/>
+            <rect x="237" y="130" width="12" height="175" fill="#d98324"/>
+            <rect x="273" y="130" width="12" height="175" fill="#d98324"/>
+            <!-- control rods (grey), partially inserted, poking above vessel -->
+            <rect x="183" y="55" width="12" height="200" fill="#8a97a6"/>
+            <rect x="219" y="55" width="12" height="160" fill="#8a97a6"/>
+            <rect x="255" y="55" width="12" height="220" fill="#8a97a6"/>
+            <!-- control rod drive housings above vessel -->
+            <rect x="178" y="40" width="22" height="18" rx="3" fill="#5b6675"/>
+            <rect x="214" y="40" width="22" height="18" rx="3" fill="#5b6675"/>
+            <rect x="250" y="40" width="22" height="18" rx="3" fill="#5b6675"/>
+
+            <!-- primary coolant loop (teal) — horizontal from vessel, vertical section inside the heat exchanger -->
+            <path d="M345,140 L505,140 L505,330 L430,330 L430,345 L345,300" fill="none" stroke="#0e7c86" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- pump on primary loop -->
+            <circle cx="430" cy="345" r="16" fill="#0e7c86" stroke="#0a5b62" stroke-width="2"/>
+            <path d="M424,345 l12,-7 l0,14 z" fill="#fff"/>
+
+            <!-- heat exchanger -->
+            <rect x="470" y="120" width="120" height="230" rx="10" fill="#fdf1e2" stroke="#d98324" stroke-width="2.5"/>
+
+            <!-- secondary loop: red vertical section close to the right-hand side inside the heat exchanger, exiting top as steam; blue pipe returns from the turbines at the bottom -->
+            <line x1="560" y1="135" x2="560" y2="335" stroke="#a33d5b" stroke-width="6" stroke-linecap="round"/>
+            <line x1="560" y1="135" x2="708" y2="135" stroke="#a33d5b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowRed)"/>
+            <circle cx="650" cy="335" r="14" fill="#3d7fc4" stroke="#2c5f96" stroke-width="2"/>
+            <path d="M645,335 l11,-6 l0,12 z" fill="#fff"/>
+            <line x1="700" y1="335" x2="560" y2="335" stroke="#3d7fc4" stroke-width="6" stroke-linecap="round" marker-end="url(#arrowBlue)"/>
+
+            <!-- leader lines to static labels -->
+            <line x1="345" y1="110" x2="400" y2="70" stroke="#8592a1" stroke-width="1.3"/>
+            <line x1="177" y1="230" x2="70" y2="255" stroke="#8592a1" stroke-width="1.3"/>
+            <line x1="430" y1="361" x2="430" y2="410" stroke="#8592a1" stroke-width="1.3"/>
+            <line x1="708" y1="135" x2="708" y2="115" stroke="#8592a1" stroke-width="1.3"/>
+            <line x1="650" y1="349" x2="650" y2="410" stroke="#8592a1" stroke-width="1.3"/>
+
+            <!-- leader lines to drop-zone targets -->
+            <line x1="219" y1="36" x2="225" y2="58" stroke="#b98a3d" stroke-width="1.6" stroke-dasharray="3 2"/>
+            <line x1="136" y1="106" x2="165" y2="150" stroke="#b98a3d" stroke-width="1.6" stroke-dasharray="3 2"/>
+            <line x1="136" y1="388" x2="70" y2="378" stroke="#b98a3d" stroke-width="1.6" stroke-dasharray="3 2"/>
+            <line x1="525" y1="78" x2="500" y2="122" stroke="#b98a3d" stroke-width="1.6" stroke-dasharray="3 2"/>
+
+          </svg>
+
+          <!-- static labels -->
+          <div class="reactor-static-label" style="left:395px; top:44px; width:120px;">Reactor pressure vessel</div>
+          <div class="reactor-static-label" style="left:2px; top:258px; width:80px;">Fuel rods</div>
+          <div class="reactor-static-label" style="left:390px; top:410px; width:80px;">Coolant pump</div>
+          <div class="reactor-static-label" style="left:660px; top:88px; width:90px;">Steam to turbines</div>
+          <div class="reactor-static-label" style="left:568px; top:410px; width:110px;">Water from turbines</div>
+
+          <!-- drop targets -->
+          <div class="dz" data-answer="control-rods" style="left:150px; top:2px;">Drop label here</div>
+          <div class="dz" data-answer="moderator" style="left:2px; top:90px;">Drop label here</div>
+          <div class="dz" data-answer="heat-exchanger" style="left:525px; top:44px;">Drop label here</div>
+          <div class="dz" data-answer="shielding" style="left:2px; top:368px;">Drop label here</div>
+        </div>
+
+        <div class="label-bank" id="labelBank">
+          <div class="label-chip" data-label="moderator">Moderator</div>
+          <div class="label-chip" data-label="shielding">Shielding / containment</div>
+          <div class="label-chip" data-label="control-rods">Control rods</div>
+          <div class="label-chip" data-label="heat-exchanger">Heat exchanger</div>
+        </div>
+
+        <div class="reactor-btnrow no-print">
+          <button class="reactor-btn primary" onclick="reactorCheck()">Check answers</button>
+          <button class="reactor-btn" onclick="reactorReveal()">Show answers</button>
+          <button class="reactor-btn" onclick="reactorResetDiagram()">Reset</button>
+        </div>
+        <div class="reactor-feedback" id="reactorFeedback"></div>
+      </div>
+
+      <p><strong>Control rods</strong> are made of a strongly neutron-absorbing material, such as boron or cadmium. Raising or lowering them into the reactor core changes how many of the neutrons released by fission are absorbed rather than going on to cause further fissions, which is how the reaction's rate — and so the plant's power output — is adjusted, or the reactor shut down entirely in an emergency.</p>
+
+      <p><strong>The moderator</strong> (often the water that also acts as the primary coolant) slows fast fission neutrons down to thermal speeds through the elastic collisions described in Section 3, making them far more likely to cause a further U-235 fission and sustain the chain reaction efficiently.</p>
+
+      <p><strong>The heat exchanger</strong> transfers heat from the primary coolant loop, which has been in direct contact with the radioactive reactor core, to a completely separate secondary loop that carries the resulting steam to the turbines. Keeping the two loops physically separate means the water driving the turbines (and everything downstream of it) never becomes radioactively contaminated.</p>
+
+      <p><strong>Shielding</strong> — a thick structure of concrete, steel and other dense materials surrounding the reactor — absorbs radiation (particularly neutrons and gamma rays) escaping from the core, protecting workers and the public, and also helps contain radioactive material in the event of an accident.</p>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">10</span><strong>Explain why a nuclear reactor's coolant is kept in a separate primary loop, rather than the same water being sent directly to drive the turbines.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q10')">Show answer</button>
+        <div class="answer-panel" id="q10">The primary coolant is in direct contact with the reactor core and becomes radioactively contaminated; keeping it in a closed loop, and transferring its heat to a separate secondary loop via a heat exchanger, means the steam sent to the turbines (and the turbine hall itself) stays free of radioactive contamination.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">11</span><strong>A reactor operator wants to reduce the plant's power output. Explain what they should do to the control rods, and why this works.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q11')">Show answer</button>
+        <div class="answer-panel" id="q11">They should lower (insert further) the control rods. This increases the amount of neutron-absorbing material within the core, so a smaller fraction of the neutrons released by fission go on to cause further fissions; the reaction becomes closer to subcritical, so the fission rate — and the power output — falls.</div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 5 ================= -->
+    <section class="topic" id="s5">
+      <h2>5. Fission products and their management</h2>
+      <p>The fission fragments produced by a reaction — barium-144 and krypton-89 in Worked example 3.1, for instance — are themselves radioactive. Heavier nuclides need a higher neutron-to-proton ratio than lighter nuclides to be stable, so a fission fragment inherits roughly the same neutron-to-proton ratio as the large, heavy parent nucleus it came from — a ratio that is now far too high for its new, much smaller mass number. Fission fragments are therefore almost always neutron-rich and unstable, decaying by beta-minus emission — often followed by gamma emission, and sometimes through several successive decays — before finally reaching a stable nuclide. Their half-lives vary enormously, from fractions of a second to hundreds of thousands of years, so nuclear waste is not a single hazard but a mixture that has to be managed differently depending on how active, and how long-lived, each component is.</p>
+
+      <div class="keybox">
+        <strong>Classifying nuclear waste.</strong>
+        <ul style="margin:0.5rem 0 0 1.2rem;">
+          <li><strong>High-level waste</strong> — spent fuel and the most intensely radioactive fission products: small in volume, but very hot and highly radioactive.</li>
+          <li><strong>Intermediate-level waste</strong> — reactor components and other material with significant but lower activity, produced in larger volumes.</li>
+          <li><strong>Low-level waste</strong> — protective clothing, tools and other lightly contaminated material: low activity, but the largest volume by far.</li>
+        </ul>
+      </div>
+
+      <p>Spent fuel is first stored underwater in cooling ponds at the reactor site for several years — the water shields the surrounding area from radiation and carries away the heat the fuel continues to generate — before being moved to sealed dry cask storage. For permanent disposal, high-level waste can be <strong>vitrified</strong>: fused with glass-forming materials into solid glass blocks, sealed inside steel canisters, and buried deep underground in stable geological rock formations, isolating it for the tens of thousands of years its activity takes to fall to safe levels. Some countries instead <strong>reprocess</strong> spent fuel, chemically separating out the unused uranium and plutonium so it can be reused as new fuel, which reduces the volume of waste that needs long-term storage.</p>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">12</span><strong>Explain why the fission fragments produced in a reactor are radioactive, and describe one method used for the long-term management of high-level nuclear waste.</strong>
+        <textarea class="answer-lines long" rows="6" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q12')">Show answer</button>
+        <div class="answer-panel" id="q12">Fission fragments inherit the high neutron-to-proton ratio of the heavy nuclide they came from, but the stable nuclides of their (much smaller) mass number need a lower neutron-to-proton ratio — so fission fragments are neutron-rich and unstable, decaying by beta-minus (often followed by gamma) emission, sometimes through several stages, until they reach a stable nuclide. One management method: liquid high-level waste is vitrified into solid glass blocks, sealed in steel canisters, and buried deep underground in a stable geological rock formation, isolating it until its activity has fallen to safe levels.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">13</span><strong>Classify each of the following as high-level, intermediate-level or low-level nuclear waste: (a) spent fuel rods removed from the reactor core; (b) a technician's used protective gloves; (c) metal reactor components replaced during routine maintenance.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q13')">Show answer</button>
+        <div class="answer-panel" id="q13">(a) High-level waste. (b) Low-level waste. (c) Intermediate-level waste.</div>
+      </div>
+    </section>
+
+    <!-- ================= GLOSSARY ================= -->
+    <section class="topic" id="sG">
+      <h2>Glossary</h2>
+      <dl class="glossary">
+        <dt>Binding energy</dt><dd>The energy that would be needed to completely separate a nucleus into individual, stationary protons and neutrons; equivalently, the energy released if the nucleus were assembled from separate nucleons.</dd>
+        <dt>Mass defect</dt><dd>The difference between the total mass of a nucleus's separate, individual nucleons and the actual (smaller) mass of the assembled nucleus.</dd>
+        <dt>Mass–energy equivalence</dt><dd>Einstein's relationship E = mc², which states that any change in the energy of a system corresponds to a proportional change in its mass.</dd>
+        <dt>Unified atomic mass unit, u</dt><dd>A unit of mass defined as exactly one twelfth of the mass of a carbon-12 atom, convenient for expressing the masses of nucleons and nuclides.</dd>
+        <dt>Binding energy per nucleon</dt><dd>The total binding energy of a nucleus divided by its nucleon number, A; the best single measure of how tightly bound (stable) a nuclide is.</dd>
+        <dt>Fission</dt><dd>The splitting of a massive nucleus into two smaller, more tightly bound nuclei, releasing energy.</dd>
+        <dt>Spontaneous fission</dt><dd>Fission that occurs on its own, with no external trigger, in some very heavy nuclides.</dd>
+        <dt>Induced fission</dt><dd>Fission triggered when a nucleus, such as uranium-235, captures a slow-moving ("thermal") neutron.</dd>
+        <dt>Chain reaction</dt><dd>A self-sustaining sequence of fission reactions, in which the neutrons released by each fission go on to trigger further fissions.</dd>
+        <dt>Critical (of a chain reaction)</dt><dd>The state in which, on average, exactly one neutron from each fission goes on to cause a further fission, keeping the fission rate constant — the normal operating state of a nuclear reactor.</dd>
+        <dt>Moderator</dt><dd>A material (such as water or graphite) that slows fast fission neutrons to thermal speeds through elastic collisions, making them far more likely to cause further fission.</dd>
+        <dt>Control rods</dt><dd>Neutron-absorbing rods (e.g. boron or cadmium) raised or lowered within a reactor core to regulate, or shut down, the fission chain reaction.</dd>
+        <dt>Heat exchanger</dt><dd>A device that transfers heat from a reactor's (radioactive) primary coolant loop to a separate secondary loop, without the two fluids mixing.</dd>
+        <dt>High-level waste</dt><dd>Spent nuclear fuel and the most intensely radioactive fission products; small in volume but very hot and highly radioactive.</dd>
+        <dt>Vitrification</dt><dd>A method of managing high-level nuclear waste by fusing it with glass-forming materials into solid glass blocks for sealed, long-term storage.</dd>
+      </dl>
+    </section>
+
+    <footer class="page no-print">Binding Energy &amp; Nuclear Stability Workbook (SL) · Companion resources: <em>Radioactivity &amp; Half-Life (SL)</em> and <em>The Nucleus &amp; Atomic Spectra (SL)</em>.</footer>
+  </main>
+</div>
+
+<script>
+/* ---------- text answer toggles ---------- */
+function toggleAnswer(id){ document.getElementById(id).classList.toggle('shown'); }
+function revealAll(){
+  document.querySelectorAll('.answer-panel').forEach(function(el){ el.classList.add('shown'); });
+  document.body.classList.add('answers-visible');
+}
+function hideAll(){
+  document.querySelectorAll('.answer-panel').forEach(function(el){ el.classList.remove('shown'); });
+  document.body.classList.remove('answers-visible');
+}
+
+/* ---------- fill in online: autosize ---------- */
+let fillableEls = [];
+
+function autosize(el){
+  if(el.tagName !== 'TEXTAREA') return;
+  el.style.height = 'auto';
+  el.style.height = Math.max(el.scrollHeight, el.offsetHeight) + 'px';
+}
+
+function initFillables(){
+  fillableEls = Array.prototype.slice.call(document.querySelectorAll('.answer-lines, .name-box .fill'));
+  fillableEls.forEach(function(el){
+    autosize(el);
+    el.addEventListener('input', function(){ autosize(el); });
+  });
+}
+
+function clearMyAnswers(){
+  if(!confirm('Clear everything you have typed in this workbook? This cannot be undone.')) return;
+  fillableEls.forEach(function(el){
+    el.value = '';
+    autosize(el);
+  });
+}
+
+window.addEventListener('beforeprint', function(){
+  fillableEls.forEach(autosize);
+});
+
+document.addEventListener('DOMContentLoaded', initFillables);
+
+/* ---------- reactor label-the-diagram component ---------- */
+(function(){
+  var LABELS = {
+    'control-rods':'Control rods',
+    'moderator':'Moderator',
+    'heat-exchanger':'Heat exchanger',
+    'shielding':'Shielding / containment'
+  };
+  var selectedChip = null;
+  var state = {}; // dz answer-key -> label key currently placed
+
+  function chips(){ return Array.prototype.slice.call(document.querySelectorAll('#labelBank .label-chip')); }
+  function zones(){ return Array.prototype.slice.call(document.querySelectorAll('.dz')); }
+
+  if(zones().length === 0) return;
+
+  function clearChipSelection(){
+    chips().forEach(function(c){ c.classList.remove('selected'); });
+    selectedChip = null;
+  }
+
+  function refreshBank(){
+    var used = Object.keys(state).map(function(k){ return state[k]; });
+    chips().forEach(function(c){
+      var key = c.getAttribute('data-label');
+      c.classList.toggle('used', used.indexOf(key) !== -1);
+    });
+  }
+
+  function placeInZone(zone, labelKey){
+    var zoneKey = zone.getAttribute('data-answer');
+    if (state[zoneKey]) { delete state[zoneKey]; }
+    Object.keys(state).forEach(function(k){ if (state[k] === labelKey) delete state[k]; });
+    state[zoneKey] = labelKey;
+    zone.textContent = LABELS[labelKey];
+    zone.classList.add('filled');
+    zone.classList.remove('correct','incorrect','selected');
+    refreshBank();
+  }
+
+  function clearZone(zone){
+    var zoneKey = zone.getAttribute('data-answer');
+    delete state[zoneKey];
+    zone.textContent = 'Drop label here';
+    zone.classList.remove('filled','correct','incorrect');
+    refreshBank();
+  }
+
+  chips().forEach(function(chip){
+    chip.addEventListener('click', function(){
+      if (chip.classList.contains('used')) return;
+      if (selectedChip === chip) { clearChipSelection(); return; }
+      clearChipSelection();
+      chip.classList.add('selected');
+      selectedChip = chip;
+    });
+    chip.setAttribute('draggable','true');
+    chip.addEventListener('dragstart', function(e){
+      e.dataTransfer.setData('text/plain', chip.getAttribute('data-label'));
+    });
+  });
+
+  zones().forEach(function(zone){
+    zone.addEventListener('click', function(){
+      if (selectedChip){
+        placeInZone(zone, selectedChip.getAttribute('data-label'));
+        clearChipSelection();
+      } else if (zone.classList.contains('filled')) {
+        clearZone(zone);
+      }
+    });
+    zone.addEventListener('dragover', function(e){ e.preventDefault(); });
+    zone.addEventListener('drop', function(e){
+      e.preventDefault();
+      var labelKey = e.dataTransfer.getData('text/plain');
+      if (labelKey) placeInZone(zone, labelKey);
+    });
+  });
+
+  window.reactorCheck = function(){
+    var correctCount = 0;
+    zones().forEach(function(zone){
+      var zoneKey = zone.getAttribute('data-answer');
+      var placed = state[zoneKey];
+      if (!placed) { zone.classList.remove('correct','incorrect'); return; }
+      if (placed === zoneKey) { zone.classList.add('correct'); zone.classList.remove('incorrect'); correctCount++; }
+      else { zone.classList.add('incorrect'); zone.classList.remove('correct'); }
+    });
+    var fb = document.getElementById('reactorFeedback');
+    var total = zones().length;
+    fb.textContent = correctCount + ' of ' + total + ' correct.';
+    fb.style.color = (correctCount === total) ? '#1f6e3c' : '#8c2f3f';
+  };
+
+  window.reactorReveal = function(){
+    zones().forEach(function(zone){
+      var zoneKey = zone.getAttribute('data-answer');
+      state[zoneKey] = zoneKey;
+      zone.textContent = LABELS[zoneKey];
+      zone.classList.add('filled','correct');
+      zone.classList.remove('incorrect');
+    });
+    refreshBank();
+    document.getElementById('reactorFeedback').textContent = 'Correct labelling shown above.';
+    document.getElementById('reactorFeedback').style.color = '#1f6e3c';
+  };
+
+  window.reactorResetDiagram = function(){
+    state = {};
+    zones().forEach(function(zone){
+      zone.textContent = 'Drop label here';
+      zone.classList.remove('filled','correct','incorrect');
+    });
+    clearChipSelection();
+    refreshBank();
+    document.getElementById('reactorFeedback').textContent = '';
+  };
+})();
+</script>
+</body>
+</html>
