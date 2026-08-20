@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interference of Waves (SL) — Student Workbook</title>
+<style>
+  :root{
+    --navy:#173a5e; --teal:#0e7c86; --teal-dark:#0a5b62; --amber:#d98324;
+    --soft-blue:#eaf3fb; --soft-amber:#fdf1e2; --soft-green:#eaf7ee; --soft-grey:#f4f6f8;
+    --line:#b9c6d3; --ink:#1f2933; --border:#d7e0e8;
+    --purple:#6b4c9a; --soft-purple:#f1ebf9;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); background:#f7f9fb; line-height:1.55; font-size:16.5px; padding-top:56px;}
+  .layout{display:flex; min-height:calc(100vh - 56px);}
+  nav.sidebar{width:250px; flex-shrink:0; background:var(--navy); color:#fff; padding:1.25rem 1rem; position:sticky; top:56px; height:calc(100vh - 56px); overflow-y:auto;}
+  nav.sidebar h1{font-size:1.05rem; line-height:1.3; margin:0 0 1rem 0; color:#fff;}
+  nav.sidebar a{display:block; color:#cfe3ee; text-decoration:none; font-size:0.88rem; padding:0.4rem 0.5rem; border-radius:6px; margin-bottom:0.15rem;}
+  nav.sidebar a:hover{background:rgba(255,255,255,0.12); color:#fff;}
+  nav.sidebar .tag{display:inline-block; background:var(--amber); color:#fff; font-size:0.68rem; padding:0.1rem 0.4rem; border-radius:4px; margin-left:0.3rem; vertical-align:middle;}
+  main{flex:1; max-width:920px; margin:0 auto; padding:2rem 2.5rem 5rem 2.5rem;}
+  .cover{background:linear-gradient(135deg,var(--navy),var(--teal-dark)); color:#fff; border-radius:14px; padding:2.5rem 2.5rem; margin-bottom:2rem;}
+  .cover h1{margin:0 0 0.4rem 0; font-size:1.9rem;}
+  .cover p.sub{margin:0; font-size:1.05rem; color:#dceaf0;}
+  .cover .meta{margin-top:1.2rem; font-size:0.9rem; color:#cfe3ee;}
+  .name-box{margin-top:1.4rem; background:rgba(255,255,255,0.1); border:1px dashed rgba(255,255,255,0.5); border-radius:8px; padding:0.9rem 1.1rem;}
+  .name-box label{display:block; font-size:0.8rem; color:#dceaf0; margin-bottom:0.2rem;}
+  .name-box .fill{display:block; width:100%; border:none; border-bottom:1px solid #dceaf0; height:1.6rem; background:transparent; color:#fff; font-size:1rem; font-family:inherit; padding:0; outline:none;}
+  .name-box .fill::placeholder{color:rgba(255,255,255,0.5);}
+  .goals{background:rgba(255,255,255,0.12); border-left:4px solid #fff; border-radius:6px; padding:0.9rem 1.1rem; font-size:0.92rem; color:#fff;}
+  .goals ul{margin:0.4rem 0 0 0; padding-left:1.2rem;}
+
+  section.topic{background:#fff; border:1px solid var(--border); border-radius:12px; padding:1.8rem 2rem; margin-bottom:1.6rem;}
+  section.topic h2{color:var(--navy); font-size:1.4rem; margin-top:0; border-bottom:3px solid var(--amber); padding-bottom:0.4rem;}
+  section.topic h3{color:var(--teal-dark); font-size:1.08rem; margin-top:1.6rem;}
+
+  .keybox{background:var(--soft-blue); border:1px solid #c7ddef; border-radius:8px; padding:0.9rem 1.1rem; margin:0.9rem 0; font-size:0.98rem;}
+  .keybox strong{color:var(--navy);}
+  .eqn{background:#fff; border:1px solid #c7ddef; border-radius:6px; padding:0.6rem 1rem; margin:0.6rem 0; font-size:1.08rem; text-align:center; font-family:"Cambria Math",Cambria,Georgia,serif;}
+  .keyword{background:var(--soft-amber); border-left:4px solid var(--amber); border-radius:6px; padding:0.7rem 1rem; margin:0.9rem 0; font-size:0.92rem;}
+  .keyword b{color:var(--amber);}
+  .example{background:var(--soft-green); border:1px solid #bfe3cc; border-radius:8px; padding:0.9rem 1.1rem; margin:1rem 0;}
+  .example .tag{display:inline-block; background:#3f9a5c; color:#fff; font-size:0.72rem; font-weight:600; letter-spacing:0.03em; padding:0.15rem 0.5rem; border-radius:4px; margin-bottom:0.5rem; text-transform:uppercase;}
+  .stretch-box{background:var(--soft-purple); border:1px solid #d9c9ec; border-radius:8px; padding:0.9rem 1.1rem; margin:1rem 0;}
+  .stretch-box .tag{display:inline-block; background:var(--purple); color:#fff; font-size:0.72rem; font-weight:600; letter-spacing:0.03em; padding:0.15rem 0.5rem; border-radius:4px; margin-bottom:0.5rem; text-transform:uppercase;}
+  .stretch-box strong{color:var(--purple);}
+
+  .question{background:var(--soft-grey); border:1px solid var(--border); border-radius:8px; padding:1rem 1.2rem; margin:1.1rem 0;}
+  .question .qnum{display:inline-block; background:var(--navy); color:#fff; font-weight:700; font-size:0.82rem; width:1.9rem; height:1.9rem; line-height:1.9rem; text-align:center; border-radius:50%; margin-right:0.5rem;}
+  .answer-lines{
+    display:block; width:100%; box-sizing:border-box;
+    background-image:repeating-linear-gradient(to bottom, transparent, transparent 1.65em, var(--line) 1.7em);
+    background-color:transparent;
+    min-height:5.1em; margin:0.6rem 0 0.2rem 0;
+    border:1px solid transparent; border-radius:6px;
+    outline:none; resize:none; overflow:hidden;
+    font:inherit; color:inherit; line-height:1.7em;
+    padding:0.05em 0.4em 0 0.2em;
+  }
+  .answer-lines:focus{
+    border:1px solid var(--teal); background-color:#fbfdff;
+    box-shadow:0 0 0 3px rgba(14,124,134,0.12);
+  }
+  .answer-lines::placeholder{color:#9aa8b4; font-style:italic;}
+  .answer-lines.short{min-height:1.7em;}
+  .answer-lines.long{min-height:8.5em;}
+  .reveal-btn{background:var(--teal); color:#fff; border:none; border-radius:6px; padding:0.35rem 0.8rem; font-size:0.82rem; cursor:pointer; margin-top:0.5rem;}
+  .reveal-btn:hover{background:var(--teal-dark);}
+  .answer-panel{display:none; background:#fff; border:1px dashed #3f9a5c; border-radius:6px; padding:0.7rem 1rem; margin-top:0.6rem; font-size:0.92rem;}
+  .answer-panel.shown{display:block;}
+
+  figure{margin:1.2rem auto; text-align:center; max-width:560px;}
+  figure.wide{max-width:none;}
+  figure svg{max-width:100%; height:auto; max-height:320px;}
+  figcaption{font-size:0.85rem; color:#5b6b78; margin-top:0.4rem;}
+
+  table.eqtable{width:100%; border-collapse:collapse; font-size:0.92rem; margin-top:0.7rem;}
+  table.eqtable th, table.eqtable td{border:1px solid var(--border); padding:0.5rem 0.7rem; text-align:left;}
+  table.eqtable th{background:var(--soft-blue); color:var(--navy);}
+
+  dl.glossary dt{font-weight:700; color:var(--navy); margin-top:0.7rem;}
+  dl.glossary dd{margin-left:0; margin-bottom:0.2rem;}
+
+  .topbar{
+    position:fixed; top:0; left:0; right:0; height:56px; z-index:200;
+    background:#fff; border-bottom:1px solid var(--border); box-shadow:0 2px 8px rgba(0,0,0,0.06);
+    display:flex; align-items:center; gap:0.6rem; padding:0 1.4rem; overflow-x:auto;
+  }
+  .topbar .topbar-title{font-weight:700; color:var(--navy); font-size:0.92rem; margin-right:auto; white-space:nowrap;}
+  .topbar button{background:#fff; color:var(--navy); border:1px solid var(--border); border-radius:50px; padding:0.5rem 1rem; font-size:0.82rem; cursor:pointer; white-space:nowrap; flex-shrink:0;}
+  .topbar button:hover{background:var(--soft-blue);}
+  .topbar button.primary{background:var(--amber); color:#fff; border-color:var(--amber); font-weight:600;}
+  .topbar button.primary:hover{background:#c0721c;}
+  .topbar .save-status{font-size:0.72rem; color:#5b6b78; white-space:nowrap; flex-shrink:0;}
+  @media (max-width: 820px){ .topbar .save-status{display:none;} }
+  @media (max-width: 620px){ .topbar .topbar-title{display:none;} }
+  footer.page{font-size:0.8rem; color:#7c8b98; text-align:center; margin-top:2rem;}
+
+  /* ---------- simulation embed conventions ---------- */
+  .sim-embed{background:#fff; border:1px solid var(--border); border-radius:10px; padding:1rem 1.2rem; margin:1rem 0;}
+  .sim-embed p.instructions{margin:0 0 0.6rem 0; font-size:0.92rem; color:#3a4753;}
+  .sim-frame{width:100%; border:none; display:block; border-radius:8px; height:520px;}
+  .sim-embed-credit{text-align:center; font-size:0.82rem; color:#7c8b98; margin-top:0.6rem;}
+  .sim-print-note{display:none;}
+
+  .sim-launch{
+    background:linear-gradient(135deg,var(--soft-blue),#fff); border:1px solid #c7ddef; border-radius:10px;
+    padding:1.2rem 1.4rem; margin:1.1rem 0; text-align:center;
+  }
+  .sim-launch a.launch-btn{
+    display:inline-block; background:var(--teal); color:#fff; text-decoration:none; font-weight:700;
+    padding:0.65rem 1.4rem; border-radius:8px; margin-top:0.6rem; font-size:0.98rem;
+  }
+  .sim-launch a.launch-btn:hover{background:var(--teal-dark);}
+  .sim-launch p.credit{font-size:0.8rem; color:#5b6b78; margin-top:0.7rem;}
+
+  /* custom-canvas sim layout (wide figure: canvas + controls side by side) */
+  .sim-wrap{display:flex; gap:1.4rem; align-items:flex-start; flex-wrap:wrap; background:#0f1f30; border-radius:10px; padding:1.1rem; }
+  .sim-canvas-box{flex:0 0 auto;}
+  .sim-canvas-box canvas{display:block; border-radius:8px; background:#0f1f30;}
+  .sim-controls{flex:1 1 220px; min-width:220px; color:#dceaf0; font-size:0.9rem;}
+  .sim-controls h4{margin:0 0 0.6rem 0; color:#fff; font-size:0.95rem;}
+  .sim-row{margin-bottom:0.9rem;}
+  .sim-row label{display:block; margin-bottom:0.3rem;}
+  .sim-row input[type="range"]{width:100%;}
+  .sim-row select{width:100%; padding:0.3rem; border-radius:6px; border:1px solid rgba(255,255,255,0.3); background:#16283c; color:#fff; font-size:0.85rem;}
+  .sim-readout{background:rgba(255,255,255,0.08); border-radius:6px; padding:0.6rem 0.8rem; font-size:0.86rem; line-height:1.6;}
+  .sim-btns{margin-top:0.8rem; display:flex; gap:0.5rem; flex-wrap:wrap;}
+  .sim-btns button{background:var(--teal); color:#fff; border:none; border-radius:6px; padding:0.4rem 0.9rem; font-size:0.82rem; cursor:pointer;}
+  .sim-btns button:hover{background:var(--teal-dark);}
+  .sim-btns button.alt{background:transparent; border:1px solid rgba(255,255,255,0.4); color:#dceaf0;}
+  .sim-btns button.alt:hover{background:rgba(255,255,255,0.1);}
+
+  @media print{
+    nav.sidebar, .topbar, .reveal-btn{display:none !important;}
+    .layout{display:block;}
+    main{max-width:100%; padding:0; margin:0;}
+    body{background:#fff; font-size:11.5pt; padding-top:0;}
+    section.topic{border:none; box-shadow:none; padding:0; margin:0 0 1.2rem 0; page-break-inside:avoid;}
+    .cover{page-break-after:always; border-radius:0;}
+    .answer-panel{display:none !important;}
+    body.answers-visible .answer-panel{display:block !important; border-style:solid;}
+    a{color:inherit; text-decoration:none;}
+    .page-break{page-break-before:always;}
+    .answer-lines{border-color:transparent !important; box-shadow:none !important; color:#000;}
+    .answer-lines::placeholder{color:transparent;}
+    .name-box .fill{color:#000; border-bottom-color:#5b6b78;}
+    .name-box .fill::placeholder{color:transparent;}
+    .sim-frame, .sim-embed-credit, .sim-embed p.instructions, .sim-wrap{display:none !important;}
+    .sim-print-note{display:block !important; text-align:center; font-size:0.85rem; color:#5b6b78; padding:0.9rem; border:1px dashed #b9c6d3; border-radius:8px; margin:0.6rem 0;}
+    .sim-launch{display:none !important;}
+  }
+</style>
+</head>
+<body>
+<div class="topbar no-print">
+  <span class="topbar-title">Interference of Waves (SL)</span>
+  <button onclick="revealAll()">Show all answers</button>
+  <button onclick="hideAll()">Hide all answers</button>
+  <button onclick="clearMyAnswers()">Clear my answers</button>
+  <span class="save-status">Answers are not saved automatically — print or copy your work before closing this tab</span>
+  <button class="primary" onclick="window.print()">🖨️ Print / Save as PDF</button>
+</div>
+<div class="layout">
+  <nav class="sidebar no-print">
+    <h1>Interference of Waves <span class="tag">SL</span></h1>
+    <a href="#cover">Cover &amp; goals</a>
+    <a href="#s1">1. Superposition of waves and pulses</a>
+    <a href="#s2">2. Coherence and interference patterns</a>
+    <a href="#s3">3. Path difference and the conditions for interference</a>
+    <a href="#s4">4. Young's double-slit experiment</a>
+    <a href="#sG">Glossary</a>
+  </nav>
+
+  <main>
+    <section class="cover" id="cover">
+      <h1>Interference of Waves (SL)</h1>
+      <p style="margin:0.9rem 0 0 0; max-width:640px; font-size:0.98rem; color:#dceaf0;">Shine a laser through two narrow slits and, instead of two bright lines, you get a whole pattern of stripes. Listen to two loudspeakers playing the same note and, as you walk past them, the sound gets loud, quiet, loud, quiet — even though neither speaker changed volume. Both are examples of the same phenomenon: waves from two sources overlapping, reinforcing in some places and cancelling in others. This workbook builds that idea up from the principle of superposition, through the special condition of coherence that makes a stable pattern possible, to the equations that pin down exactly where the reinforcement and cancellation occur — finishing with Young's double-slit experiment, the classic experiment that gave the first real evidence that light travels as a wave.</p>
+      <div class="goals" style="margin-top:1.3rem;">
+        <strong style="color:#fff;">By the end of this workbook you should be able to:</strong>
+        <ul>
+          <li>Apply the principle of superposition to waves and wave pulses.</li>
+          <li>Explain why stable double-source interference requires coherent sources.</li>
+          <li>State and apply the condition for constructive interference, path difference = nλ.</li>
+          <li>State and apply the condition for destructive interference, path difference = (n + ½)λ.</li>
+          <li>Apply Young's double-slit equation, s = λD/d, where s is the separation of the fringes, d is the separation of the slits, and D is the distance from the slits to the screen.</li>
+        </ul>
+      </div>
+      <div class="name-box">
+        <label>Name</label><input type="text" class="fill" id="studentName" autocomplete="name">
+      </div>
+    </section>
+
+    <!-- ================= SECTION 1: SUPERPOSITION ================= -->
+    <section class="topic" id="s1">
+      <h2>1. Superposition of waves and pulses</h2>
+      <p>Whenever two or more waves overlap at the same point in space, something specific and predictable happens to the displacement there. This is described by one of the most useful ideas in wave physics: the <strong>principle of superposition</strong>. It applies to any kind of wave — pulses, continuous waves, water waves, sound, light — whenever they occupy the same place at the same time.</p>
+
+      <div class="keybox">
+        <strong>Principle of superposition.</strong> When two or more waves meet at a point, the overall (resultant) displacement at that point is the vector sum of the individual displacements of each wave. Immediately afterwards, each wave continues on its way completely unaffected by the meeting — superposition changes what you see at that instant, not the waves themselves.
+      </div>
+
+      <p>Superposition applies whether the waves are travelling in the same direction, opposite directions, or at an angle to each other, and whether their displacements point the same way (adding to something bigger) or opposite ways (partially or fully cancelling).</p>
+
+      <h3>Superposition of pulses</h3>
+      <p>The clearest way to see superposition is to watch two short pulses travelling towards each other along a rope or spring. As they overlap, the rope's displacement at every point is simply the sum of what each pulse would have produced there on its own — then the two pulses emerge from the overlap and carry on exactly as before, as though nothing had happened.</p>
+
+      <h3>Live simulation: superposition of two pulses</h3>
+      <figure class="wide">
+        <div class="sim-wrap">
+          <div class="sim-canvas-box">
+            <canvas id="pulseCanvas" width="460" height="260"></canvas>
+          </div>
+          <div class="sim-controls">
+            <h4>Two pulses meeting</h4>
+            <div class="sim-row">
+              <label for="pulseSignSelect">Second pulse is…</label>
+              <select id="pulseSignSelect">
+                <option value="same">The same way up (in phase)</option>
+                <option value="opposite">Upside down (out of phase)</option>
+              </select>
+            </div>
+            <div class="sim-btns">
+              <button onclick="restartPulseSim()">Restart</button>
+            </div>
+            <div class="sim-readout" id="pulseText">Watch the resultant (teal) curve as the two pulses (faint red and blue) overlap.</div>
+          </div>
+        </div>
+        <figcaption>Fig. 1.1 Two pulses approach from opposite ends of a rope. The teal curve is the actual displacement of the rope — the vector sum of the two individual pulses shown faintly behind it.</figcaption>
+      </figure>
+
+      <h3>Superposition of continuous waves</h3>
+      <p>The same principle applies to continuous, repeating waves. If two waves of the same frequency arrive at a point <strong>in phase</strong> (crest meets crest), their displacements add constructively, producing a bigger resultant wave. If they arrive <strong>exactly out of phase</strong> (crest meets trough), their displacements subtract — if their amplitudes are equal, the resultant is zero. At every phase relationship in between, the resultant amplitude lies somewhere between these two extremes.</p>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">1</span><strong>State the principle of superposition.</strong>
+        <textarea class="answer-lines" rows="3" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q1')">Show answer</button>
+        <div class="answer-panel" id="q1">When two or more waves meet at a point, the resultant displacement at that point is the vector sum of the individual displacements of each wave; each wave continues afterwards completely unaffected by the meeting.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">2</span><strong>Two waves pass through the same point at the same instant. Wave A has a displacement of +3.0 cm there; wave B has a displacement of −1.5 cm.</strong> State the resultant displacement at that point, and name the principle you used.
+        <textarea class="answer-lines" rows="3" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q2')">Show answer</button>
+        <div class="answer-panel" id="q2">Resultant displacement = (+3.0 cm) + (−1.5 cm), found using the principle of superposition (the resultant is the vector sum of the individual displacements).</div>
+      </div>
+      <div class="question">
+        <span class="qnum">3</span><strong>Two identical pulses, each of amplitude 5.0 cm, travel towards each other along a rope, the same way up.</strong> State the resultant displacement of the rope at the instant they are exactly overlapping, and name the principle used.
+        <textarea class="answer-lines" rows="3" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q3')">Show answer</button>
+        <div class="answer-panel" id="q3">Resultant displacement = 5.0 + 5.0 cm, found using the principle of superposition (the two equal, same-signed displacements add).</div>
+      </div>
+      <div class="question">
+        <span class="qnum">4</span><strong>Using the simulation above, set the second pulse to "upside down (out of phase)" and restart it.</strong> Describe what the rope looks like at the exact instant the two pulses fully overlap, and explain what happens immediately afterwards.
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q4')">Show answer</button>
+        <div class="answer-panel" id="q4">If the two pulses have equal and opposite shapes, at the instant of full overlap the rope's displacement is zero everywhere (the two displacements cancel exactly by superposition) — even though the rope clearly still has energy passing through it. Immediately afterwards, the two pulses emerge from the overlap and continue travelling in their original directions, completely unaffected by having met.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">5</span><strong>Two identical sinusoidal waves of amplitude x₀ arrive at a point exactly in phase.</strong> State the amplitude of the resultant wave at that point, in terms of x₀.
+        <textarea class="answer-lines" rows="3" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q5')">Show answer</button>
+        <div class="answer-panel" id="q5">2x₀ — since the two displacements are always equal and add at every instant, the resultant amplitude is the simple sum of the two individual amplitudes.</div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 2: COHERENCE ================= -->
+    <section class="topic" id="s2">
+      <h2>2. Coherence and interference patterns</h2>
+      <p>Superposition happens every time waves overlap — but usually the pattern you'd see is changing chaotically from instant to instant, because the phase relationship between the waves keeps drifting randomly. To get a <strong>stable</strong>, unchanging pattern of reinforcement and cancellation — an <strong>interference pattern</strong> — the two sources must be <strong>coherent</strong>.</p>
+
+      <div class="keybox">
+        <strong>Coherent waves</strong> have the same frequency and a constant (unchanging) phase difference — which, for two sources emitting in step, usually just means the same frequency and the same wave shape.<br><br>
+        <strong>Interference pattern</strong> — the constant, stable pattern of constructive and destructive superposition produced when two coherent sources overlap.
+      </div>
+
+      <p>Two separate light bulbs are never coherent: each one is made of billions of atoms emitting light independently, with random, constantly-shifting phases, so any interference pattern they might briefly produce is scrambled and washed out faster than the eye (or any detector) could see it. Two loudspeakers driven by the <em>same</em> signal generator, on the other hand, are automatically coherent — they're both being told to vibrate by exactly the same electrical signal, so their phase relationship never drifts. This is why interference of light needs a trick to demonstrate (Section 4), while interference of sound from two speakers can be heard directly.</p>
+
+      <p>Where two coherent sources overlap, every point in the overlap region has its own fixed path difference from the two sources, and therefore its own fixed phase relationship — some points end up permanently reinforcing (constructive interference), others permanently cancelling (destructive interference), and this fixed spatial pattern is what makes an interference pattern something you can actually observe and measure.</p>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">6</span><strong>State the two properties that two wave sources must share to be coherent.</strong>
+        <textarea class="answer-lines" rows="3" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q6')">Show answer</button>
+        <div class="answer-panel" id="q6">The same frequency, and a constant (unchanging) phase difference between them.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">7</span><strong>Explain why two separate torches shone so their beams overlap do not produce a visible interference pattern, even though superposition is still technically happening.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q7')">Show answer</button>
+        <div class="answer-panel" id="q7">The light from the two torches is not coherent — each torch's light comes from huge numbers of independent atomic emissions with random, rapidly-changing phases. The pattern of constructive and destructive interference is still occurring at every instant, but it changes randomly far too fast to be seen, so the eye only registers the time-averaged result: a smooth, unpatterned overlap of brightness.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">8</span><strong>Explain why two loudspeakers connected to the same signal generator are coherent, whereas two separate speakers each independently playing the same recorded song are not — even if the song sounds identical on both.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q8')">Show answer</button>
+        <div class="answer-panel" id="q8">Two speakers driven by one signal generator are both reproducing exactly the same electrical signal at every instant, so their phase relationship is fixed and never drifts — they are coherent. Two separate players, even playing an identical recording, are two independent electronic systems: their internal clocks and playback are not locked together, so tiny timing differences build up and the phase relationship between the two speakers drifts randomly over time — they are not coherent.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">9</span><strong>State what is meant by an interference pattern, and explain why a stable interference pattern can only be produced by coherent sources.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q9')">Show answer</button>
+        <div class="answer-panel" id="q9">An interference pattern is the constant, stable pattern of constructive and destructive superposition produced when two coherent sources overlap. If the sources were not coherent, the phase difference between them at any given point would drift randomly, so the type of interference (constructive or destructive) occurring there would also change randomly with time — no fixed, observable pattern of bright and dark regions could form.</div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 3: PATH DIFFERENCE ================= -->
+    <section class="topic" id="s3">
+      <h2>3. Path difference and the conditions for interference</h2>
+      <p>To predict exactly <em>where</em> constructive and destructive interference will occur, we compare how far each wave has travelled to reach a given point — the <strong>path difference</strong>.</p>
+      <div class="keybox">
+        <strong>Path difference</strong> — the difference between the distances travelled by two waves (from their two sources) to reach the same point.
+      </div>
+      <p>If the two sources emit in phase with each other, then at any point where the path difference is a whole number of wavelengths, both waves arrive back in phase — crest meets crest — and interfere constructively. At any point where the path difference is a whole number of wavelengths <em>plus exactly half a wavelength</em>, the waves arrive exactly out of phase — crest meets trough — and interfere destructively.</p>
+      <div class="eqn">Constructive interference: <b>path difference = nλ</b>&nbsp;&nbsp;&nbsp;&nbsp;Destructive interference: <b>path difference = (n + ½)λ</b></div>
+      <p>where n = 0, 1, 2, 3 … is a whole number. n = 0 (path difference zero) is the <strong>central maximum</strong> — the point exactly the same distance from both sources.</p>
+
+      <div class="keyword"><b>Perfect cancellation needs equal amplitudes.</b> True destructive interference — a resultant of exactly zero — only happens if the two waves arrive with equal amplitude as well as opposite phase. Since one wave has almost always travelled slightly further than the other, and amplitude generally decreases with distance, perfectly zero destructive interference is really an idealisation; in practice the cancellation is very nearly, but not quite, complete.</div>
+
+      <h3>Worked example: is it a maximum or a minimum?</h3>
+      <div class="example">
+        <span class="tag">Worked example 3.1</span>
+        <p>Two loudspeakers emit coherent sound waves of wavelength 0.60 m. At a certain point, the waves have travelled 2.4 m from one speaker and 3.0 m from the other. Determine whether this point is a point of constructive or destructive interference.</p>
+        <p><strong>Answer:</strong><br>
+        path difference = 3.0 − 2.4 = 0.6 m<br>
+        path difference ÷ λ = 0.6 / 0.60</p>
+      </div>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">10</span><strong>State the condition, in terms of path difference, for (a) constructive interference and (b) destructive interference of two coherent waves of wavelength λ.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q10')">Show answer</button>
+        <div class="answer-panel" id="q10">(a) Constructive interference occurs where path difference = nλ, for n = 0, 1, 2, 3 …<br>(b) Destructive interference occurs where path difference = (n + ½)λ, for n = 0, 1, 2, 3 …</div>
+      </div>
+      <div class="question">
+        <span class="qnum">11</span><strong>Two coherent water-wave sources produce waves of wavelength 3.0 cm. A point P is 18.0 cm from one source and 22.5 cm from the other.</strong> Calculate the path difference, and state (with a reason) whether P is a point of constructive or destructive interference.
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q11')">Show answer</button>
+        <div class="answer-panel" id="q11">path difference = 22.5 − 18.0 = 4.5 cm<br>number of wavelengths = path difference ÷ λ = 4.5 ÷ 3.0 — compare the result with the nλ and (n + ½)λ conditions to decide whether P is a point of constructive or destructive interference.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">12</span><strong>Two speakers, 4.0 m apart, emit a coherent tone of frequency 680 Hz through air (speed of sound 340 m s⁻¹).</strong> A listener stands 3.0 m from one speaker and 4.6 m from the other. First calculate the wavelength of the sound, then determine whether the listener is at a maximum or a minimum.
+        <textarea class="answer-lines" rows="5" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q12')">Show answer</button>
+        <div class="answer-panel" id="q12">λ = v/f = 340/680<br>path difference = 4.6 − 3.0 = 1.6 m<br>path difference ÷ λ — compare the result with the nλ and (n + ½)λ conditions to decide.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">13</span><strong>For the speakers in question 12, state one other frequency (different from 680 Hz) that would put the same listener at the <em>opposite</em> type of interference point (i.e. a minimum instead of a maximum, or vice versa), and explain your reasoning.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q13')">Show answer</button>
+        <div class="answer-panel" id="q13">The path difference (1.6 m) is fixed by the geometry and doesn't depend on frequency, so what needs to change is how many wavelengths fit into 1.6 m. Any frequency that makes 1.6 m equal to a whole number of wavelengths (instead of a whole number plus a half) will flip the interference type — for example, using λ = v/f with 1.6 m = 1λ, 2λ, or any other whole-number condition, and solving f = v/λ for that case.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">14</span><strong>Two coherent sources of microwaves, wavelength 2.8 cm, produce a maximum at a point where the path difference is 8.4 cm.</strong> Determine the value of n for this maximum.
+        <textarea class="answer-lines" rows="3" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q14')">Show answer</button>
+        <div class="answer-panel" id="q14">path difference = nλ &nbsp;⟹&nbsp; n = path difference / λ = 8.4 / 2.8</div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 4: YOUNG'S DOUBLE-SLIT EXPERIMENT ================= -->
+    <section class="topic" id="s4">
+      <h2>4. Young's double-slit experiment</h2>
+      <p>Interference of light is hard to observe directly, because separate light sources are never coherent (Section 2). In 1801, Thomas Young found an elegant way around this problem — and in doing so gave the first real evidence that light travels as a wave.</p>
+
+      <div class="keybox">
+        <strong>Young's trick.</strong> Shine light through a single narrow slit first, then let that light fall on <em>two</em> further narrow slits placed very close together. Because both of the second pair of slits are illuminated by the same original wavefront, the light spreading out from each one is automatically coherent with the other — solving the coherence problem without needing a laser. (A laser, with its naturally coherent output, makes a modern version of the experiment even easier to set up.)
+      </div>
+
+      <p>Each of the two slits spreads the light passing through it into a wave expanding across the space beyond the slits — a narrow gap does this to any wave passing through it. The two spreading, coherent waves then overlap and interfere, producing a series of equally-spaced bright and dark bands — <strong>fringes</strong> — on a distant screen.</p>
+
+      <figure class="wide">
+        <svg viewBox="0 0 800 300" width="800" height="300" xmlns="http://www.w3.org/2000/svg">
+          <text x="130" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#22305a">(a) experimental geometry (not to scale)</text>
+          <line x1="90" y1="132" x2="90" y2="168" stroke="#22305a" stroke-width="3"/>
+          <text x="70" y="126" font-size="10" fill="#22305a" text-anchor="end">S₁</text>
+          <text x="70" y="176" font-size="10" fill="#22305a" text-anchor="end">S₂</text>
+          <line x1="470" y1="40" x2="470" y2="260" stroke="#22305a" stroke-width="3"/>
+          <text x="470" y="272" font-size="10" fill="#22305a" text-anchor="middle">screen</text>
+          <line x1="90" y1="132" x2="470" y2="103.3" stroke="#a33d5b" stroke-width="1.8"/>
+          <line x1="90" y1="168" x2="470" y2="103.3" stroke="#1f7a6c" stroke-width="1.8"/>
+          <circle cx="470" cy="103.3" r="3.5" fill="#d98324"/>
+          <text x="480" y="99" font-size="10" fill="#d98324">P</text>
+          <line x1="90" y1="150" x2="470" y2="150" stroke="#4a5568" stroke-width="1" stroke-dasharray="3 3"/>
+          <text x="280" y="164" font-size="10" fill="#4a5568" text-anchor="middle">D</text>
+          <line x1="470" y1="150" x2="470" y2="103.3" stroke="#4a5568" stroke-width="1" stroke-dasharray="3 3"/>
+          <text x="484" y="128" font-size="10" fill="#4a5568">s</text>
+          <path d="M 130 150 A 40 40 0 0 0 129.7 145.1" fill="none" stroke="#d98324" stroke-width="1.5"/>
+          <text x="146" y="146.6" text-anchor="middle" font-size="11" fill="#d98324">θ</text>
+          <text x="60" y="205" font-size="10" fill="#4a5568">d = slit separation</text>
+          <line x1="90" y1="180" x2="90" y2="188" stroke="#4a5568" stroke-width="1"/>
+
+          <text x="655" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="#22305a">(b) path-difference construction, zoomed (not to scale)</text>
+          <line x1="650" y1="122" x2="650" y2="178" stroke="#22305a" stroke-width="2.5"/>
+          <text x="636" y="118" font-size="10" fill="#22305a" text-anchor="end">S₁</text>
+          <text x="636" y="182" font-size="10" fill="#22305a" text-anchor="end">S₂</text>
+          <text x="644" y="152" font-size="10" fill="#22305a" text-anchor="end">d</text>
+          <line x1="650" y1="122" x2="775.8" y2="60.6" stroke="#a33d5b" stroke-width="1.8"/>
+          <line x1="650" y1="178" x2="775.8" y2="116.6" stroke="#1f7a6c" stroke-width="1.8"/>
+          <line x1="650" y1="178" x2="710" y2="178" stroke="#4a5568" stroke-width="1" stroke-dasharray="2 2"/>
+          <path d="M 684 178 A 34 34 0 0 0 680.6 163.1" fill="none" stroke="#d98324" stroke-width="1.5"/>
+          <text x="698.7" y="166.8" text-anchor="middle" font-size="11" fill="#d98324">θ</text>
+          <line x1="650" y1="122" x2="672.1" y2="167.2" stroke="#4a5568" stroke-width="1.3" stroke-dasharray="4 2"/>
+          <path d="M 672.1 167.2 L 668.6 160.0 L 661.4 163.5 L 664.9 170.7 Z" fill="none" stroke="#4a5568" stroke-width="1"/>
+          <line x1="650" y1="178" x2="672.1" y2="167.2" stroke="#d98324" stroke-width="2.6"/>
+          <text x="628" y="192" font-size="10.5" fill="#d98324">path difference = d sinθ</text>
+          <line x1="655" y1="187" x2="668" y2="172" stroke="#d98324" stroke-width="1"/>
+        </svg>
+        <figcaption>Fig. 4.1 (a) The overall geometry: slit separation d, slit-to-screen distance D, and fringe offset s from the central maximum at angle θ. (b) Zoomed in on the slits (with θ deliberately exaggerated for clarity): since D ≫ d the two rays to P are almost parallel, so the extra distance travelled by the lower ray — the path difference — is d sinθ.</figcaption>
+      </figure>
+
+      <p>Because D is always vastly bigger than d in a real experiment, the small-angle approximation sinθ ≈ tanθ ≈ θ (in radians) applies, and s = D tanθ ≈ D sinθ. Combining this with the constructive-interference condition path difference = d sinθ = nλ, and using n = 1 for the spacing between adjacent bright fringes, gives the equation used to find the wavelength of light from the pattern it produces:</p>
+      <div class="eqn">Separation of fringes: <b>s = λD / d</b></div>
+      <table class="eqtable">
+        <tr><th>Symbol</th><th>Quantity</th></tr>
+        <tr><td>s</td><td>separation of the fringes on the screen</td></tr>
+        <tr><td>λ</td><td>wavelength of the light</td></tr>
+        <tr><td>D</td><td>distance from the slits to the screen</td></tr>
+        <tr><td>d</td><td>separation of the two slits</td></tr>
+      </table>
+      <p>The closer the slits are together (smaller d), the <em>wider</em> apart the fringes become — a slightly counterintuitive result worth checking directly in the simulation below.</p>
+
+      <h3>Worked example</h3>
+      <div class="example">
+        <span class="tag">Worked example 4.1</span>
+        <p>In a double-slit experiment, the slits are separated by 0.48 mm and the screen is 1.96 m away. The centres of the first and ninth bright fringes are measured to be 2.25 cm apart. Determine the wavelength of the light used.</p>
+        <p><strong>Answer:</strong><br>
+        Nine fringes counted from the first to the ninth means 8 fringe-spacings span the measured distance, so s = 2.25×10⁻² / 8.<br>
+        s = λD/d &nbsp;⟹&nbsp; λ = sd/D = (2.25×10⁻²/8) × (0.48×10⁻³) / 1.96</p>
+      </div>
+
+      <h3>Live simulation: Young's double-slit explorer</h3>
+      <figure class="wide">
+        <div class="sim-wrap">
+          <div class="sim-canvas-box">
+            <canvas id="youngCanvas" width="460" height="300"></canvas>
+          </div>
+          <div class="sim-controls">
+            <h4>Double-slit fringe pattern</h4>
+            <div class="sim-row">
+              <label for="wavelengthSlider">Wavelength, λ = <span id="wavelengthReadout">550</span> nm</label>
+              <input type="range" id="wavelengthSlider" min="400" max="700" step="5" value="550">
+            </div>
+            <div class="sim-row">
+              <label for="slitSepSlider">Slit separation, d = <span id="slitSepReadout">0.30</span> mm</label>
+              <input type="range" id="slitSepSlider" min="0.10" max="1.00" step="0.01" value="0.30">
+            </div>
+            <div class="sim-readout" id="youngReadout">…</div>
+          </div>
+        </div>
+        <figcaption>Fig. 4.2 Screen distance is fixed at D = 2.0 m. The upper strip shows the fringe pattern (coloured by wavelength); the graph below plots relative intensity across the screen. Try reducing d and watch what happens to the fringe spacing.</figcaption>
+      </figure>
+
+      <h3>Check your understanding</h3>
+      <div class="question">
+        <span class="qnum">15</span><strong>State Young's double-slit equation, and identify what each symbol represents.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q15')">Show answer</button>
+        <div class="answer-panel" id="q15">s = λD/d, where s is the separation of the fringes on the screen, λ is the wavelength of the light, D is the distance from the slits to the screen, and d is the separation of the two slits.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">16</span><strong>In a double-slit experiment, red laser light of wavelength 6.5×10⁻⁷ m passes through slits separated by 0.40 mm, producing fringes on a screen 3.0 m away.</strong> Calculate the fringe separation.
+        <textarea class="answer-lines" rows="3" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q16')">Show answer</button>
+        <div class="answer-panel" id="q16">s = λD/d = (6.5×10⁻⁷ × 3.0) / (0.40×10⁻³)</div>
+      </div>
+      <div class="question">
+        <span class="qnum">17</span><strong>A teacher wants fringes at least 0.50 cm apart using a green laser (λ = 5.32×10⁻⁷ m) and slits of separation 0.50 mm.</strong> Determine the closest distance she can place the screen from the slits to achieve this.
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q17')">Show answer</button>
+        <div class="answer-panel" id="q17">s = λD/d, rearranged for the minimum D: D = sd/λ = (0.50×10⁻²) × (0.50×10⁻³) / (5.32×10⁻⁷)</div>
+      </div>
+      <div class="question">
+        <span class="qnum">18</span><strong>Using the simulation above, explain what happens to the fringe pattern as you decrease the slit separation, d, and explain why this makes sense using the equation s = λD/d.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q18')">Show answer</button>
+        <div class="answer-panel" id="q18">As d decreases, the fringes get further apart (s increases). This matches the equation s = λD/d: since d is on the denominator, making it smaller (with λ and D unchanged) makes s bigger.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">19</span><strong>Explain how Young ensured that the light reaching his two slits was coherent, without using a laser.</strong>
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q19')">Show answer</button>
+        <div class="answer-panel" id="q19">Young first passed the light through a single narrow slit before it reached the double slit. Both of the two slits were then illuminated by light spreading out from this one single source, so the light leaving each of the two slits had a fixed, unchanging phase relationship with the light leaving the other — making the two slits coherent sources of light.</div>
+      </div>
+      <div class="question">
+        <span class="qnum">20</span><strong>A double-slit experiment uses slits separated by 0.25 mm and a screen 2.4 m away. The fringe separation is measured to be 4.8 mm.</strong> Calculate the wavelength of the light used.
+        <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
+        <button class="reveal-btn no-print" onclick="toggleAnswer('q20')">Show answer</button>
+        <div class="answer-panel" id="q20">s = λD/d &nbsp;⟹&nbsp; λ = sd/D = (4.8×10⁻³) × (0.25×10⁻³) / 2.4</div>
+      </div>
+    </section>
+
+    <!-- ================= GLOSSARY ================= -->
+    <section class="topic" id="sG">
+      <h2>Glossary</h2>
+      <dl class="glossary">
+        <dt>Superposition (principle of)</dt><dd>The resultant displacement where two or more waves meet is the vector sum of their individual displacements; the waves are unaffected afterwards.</dd>
+        <dt>Coherent waves</dt><dd>Waves with the same frequency and a constant phase difference.</dd>
+        <dt>Interference pattern</dt><dd>The stable, fixed pattern of constructive and destructive interference produced by two (or more) coherent sources overlapping.</dd>
+        <dt>Path difference</dt><dd>The difference between the distances travelled by two waves, from their sources, to reach the same point.</dd>
+        <dt>Constructive interference</dt><dd>Reinforcement of waves that occurs where the path difference is a whole number of wavelengths (nλ).</dd>
+        <dt>Destructive interference</dt><dd>Cancellation of waves that occurs where the path difference is a whole number of wavelengths plus a half ((n + ½)λ).</dd>
+        <dt>Fringe</dt><dd>One bright or dark band in an interference pattern.</dd>
+        <dt>Young's double-slit experiment</dt><dd>The classic experiment demonstrating the interference of light using two closely-spaced, coherently-illuminated slits; s = λD/d.</dd>
+      </dl>
+    </section>
+
+    <footer class="page no-print">Interference of Waves Workbook (SL) · Companion resources: <em>Wave Nature</em>, <em>Velocity Change</em>, and <em>Standing Waves</em>.</footer>
+  </main>
+</div>
+
+<script>
+/* ---------- text answer toggles ---------- */
+function toggleAnswer(id){ document.getElementById(id).classList.toggle('shown'); }
+function revealAll(){
+  document.querySelectorAll('.answer-panel').forEach(function(el){ el.classList.add('shown'); });
+  document.body.classList.add('answers-visible');
+}
+function hideAll(){
+  document.querySelectorAll('.answer-panel').forEach(function(el){ el.classList.remove('shown'); });
+  document.body.classList.remove('answers-visible');
+}
+
+/* ---------- fill in online: autosize ---------- */
+let fillableEls = [];
+
+function autosize(el){
+  if(el.tagName !== 'TEXTAREA') return;
+  el.style.height = 'auto';
+  el.style.height = Math.max(el.scrollHeight, el.offsetHeight) + 'px';
+}
+
+function initFillables(){
+  fillableEls = Array.prototype.slice.call(document.querySelectorAll('.answer-lines, .name-box .fill'));
+  fillableEls.forEach(function(el){
+    autosize(el);
+    el.addEventListener('input', function(){ autosize(el); });
+  });
+}
+
+function clearMyAnswers(){
+  if(!confirm('Clear everything you have typed in this workbook? This cannot be undone.')) return;
+  fillableEls.forEach(function(el){
+    el.value = '';
+    autosize(el);
+  });
+}
+
+window.addEventListener('beforeprint', function(){
+  fillableEls.forEach(autosize);
+});
+
+document.addEventListener('DOMContentLoaded', function(){
+  initFillables();
+});
+
+/* ================= SIM 1: superposition of two pulses ================= */
+let pulseSimState = null;
+function restartPulseSim(){
+  pulseSimState = { startTime: null };
+}
+(function(){
+  const canvas = document.getElementById('pulseCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const midY = H/2;
+  const signSelect = document.getElementById('pulseSignSelect');
+  const pulseText = document.getElementById('pulseText');
+  restartPulseSim();
+  signSelect.addEventListener('change', restartPulseSim);
+
+  function pulseShape(x, center, sign, width){
+    const dx = (x-center)/width;
+    return sign * 46 * Math.exp(-dx*dx*4);
+  }
+
+  function draw(now){
+    if(pulseSimState.startTime === null) pulseSimState.startTime = now;
+    const elapsed = (now - pulseSimState.startTime)/1000;
+    const speed = 140;
+    const width = 26;
+    const sign2 = signSelect.value === 'opposite' ? -1 : 1;
+
+    const centerA = 20 + speed*elapsed;
+    const centerB = W-20 - speed*elapsed;
+
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle = '#0f1f30'; ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle = 'rgba(255,255,255,0.25)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(0,midY); ctx.lineTo(W,midY); ctx.stroke();
+
+    // faint individual pulses
+    ctx.beginPath();
+    for(let x=0;x<=W;x+=2){ const y = midY - pulseShape(x,centerA,1,width); if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y); }
+    ctx.strokeStyle = 'rgba(224,138,138,0.55)'; ctx.lineWidth=1.4; ctx.stroke();
+    ctx.beginPath();
+    for(let x=0;x<=W;x+=2){ const y = midY - pulseShape(x,centerB,sign2,width); if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y); }
+    ctx.strokeStyle = 'rgba(120,170,224,0.55)'; ctx.lineWidth=1.4; ctx.stroke();
+
+    // resultant (superposition)
+    ctx.beginPath();
+    for(let x=0;x<=W;x+=2){
+      const y = midY - (pulseShape(x,centerA,1,width) + pulseShape(x,centerB,sign2,width));
+      if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle = '#5fd0c0'; ctx.lineWidth=2.6; ctx.stroke();
+
+    if(elapsed*speed > W+60){ pulseSimState.startTime = null; }
+
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+/* ================= SIM 2: Young's double-slit explorer ================= */
+(function(){
+  const canvas = document.getElementById('youngCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const wavelengthSlider = document.getElementById('wavelengthSlider');
+  const wavelengthReadout = document.getElementById('wavelengthReadout');
+  const slitSepSlider = document.getElementById('slitSepSlider');
+  const slitSepReadout = document.getElementById('slitSepReadout');
+  const youngReadout = document.getElementById('youngReadout');
+  const D = 2.0; // metres, fixed
+
+  function wavelengthToColor(nm){
+    let r,g,b;
+    if(nm < 440){ r=(440-nm)/(440-400)*0.6+0.2; g=0; b=1; }
+    else if(nm < 490){ r=0; g=(nm-440)/(490-440); b=1; }
+    else if(nm < 510){ r=0; g=1; b=(510-nm)/(510-490); }
+    else if(nm < 580){ r=(nm-510)/(580-510); g=1; b=0; }
+    else if(nm < 645){ r=1; g=(645-nm)/(645-580); b=0; }
+    else { r=1; g=0; b=0; }
+    return `rgb(${Math.round(r*255)},${Math.round(g*255)},${Math.round(b*255)})`;
+  }
+
+  function draw(){
+    const lambda_nm = parseFloat(wavelengthSlider.value);
+    const d_mm = parseFloat(slitSepSlider.value);
+    wavelengthReadout.textContent = lambda_nm;
+    slitSepReadout.textContent = d_mm.toFixed(2);
+
+    const lambda = lambda_nm * 1e-9;
+    const d = d_mm * 1e-3;
+    const s = lambda*D/d; // metres
+
+    const color = wavelengthToColor(lambda_nm);
+
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle = '#0f1f30'; ctx.fillRect(0,0,W,H);
+
+    const stripY = 20, stripH = 60;
+    const graphTop = 100, graphBot = 250, graphMid = (graphTop+graphBot)/2;
+    const screenHalfWidth_m = 0.03; // represents +-3cm of screen shown across canvas width
+    const pxPerM = (W-40) / (2*screenHalfWidth_m);
+
+    // intensity strip
+    for(let px=20; px<=W-20; px++){
+      const y_m = ((px-20)/(W-40) - 0.5) * 2*screenHalfWidth_m;
+      const delta = Math.PI * d * y_m / (lambda*D);
+      const intensity = Math.pow(Math.cos(delta),2);
+      const c = Math.round(intensity*255);
+      ctx.fillStyle = `rgba(${c},${c},${c},1)`;
+      // tint with wavelength color
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = shadeColor(color, intensity);
+      ctx.fillRect(px, stripY, 1, stripH);
+    }
+
+    // intensity graph
+    ctx.strokeStyle = 'rgba(255,255,255,0.25)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(20,graphBot); ctx.lineTo(W-20,graphBot); ctx.stroke();
+    ctx.beginPath();
+    for(let px=20; px<=W-20; px++){
+      const y_m = ((px-20)/(W-40) - 0.5) * 2*screenHalfWidth_m;
+      const delta = Math.PI * d * y_m / (lambda*D);
+      const intensity = Math.pow(Math.cos(delta),2);
+      const y = graphBot - intensity*(graphBot-graphTop);
+      if(px===20) ctx.moveTo(px,y); else ctx.lineTo(px,y);
+    }
+    ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.stroke();
+
+    youngReadout.innerHTML = 'Fringe separation, s = λD/d = ' + (s*1000).toFixed(2) + ' mm &nbsp;(D fixed at 2.0 m)';
+
+    function shadeColor(rgbStr, factor){
+      const m = rgbStr.match(/\d+/g).map(Number);
+      return `rgb(${Math.round(m[0]*factor)},${Math.round(m[1]*factor)},${Math.round(m[2]*factor)})`;
+    }
+  }
+  [wavelengthSlider, slitSepSlider].forEach(el => el.addEventListener('input', draw));
+  draw();
+})();
+</script>
+</body>
+</html>
