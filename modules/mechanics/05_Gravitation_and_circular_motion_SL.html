@@ -713,11 +713,12 @@ document.addEventListener('DOMContentLoaded', initFillables);
     ctx.beginPath(); ctx.arc(markerX, planetY, 6, 0, 2*Math.PI); ctx.fill();
 
     /* force arrow: always points from the test mass straight at the planet's centre
-       (never past it, never falling short of the true direction). Its length shrinks
-       with distance, exaggerated relative to 1/r² so it stays visible even far out —
-       and is capped at the distance remaining to the centre so it can never overshoot;
-       at the surface (r = R) the arrowhead lands exactly on the centre. */
-    const desiredLen = planetR / rOverR;
+       (never past it, never falling short of the true direction). Its length follows
+       the same inverse-square law as g itself (desiredLen = planetR / r&sup2;), so it
+       is longest — exactly reaching the centre — at the surface (r = R), and shrinks
+       monotonically from there; capped at the distance remaining to the centre purely
+       as a defensive safeguard against overshoot. */
+    const desiredLen = planetR / (rOverR*rOverR);
     const availableSpace = markerX - planetX;
     const arrowLen = Math.min(desiredLen, availableSpace);
     ctx.strokeStyle = '#d98324';
