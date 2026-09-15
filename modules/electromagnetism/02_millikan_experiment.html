@@ -484,7 +484,8 @@ function toggleHint(){ document.getElementById('hintBox').classList.toggle('show
         recommended backup: click "Save answers" before closing the tab, and
         "Load answers" to restore after reopening a fresh copy of the file.
    ======================================================= */
-const STORAGE_PREFIX = 'ib-d2-workbook2-millikan-fields-v1-';
+const WORKBOOK_ID = 'millikan-oil-drop-experiment'; // keys localStorage, save-file names, and the linked-file handle
+const STORAGE_PREFIX = 'ib-workbook-' + WORKBOOK_ID + '-v1-';
 const TRIALS_KEY = STORAGE_PREFIX + 'trials';
 const TRIALCOUNT_KEY = STORAGE_PREFIX + 'trialCount';
 let fillableEls = [];
@@ -534,7 +535,7 @@ function applyAnswersArray(arr){
 
 function buildPayload(){
   return {
-    workbook: 'millikan-oil-drop-experiment',
+    workbook: WORKBOOK_ID,
     savedAt: new Date().toISOString(),
     studentName: document.getElementById('studentName') ? document.getElementById('studentName').value : '',
     answers: getAnswersArray(),
@@ -574,7 +575,7 @@ function downloadJSON(obj, filename){
 function saveAnswersToFile(){
   const name = (document.getElementById('studentName').value || '').trim();
   const safe = name ? name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : 'my';
-  downloadJSON(buildPayload(), 'millikan-answers-' + safe + '.json');
+  downloadJSON(buildPayload(), WORKBOOK_ID + '-answers-' + safe + '.json');
 }
 
 function triggerLoadAnswers(){ document.getElementById('loadFileInput').click(); }
@@ -614,7 +615,7 @@ let fileWriteTimer = null;
 
 function idbOpen(){
   return new Promise(function(resolve, reject){
-    const rq = indexedDB.open('millikan-workbook-fs', 1);
+    const rq = indexedDB.open('ib-workbook-fs', 1);
     rq.onupgradeneeded = function(){ if(!rq.result.objectStoreNames.contains('handles')) rq.result.createObjectStore('handles'); };
     rq.onsuccess = function(){ resolve(rq.result); };
     rq.onerror = function(){ reject(rq.error); };
@@ -624,7 +625,7 @@ function idbGetHandle(){
   return idbOpen().then(function(db){
     return new Promise(function(resolve){
       const tx = db.transaction('handles', 'readonly');
-      const rq = tx.objectStore('handles').get('fileHandle');
+      const rq = tx.objectStore('handles').get(WORKBOOK_ID);
       rq.onsuccess = function(){ resolve(rq.result || null); };
       rq.onerror = function(){ resolve(null); };
     });
@@ -633,7 +634,7 @@ function idbGetHandle(){
 function idbSetHandle(handle){
   return idbOpen().then(function(db){
     const tx = db.transaction('handles', 'readwrite');
-    tx.objectStore('handles').put(handle, 'fileHandle');
+    tx.objectStore('handles').put(handle, WORKBOOK_ID);
   }).catch(function(){});
 }
 
@@ -675,7 +676,7 @@ function linkSaveFile(){
         if(req === 'granted'){ fileHandle = pendingHandle; pendingHandle = null; }
       })
     : window.showSaveFilePicker({
-        suggestedName: 'millikan-workbook-answers.json',
+        suggestedName: WORKBOOK_ID + '-answers.json',
         types: [{ description: 'Workbook answers', accept: {'application/json': ['.json']} }]
       }).then(function(handle){
         fileHandle = handle;
