@@ -35,6 +35,8 @@
   section.topic h2{color:var(--navy); font-size:1.4rem; margin-top:0; border-bottom:3px solid var(--amber); padding-bottom:0.4rem;}
   section.topic h3{color:var(--teal-dark); font-size:1.08rem; margin-top:1.6rem;}
 
+  .nuc{display:inline-flex; flex-direction:column; align-items:flex-start; vertical-align:0.2em; line-height:1; font-size:0.7em; margin-right:0.05em;}
+  .nuc sup, .nuc sub{font-size:1em; vertical-align:baseline; line-height:1.05; position:static;}
   .keybox{background:var(--soft-blue); border:1px solid #c7ddef; border-radius:8px; padding:0.9rem 1.1rem; margin:0.9rem 0; font-size:0.98rem;}
   .keybox strong{color:var(--navy);}
   .eqn{background:#fff; border:1px solid #c7ddef; border-radius:6px; padding:0.6rem 1rem; margin:0.6rem 0; font-size:1.08rem; text-align:center; font-family:"Cambria Math",Cambria,Georgia,serif;}
@@ -209,7 +211,7 @@
     <!-- ================= SECTION 1 ================= -->
     <section class="topic" id="s1">
       <h2>1. What is radioactivity?</h2>
-      <p>The nucleus of an atom is normally left alone once it forms. But some nuclei are <strong>unstable</strong>: without any warning or external cause, they can spontaneously change, throwing out a particle and/or a high-energy photon. This process is called <strong>radioactivity</strong>, and when a nucleus does this we say it has <strong>decayed</strong> or <strong>transmuted</strong> — because emitting a charged particle changes the proton number, turning the atom into a different element (a different isotope of a different element) entirely.</p>
+      <p>Most nuclei are stable and do not change. But some nuclei are <strong>unstable</strong>: without any warning or external cause, they can spontaneously change, throwing out a particle and/or a high-energy photon. This process is called <strong>radioactivity</strong>, and when a nucleus does this we say it has <strong>decayed</strong> or <strong>transmuted</strong> — because emitting a charged particle changes the proton number, turning the atom into a different element (a different isotope of a different element) entirely.</p>
 
       <div class="stretch-box">
         <span class="tag">Historical note</span>
@@ -224,14 +226,14 @@
         <li><strong>Daughter product</strong> — the new nuclide left behind after a "parent" radionuclide emits a particle.</li>
       </ul>
 
-      <div class="keybox"><strong>Example:</strong> A nucleus of <sup>235</sup><sub>92</sub>U is unstable. At some unpredictable moment it emits an alpha particle (<sup>4</sup><sub>2</sub>He), transmuting into <sup>231</sup><sub>90</sub>Th — the daughter product, a different isotope of a different element. Note that "isotope" and "nuclide" are used almost interchangeably here; "nuclide" just emphasises that we're talking about the nucleus itself.</div>
+      <div class="keybox"><strong>Example:</strong> A nucleus of <span class="nuc"><sup>235</sup><sub>92</sub></span>U is unstable. At some unpredictable moment it emits an alpha particle (<span class="nuc"><sup>4</sup><sub>2</sub></span>He), transmuting into <span class="nuc"><sup>231</sup><sub>90</sub></span>Th — the daughter product, a different isotope of a different element. Note that "isotope" and "nuclide" are used almost interchangeably here; "nuclide" just emphasises that we're talking about the nucleus itself.</div>
 
       <h3>Check your understanding</h3>
       <div class="question">
         <span class="qnum">1</span><strong>Explain, in your own words, the difference between "radioactive decay" and ordinary chemical or biological decay.</strong>
         <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
         <button class="reveal-btn no-print" onclick="toggleAnswer('q1')">Show answer</button>
-        <div class="answer-panel" id="q1">This is descriptive — check your wording against Section 1 and with your teacher. A good answer should mention that radioactive decay happens inside the nucleus, is random and spontaneous (no external trigger, unlike rotting or rusting), and typically transmutes the atom into a different element.</div>
+        <div class="answer-panel" id="q1">Radioactive decay changes the nucleus, so the element changes. It is random and spontaneous, and is not affected by temperature or chemistry. Chemical and biological decay rearrange atoms and electrons; the nuclei are unchanged.</div>
       </div>
       <div class="question">
         <span class="qnum">2</span><strong>A nucleus of thorium-232 decays by emitting an alpha particle.</strong> Name the daughter product's element if the resulting proton number is 88, and state whether the daughter is a different isotope of thorium or a different element entirely. (You are not expected to memorise element names from proton numbers — look this one up.)
@@ -248,7 +250,7 @@
 
       <div class="keybox"><strong>Key idea.</strong> The <strong>strong nuclear force</strong> is a short-range, attractive force that acts between any two nucleons — proton–proton, proton–neutron or neutron–neutron alike — regardless of charge. At the tiny separations found inside a nucleus (a few femtometres), it is far stronger than the electrostatic repulsion between protons, so it dominates and binds the nucleus together.</div>
 
-      <div class="keyword"><b>Femtometre (fm):</b> 1 fm = 10⁻¹⁵ m — roughly the size of a nucleon, and the typical range of the strong nuclear force.</div>
+      <div class="keyword"><b>Femtometre (fm):</b> 1 fm = 10⁻¹⁵ m — roughly the size of a nucleon. The strong force is negligible beyond about 3 fm (3 × 10⁻¹⁵ m).</div>
 
       <figure>
         <svg viewBox="0 0 380 200" width="380" height="200" xmlns="http://www.w3.org/2000/svg">
@@ -338,13 +340,13 @@
         <span class="qnum">5</span><strong>Give two reasons why it is preferable to work with larger count rates in a radioactivity experiment.</strong>
         <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
         <button class="reveal-btn no-print" onclick="toggleAnswer('q5')">Show answer</button>
-        <div class="answer-panel" id="q5">This is descriptive — see the key-box "Why bigger counts are more reliable": larger counts vary by a smaller fraction of their own size, and are less affected by a fixed background count.</div>
+        <div class="answer-panel" id="q5">1. Random variation is about √N, so the fractional uncertainty (1/√N) is smaller for large counts. 2. Background is a smaller share of the reading.</div>
       </div>
       <div class="question">
         <span class="qnum">6</span><strong>In 15 minutes, a count of 5486 was measured with the GM tube directed at a source. The background count rate at that location was 18 per minute.</strong> Calculate the count rate, in counts per second, due to the source alone.
         <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
         <button class="reveal-btn no-print" onclick="toggleAnswer('q6')">Show answer</button>
-        <div class="answer-panel" id="q6">Background count in 15 min = 18 × 15 = 270. Adjusted count = 5486 − 270 = 5216 in 15 min ... (divide by 15 × 60 s to complete the calculation, in s⁻¹).</div>
+        <div class="answer-panel" id="q6">Background count in 15 min = 18 × 15 = 270. Adjusted count = 5486 − 270 = 5216 in 15 min. Count rate = 5216 ÷ 900 s = 5.80 s⁻¹.</div>
       </div>
       <div class="question">
         <span class="qnum">7</span><strong>At a location with a background count of 22 min⁻¹, two separate measurements gave count rates of 50 min⁻¹ and 5000 min⁻¹.</strong> Compare how significant the background count is in each case.
@@ -361,40 +363,40 @@
 
       <div class="keybox">
         <strong>Alpha (α) decay:</strong> An alpha particle is identical to a helium-4 nucleus: two protons and two neutrons bound tightly together, so it carries a nucleon number of 4 and a charge of +2. Emitting one removes 2 protons and 2 neutrons from the parent nucleus:
-        <div class="eqn"><sup>A</sup><sub>Z</sub>X &nbsp;→&nbsp; <sup>A−4</sup><sub>Z−2</sub>Y &nbsp;+&nbsp; <sup>4</sup><sub>2</sub>α</div>
-        For example: <sup>226</sup><sub>88</sub>Ra → <sup>222</sup><sub>86</sub>Rn + <sup>4</sup><sub>2</sub>α.
+        <div class="eqn"><span class="nuc"><sup>A</sup><sub>Z</sub></span>X &nbsp;→&nbsp; <span class="nuc"><sup>A−4</sup><sub>Z−2</sub></span>Y &nbsp;+&nbsp; <span class="nuc"><sup>4</sup><sub>2</sub></span>α</div>
+        For example: <span class="nuc"><sup>226</sup><sub>88</sub></span>Ra → <span class="nuc"><sup>222</sup><sub>86</sub></span>Rn + <span class="nuc"><sup>4</sup><sub>2</sub></span>α.
       </div>
 
       <div class="keybox">
         <strong>Beta-minus (β⁻) decay:</strong> Inside an unstable nucleus, a neutron can convert into a proton, releasing a fast-moving electron (the beta-minus particle) and a new, almost undetectable particle called an <strong>antineutrino</strong>, <em>v̄</em>:
-        <div class="eqn"><sup>1</sup><sub>0</sub>n &nbsp;→&nbsp; <sup>1</sup><sub>1</sub>p &nbsp;+&nbsp; <sup>0</sup><sub>−1</sub>β⁻ &nbsp;+&nbsp; v̄</div>
+        <div class="eqn"><span class="nuc"><sup>1</sup><sub>0</sub></span>n &nbsp;→&nbsp; <span class="nuc"><sup>1</sup><sub>1</sub></span>p &nbsp;+&nbsp; <span class="nuc"><sup>0</sup><sub>−1</sub></span>β⁻ &nbsp;+&nbsp; v̄</div>
         The nucleon number is unchanged, but the proton number increases by one, forming a new element:
-        <div class="eqn"><sup>A</sup><sub>Z</sub>X &nbsp;→&nbsp; <sup>A</sup><sub>Z+1</sub>Y &nbsp;+&nbsp; <sup>0</sup><sub>−1</sub>β⁻ &nbsp;+&nbsp; v̄</div>
-        For example: <sup>90</sup><sub>38</sub>Sr → <sup>90</sup><sub>39</sub>Y + <sup>0</sup><sub>−1</sub>β⁻ + v̄.
+        <div class="eqn"><span class="nuc"><sup>A</sup><sub>Z</sub></span>X &nbsp;→&nbsp; <span class="nuc"><sup>A</sup><sub>Z+1</sub></span>Y &nbsp;+&nbsp; <span class="nuc"><sup>0</sup><sub>−1</sub></span>β⁻ &nbsp;+&nbsp; v̄</div>
+        For example: <span class="nuc"><sup>90</sup><sub>38</sub></span>Sr → <span class="nuc"><sup>90</sup><sub>39</sub></span>Y + <span class="nuc"><sup>0</sup><sub>−1</sub></span>β⁻ + v̄.
       </div>
 
       <div class="keybox">
         <strong>Beta-plus (β⁺) decay:</strong> In a similar process, a proton inside the nucleus can convert into a neutron, releasing a positively charged electron — a <strong>positron</strong>, the antiparticle of the electron — plus a <strong>neutrino</strong>, v:
-        <div class="eqn"><sup>1</sup><sub>1</sub>p &nbsp;→&nbsp; <sup>1</sup><sub>0</sub>n &nbsp;+&nbsp; <sup>0</sup><sub>+1</sub>β⁺ &nbsp;+&nbsp; v</div>
-        <div class="eqn"><sup>A</sup><sub>Z</sub>X &nbsp;→&nbsp; <sup>A</sup><sub>Z−1</sub>Y &nbsp;+&nbsp; <sup>0</sup><sub>+1</sub>β⁺ &nbsp;+&nbsp; v</div>
-        For example: <sup>23</sup><sub>12</sub>Mg → <sup>23</sup><sub>11</sub>Na + <sup>0</sup><sub>+1</sub>β⁺ + v.
+        <div class="eqn"><span class="nuc"><sup>1</sup><sub>1</sub></span>p &nbsp;→&nbsp; <span class="nuc"><sup>1</sup><sub>0</sub></span>n &nbsp;+&nbsp; <span class="nuc"><sup>0</sup><sub>+1</sub></span>β⁺ &nbsp;+&nbsp; v</div>
+        <div class="eqn"><span class="nuc"><sup>A</sup><sub>Z</sub></span>X &nbsp;→&nbsp; <span class="nuc"><sup>A</sup><sub>Z−1</sub></span>Y &nbsp;+&nbsp; <span class="nuc"><sup>0</sup><sub>+1</sub></span>β⁺ &nbsp;+&nbsp; v</div>
+        For example: <span class="nuc"><sup>23</sup><sub>12</sub></span>Mg → <span class="nuc"><sup>23</sup><sub>11</sub></span>Na + <span class="nuc"><sup>0</sup><sub>+1</sub></span>β⁺ + v.
       </div>
 
       <div class="keybox">
         <strong>Gamma (γ) decay:</strong> After an alpha or beta decay, the daughter nucleus is often left with excess internal energy — an <strong>excited state</strong>, marked with an asterisk. It settles down by emitting a high-energy photon, a gamma ray, with no change to the nucleon number or proton number at all — no transmutation occurs:
-        <div class="eqn"><sup>234</sup><sub>90</sub>Th* &nbsp;→&nbsp; <sup>234</sup><sub>90</sub>Th &nbsp;+&nbsp; γ</div>
+        <div class="eqn"><span class="nuc"><sup>234</sup><sub>90</sub></span>Th* &nbsp;→&nbsp; <span class="nuc"><sup>234</sup><sub>90</sub></span>Th &nbsp;+&nbsp; γ</div>
       </div>
 
       <div class="stretch-box">
         <span class="tag">Historical note</span>
-        <p style="margin:0;"><strong>Antimatter isn't just in the movies.</strong> A positron is real antimatter — the film <em>Angels &amp; Demons</em> famously (and dramatically) got the physics roughly right: when a particle meets its antiparticle, both are annihilated and their mass is converted entirely into energy. For an electron–positron pair (each with rest mass 9.11 × 10⁻³¹ kg), E = mc² gives about 1.64 × 10⁻¹³ J released as two gamma-ray photons — which is why beta-plus decay is always accompanied, sooner or later, by annihilation radiation once the positron meets an ordinary electron.</p>
+        <p style="margin:0;"><strong>Antimatter isn't just in the movies.</strong> A positron is real antimatter — the film <em>Angels &amp; Demons</em> famously (and dramatically) got the annihilation right, but not how antimatter is made or stored: when a particle meets its antiparticle, both are annihilated and their rest energy (mc²) is carried away by two γ photons. For an electron–positron pair (each with rest mass 9.11 × 10⁻³¹ kg), E = mc² gives about 1.64 × 10⁻¹³ J released as two gamma-ray photons — which is why beta-plus decay is always accompanied, sooner or later, by annihilation radiation once the positron meets an ordinary electron.</p>
       </div>
 
       <div class="example">
         <span class="tag">Worked example 4.1</span>
         <p>Write the balanced nuclear equation for the beta-minus decay of carbon-14 (Z = 6) into nitrogen (Z = 7).</p>
         <p><strong>Answer:</strong><br>
-        <sup>14</sup><sub>6</sub>C → <sup>14</sup><sub>7</sub>N + <sup>0</sup><sub>−1</sub>β⁻ + v̄<br>
+        <span class="nuc"><sup>14</sup><sub>6</sub></span>C → <span class="nuc"><sup>14</sup><sub>7</sub></span>N + <span class="nuc"><sup>0</sup><sub>−1</sub></span>β⁻ + v̄<br>
         Check: nucleon numbers 14 = 14 + 0 ✓. Proton numbers 6 = 7 + (−1) ✓.</p>
       </div>
 
@@ -403,13 +405,13 @@
         <span class="qnum">8</span><strong>Write the balanced decay equation for the alpha decay of americium-241 (Z = 95) to neptunium (Z = 93).</strong>
         <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
         <button class="reveal-btn no-print" onclick="toggleAnswer('q8')">Show answer</button>
-        <div class="answer-panel" id="q8"><sup>241</sup><sub>95</sub>Am → <sup>237</sup><sub>93</sub>Np + <sup>4</sup><sub>2</sub>α.</div>
+        <div class="answer-panel" id="q8"><span class="nuc"><sup>241</sup><sub>95</sub></span>Am → <span class="nuc"><sup>237</sup><sub>93</sub></span>Np + <span class="nuc"><sup>4</sup><sub>2</sub></span>α.</div>
       </div>
       <div class="question">
         <span class="qnum">9</span><strong>Write the balanced decay equation for the beta-plus decay of sodium-22 (Z = 11) to neon (Z = 10).</strong>
         <textarea class="answer-lines" rows="4" placeholder="Type your answer here…"></textarea>
         <button class="reveal-btn no-print" onclick="toggleAnswer('q9')">Show answer</button>
-        <div class="answer-panel" id="q9"><sup>22</sup><sub>11</sub>Na → <sup>22</sup><sub>10</sub>Ne + <sup>0</sup><sub>+1</sub>β⁺ + v.</div>
+        <div class="answer-panel" id="q9"><span class="nuc"><sup>22</sup><sub>11</sub></span>Na → <span class="nuc"><sup>22</sup><sub>10</sub></span>Ne + <span class="nuc"><sup>0</sup><sub>+1</sub></span>β⁺ + v.</div>
       </div>
       <div class="question">
         <span class="qnum">10</span><strong>Explain why gamma emission does not change which element a nuclide is.</strong>
@@ -434,9 +436,9 @@
         <tr><th>Property</th><th>Alpha (α)</th><th>Beta-minus (β⁻)</th><th>Gamma (γ)</th></tr>
         <tr><td>Relative charge</td><td>+2</td><td>−1</td><td>0</td></tr>
         <tr><td>Relative mass</td><td>4</td><td>1/1840</td><td>0</td></tr>
-        <tr><td>Ionizing ability</td><td>very high</td><td>low</td><td>very low</td></tr>
-        <tr><td>Typical range in air</td><td>≈ 4 cm</td><td>≈ 30 cm</td><td>barely absorbed</td></tr>
-        <tr><td>Stopped by</td><td>a sheet of paper</td><td>≈ 3 mm of aluminium</td><td>intensity halved by ≈ 2 cm of lead</td></tr>
+        <tr><td>Ionizing ability</td><td>very high</td><td>medium</td><td>very low</td></tr>
+        <tr><td>Typical range in air</td><td>≈ 4 cm</td><td>≈ 30 cm</td><td>barely absorbed (falls mainly by the inverse-square law)</td></tr>
+        <tr><td>Stopped by</td><td>a sheet of paper</td><td>≈ 3 mm of aluminium</td><td>typically 1–2 cm of lead halves it (depends on energy)</td></tr>
       </table>
 
       <figure>
@@ -456,14 +458,14 @@
           <line x1="35" y1="145" x2="340" y2="145" stroke="#22305a" stroke-width="2.4" stroke-dasharray="6 3" marker-end="url(#pArrow)"/>
           <rect x="345" y="120" width="22" height="50" fill="#4a5568"/>
           <line x1="372" y1="145" x2="410" y2="145" stroke="#22305a" stroke-width="1.4" stroke-dasharray="6 3" marker-end="url(#pArrow)"/>
-          <text x="345" y="182" font-size="9.5" fill="#4a5568">≈2 cm lead — intensity halved, not stopped</text>
+          <text x="345" y="182" font-size="9.5" fill="#4a5568">1–2 cm lead — intensity halved, not stopped</text>
         </svg>
         <figcaption>Fig. 5.1 Alpha particles are stopped by paper; beta particles need a few millimetres of aluminium; gamma rays are never fully absorbed, only progressively weakened by thick, dense shielding such as lead.</figcaption>
       </figure>
 
-      <div class="keybox"><strong>Why alpha is the least penetrating despite carrying the most energy.</strong> Alpha particles are heavy and carry a +2 charge, so they interact very strongly with the electrons in the atoms they pass. As a result, they lose their (typically large) kinetic energy very quickly, causing intense ionization over a very short distance. Beta particles are much lighter and carry only a −1 or +1 charge, so they generally cause less ionization per unit distance and can travel much farther. Gamma rays are uncharged photons, so they interact only occasionally with matter. Most pass straight through without interacting, making them the most penetrating and comparatively difficult to detect.</div>
+      <div class="keybox"><strong>Why alpha is the least penetrating despite its typically large kinetic energy.</strong> Alpha particles are heavy and carry a +2 charge, so they interact very strongly with the electrons in the atoms they pass. As a result, they lose their (typically large) kinetic energy very quickly, causing intense ionization over a very short distance. Beta particles are much lighter and carry only a −1 or +1 charge, so they generally cause less ionization per unit distance and can travel much farther. Gamma rays are uncharged photons, so they interact only occasionally with matter. Most pass straight through without interacting, making them the most penetrating and comparatively difficult to detect.</div>
 
-      <p>Because alpha and beta particles are charged, a beam of either can be deflected by electric or magnetic fields (gamma rays, having no charge, cannot). Alpha particles are deflected far less than beta particles in the same field, because they are much more massive and slower.</p>
+      <p>Because alpha and beta particles are charged, a beam of either can be deflected by electric or magnetic fields (gamma rays, having no charge, cannot). Alpha particles are deflected far less than beta particles in the same field, because they have much more momentum per unit charge (r = mv/qB).</p>
 
       <h3>Check your understanding</h3>
       <div class="question">
@@ -479,21 +481,21 @@
         <div class="answer-panel" id="q13">Gamma rays penetrate deep into (or all the way through) the body from outside, so external gamma sources can still damage internal organs, unlike alpha sources which cannot get in through skin.</div>
       </div>
       <div class="question">
-        <span class="qnum">14</span><strong>A beam containing alpha, beta and gamma radiation passes into a strong magnetic field directed into the page.</strong> Describe what happens to each of the three components as it passes through the field.
+        <span class="qnum">14</span><strong>A beam containing alpha, beta and gamma radiation, travelling left to right across the page, passes into a strong magnetic field directed into the page.</strong> Describe any deflection an observer would see.
         <textarea class="answer-lines long" rows="6" placeholder="Type your answer here…"></textarea>
         <button class="reveal-btn no-print" onclick="toggleAnswer('q14')">Show answer</button>
-        <div class="answer-panel" id="q14">Alpha particles curve one way (they are positively charged) with a large radius of curvature (heavy, fast); beta particles curve the opposite way (negatively charged) with a smaller radius of curvature (light); gamma rays travel straight through, undeflected, since they carry no charge.</div>
+        <div class="answer-panel" id="q14">Alpha particles (positive) curve upwards, towards the top of the page, but only slightly: a large radius, because they have much more momentum per unit charge. Beta-minus particles (negative) curve downwards, towards the bottom of the page, with a much smaller radius. Gamma rays (no charge) carry straight on, undeflected.</div>
       </div>
     </section>
 
     <!-- ================= SECTION 6 ================= -->
     <section class="topic" id="s6">
       <h2>6. Randomness, activity and half-life</h2>
-      <p>Nobody can predict when any one particular unstable nucleus will decay — each decay is <strong>random</strong> (no pattern) and <strong>spontaneous</strong> (no external cause or trigger). Yet, put a huge number of identical unstable nuclei together, and their overall behaviour becomes remarkably predictable — in exactly the way that a single coin toss is unpredictable, but the fraction of heads from a million tosses is not.</p>
+      <p>Nobody can predict when any one particular unstable nucleus will decay — each decay is <strong>random</strong> (no pattern) and <strong>spontaneous</strong> (no external cause or trigger). Yet, put a huge number of identical unstable nuclei together, and their overall behaviour becomes remarkably predictable — in exactly the way that a single coin toss is unpredictable, but the fraction of heads from a million tosses is not. Popcorn is a similar analogy: you can't tell which kernel will pop next. But popping depends on temperature, and radioactive decay does not.</p>
 
       <div class="keybox"><strong>Activity.</strong> The <strong>activity</strong>, A, of a radioactive source is the number of nuclei decaying every second. Its SI unit is the <strong>becquerel</strong>, Bq, where 1 Bq = one decay per second. A GM tube's count rate is not the same thing as activity (the tube cannot detect every single decay), but count rate is usually assumed to be proportional to activity.</div>
 
-      <p>The activity of every radioactive source falls over time, because as nuclei decay, fewer undecayed nuclei remain to produce further decays. The pattern this follows is an <strong>exponential decrease</strong>: in equal time intervals, the number of undecayed nuclei (and hence the activity, and the count rate) always falls by the <em>same fraction</em> — conventionally one half.</p>
+      <p>The activity of every radioactive source falls over time, because as nuclei decay, fewer undecayed nuclei remain to produce further decays. The pattern this follows is an <strong>exponential decrease</strong>: in equal time intervals, the number of undecayed nuclei (and hence the activity, and the count rate) always falls by the <em>same fraction</em>; the half-life is the interval in which that fraction is one half.</p>
 
       <figure>
         <svg viewBox="0 0 420 230" width="420" height="230" xmlns="http://www.w3.org/2000/svg">
@@ -529,7 +531,7 @@
       </div>
 
       <h3>Live simulation: watching random decay produce a smooth curve</h3>
-      <p>Every atom below starts undecayed. Each time you advance one half-life, every <em>still-undecayed</em> atom gets an independent 50% chance of decaying — exactly like a real radioactive sample, where nobody can predict which particular nucleus goes next. Watch how this random, atom-by-atom process still produces the same smooth halving curve as Fig. 6.1, step after integer step.</p>
+      <p>Every atom below starts undecayed. Each time you advance one half-life, every <em>still-undecayed</em> atom gets an independent 50% chance of decaying — exactly like a real radioactive sample, where nobody can predict which particular nucleus goes next. Watch how this random, atom-by-atom process roughly follows the halving curve of Fig. 6.1. With only 64 atoms, the bars wander above and below it; the bigger the sample, the closer the fit.</p>
       <figure class="wide">
         <div class="sim-wrap">
           <div class="sim-canvas-box"><canvas id="decayCanvas" width="480" height="300"></canvas></div>
@@ -562,7 +564,7 @@
         <span class="qnum">17</span><strong>Explain, in terms of undecayed nuclei, why the activity of a source keeps decreasing even though its half-life stays constant.</strong>
         <textarea class="answer-lines long" rows="6" placeholder="Type your answer here…"></textarea>
         <button class="reveal-btn no-print" onclick="toggleAnswer('q17')">Show answer</button>
-        <div class="answer-panel" id="q17">Each undecayed nucleus always has the same fixed chance of decaying in a given half-life, which is why the half-life itself never changes. But activity depends on how many undecayed nuclei remain, and that number keeps falling as nuclei decay — so even with a constant half-life, the number of decays per second (the activity) keeps decreasing.</div>
+        <div class="answer-panel" id="q17">Fewer undecayed nuclei remain, so fewer decay each second.</div>
       </div>
     </section>
 
