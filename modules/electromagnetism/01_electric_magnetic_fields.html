@@ -145,10 +145,10 @@
     body{background:#fff; font-size:11.5pt; padding-top:0;}
     section.topic{border:none; box-shadow:none; padding:0; margin:0 0 1.2rem 0; page-break-inside:avoid;}
     .cover{page-break-after:always; border-radius:0;}
-    /* Answer panels always print/PDF-export shown, regardless of the on-screen
-       Show/Hide toggle — a teacher printing a completed workbook to skim-mark
-       it shouldn't have to remember to click "Show all answers" first. */
-    .answer-panel{display:block !important; border-style:solid;}
+    /* Answers print only when "Show all answers" has been clicked,
+       so a student copy prints without answers. */
+    .answer-panel{display:none !important;}
+    body.answers-visible .answer-panel{display:block !important; border-style:solid;}
     a{color:inherit; text-decoration:none;}
     .page-break{page-break-before:always;}
     .answer-lines{border-color:transparent !important; box-shadow:none !important; color:#000;}
@@ -216,7 +216,6 @@
   </nav>
 
   <main>
-  <main>
     <section class="cover" id="cover">
       <h1>Electric and Magnetic Fields (SL)</h1>
       <p>Every electric charge is surrounded by a field that can push or pull on other charges, and the same idea &mdash; force per unit something, spreading out from a source &mdash; turns up again around every magnet. This workbook builds up electric charge and its behaviour from scratch, introduces Coulomb's law for the force between point charges, and then describes the fields those charges create using field lines and field strength. It finishes with the special case of a uniform field between parallel plates, and the field lines drawn around bar magnets.</p>
@@ -228,7 +227,7 @@
           <li>state and apply Coulomb's law, F = kq&#8321;q&#8322;/r&sup2;, for point charges</li>
           <li>define electric field strength, E = F/q, and sketch electric field lines, relating field line density to field strength</li>
           <li>calculate the uniform electric field strength between parallel plates, E = V/d</li>
-          <li>sketch magnetic field lines around a bar magnet and around the Earth</li>
+          <li>sketch magnetic field lines around a bar magnet</li>
         </ul>
       </div>
       <div class="name-box">
@@ -275,7 +274,7 @@
       <h3>Quantisation of charge</h3>
       <p>Charge does not come in just any amount — it always comes in whole-number multiples of a smallest possible charge, called the <b>elementary charge</b>, <em>e</em>. Every proton carries charge +<em>e</em> and every electron carries charge −<em>e</em>.</p>
       <div class="eqn">e = 1.60 × 10<sup>−19</sup> C</div>
-      <p>This means any charge you measure — however it was produced — will always be a whole-number multiple of 1.60 × 10⁻¹⁹ C. This surprising fact was confirmed experimentally by Robert Millikan in 1909. <b>Workbook 2</b> in this pair is entirely devoted to that experiment, including a simulation you can run yourself, so we won't go into it further here.</p>
+      <p>This means any charge you measure — however it was produced — will always be a whole-number multiple of 1.60 × 10⁻¹⁹ C. This surprising fact was confirmed experimentally by Robert Millikan in 1909. <b>Workbook 2</b> in this series is entirely devoted to that experiment, including a simulation you can run yourself, so we won't go into it further here.</p>
 
       <div class="example">
         <span class="tag">Worked example 1.1</span>
@@ -287,7 +286,7 @@
         <span class="qnum">1</span><strong>A metal sphere P, carrying charge +3e, is held near an identical neutral sphere Q.</strong> State whether P and Q would attract, repel, or feel no force at this moment, and explain why.
         <textarea class="answer-lines short" rows="2" placeholder="Type your answer here…"></textarea>
         <button class="reveal-btn no-print" onclick="toggleAnswer('a1')">Show answer</button>
-        <div class="answer-panel" id="a1">No overall force yet, because Q is neutral — it has no net charge for P's field to act on (although P's field can still induce a slight charge separation inside Q; that is covered in Section 2). Once Q becomes charged, the direction of the force depends on the sign it ends up with.</div>
+        <div class="answer-panel" id="a1">They attract. P's positive charge pulls electrons in Q towards the side nearest P, leaving Q's far side positive. The near side is closer, so the attraction is stronger than the repulsion: there is a net attractive force even though Q is neutral overall (see charging by induction, Section 2).</div>
       </div>
 
       <div class="question">
@@ -314,19 +313,19 @@
       <figure>
         <svg viewBox="0 0 420 140" xmlns="http://www.w3.org/2000/svg">
           <rect x="30" y="60" width="140" height="18" rx="9" fill="#8aa8c8"/>
-          <text x="100" y="100" text-anchor="middle" font-size="12" fill="#173a5e">plastic rod</text>
-          <path d="M180 69 Q230 40 290 69" stroke="#173a5e" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
+          <text x="100" y="100" text-anchor="middle" font-size="12" fill="#173a5e">polythene rod (becomes negative)</text>
+          <path d="M290 69 Q230 40 180 69" stroke="#173a5e" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
           <text x="235" y="35" text-anchor="middle" font-size="12" fill="#173a5e">electrons transfer</text>
           <ellipse cx="350" cy="69" rx="45" ry="24" fill="#e7d9b8"/>
-          <text x="350" y="100" text-anchor="middle" font-size="12" fill="#173a5e">cloth</text>
+          <text x="350" y="100" text-anchor="middle" font-size="12" fill="#173a5e">cloth (becomes positive)</text>
           <defs><marker id="arrow2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#173a5e"/></marker></defs>
         </svg>
-        <figcaption>Fig. 2.1 Friction transfers electrons from one insulator to another.</figcaption>
+        <figcaption>Fig. 2.1 Friction transfers electrons from one insulator to another: rubbing a polythene rod with a cloth moves electrons from the cloth to the rod.</figcaption>
       </figure>
       <div class="keybox">When friction occurs between two different insulating materials, electrons are transferred from the surface of one to the surface of the other.</div>
 
       <h3>Charging by contact</h3>
-      <p>If a charged object physically touches a neutral (or oppositely-charged) conductor, some charge flows between them until it is shared. The object that was charged keeps some of its original charge; the object it touched now carries charge of the <b>same sign</b>.</p>
+      <p>If a charged object physically touches a neutral (or oppositely-charged) conductor, charge flows between them until it is shared between them. Afterwards both objects carry charge of the <b>same sign</b> as their combined total.</p>
 
       <h3>Charging by induction</h3>
       <p>Induction charges an object <b>without contact</b>. A charged object is brought close to a neutral conductor. Electrons in the conductor are attracted or repelled, so they redistribute — one side becomes negative, the other positive — even though the conductor's overall charge is still zero. If the conductor is then earthed while the charged object is still nearby, electrons can flow to or from the ground, leaving the conductor with a net charge once the earth connection and the charged object are both removed.</p>
@@ -380,6 +379,8 @@
         <button class="reveal-btn no-print" onclick="toggleAnswer('a5')">Show answer</button>
         <div class="answer-panel" id="a5">As fuel and air flow past the aircraft's surfaces, friction transfers charge, so the aircraft can build up a large static charge. Without earthing, a spark could jump between the aircraft and the fuel truck as they reach different potentials, and this spark could ignite fuel vapour. The bonding cable keeps both at the same potential (0 V) so charge can drain away safely instead of sparking.</div>
       </div>
+
+      <div class="keyword"><b>Myth — "rubber tyres protect you from lightning":</b> a car protects you from lightning because of its metal shell, not its rubber tyres. The strike has just crossed about 1 km of air, so a few cm of rubber can't stop it. The metal shell conducts the charge round the outside to the ground, and the field inside is almost zero (a <b>Faraday cage</b>).</div>
 
       <div class="question">
         <span class="qnum">6</span><strong>A student rubs a balloon on a wool jumper. The balloon becomes negatively charged.</strong> State the sign of charge left on the jumper, and explain how you know, without measuring anything.
@@ -1206,12 +1207,15 @@
       <div class="keybox"><strong>Electric field strength, E,</strong> is the force per unit charge that a small positive test charge would feel at that point. SI unit: N C⁻¹ (equivalent to V m⁻¹).</div>
 
       <h3>Field lines</h3>
-      <p>Field lines are a way of drawing an electric field. Three rules always apply:</p>
+      <p>Field lines are a way of drawing an electric field. These rules always apply:</p>
       <div class="keybox">
         <ul style="margin:0; padding-left:1.2rem;">
           <li>Field lines point in the direction of the force on a <b>positive</b> test charge.</li>
           <li>Field lines never cross.</li>
           <li>The <b>closer together</b> the lines are, the <b>stronger</b> the field — field line density represents field strength.</li>
+          <li>Field lines start on <b>positive</b> charges and end on <b>negative</b> charges.</li>
+          <li>Field lines meet the surface of a conductor at <b>90°</b>.</li>
+          <li>A field line shows the direction of the <b>force</b>, not the path a charge follows: a charge released from rest does not follow a curved field line.</li>
         </ul>
       </div>
 
@@ -1252,6 +1256,15 @@
         <span class="tag">Worked example 4.1</span>
         <p>A charge of +4.0 nC experiences a force of 2.4 × 10⁻⁵ N at a certain point. Calculate the electric field strength at that point.</p>
         <p><strong>Answer:</strong> E = F/q = (2.4 × 10⁻⁵) / (4.0 × 10⁻⁹) = <strong>6.0 × 10³ N C⁻¹</strong></p>
+      </div>
+
+      <h3>The field of a point charge</h3>
+      <p>Combining E = F/q with Coulomb's law gives the field of a point charge. A small test charge q at distance r from a charge Q feels a force F = kQq/r², so E = F/q = kQ/r². The field points away from a positive charge and towards a negative one, and it follows an inverse square law, just like the force.</p>
+      <div class="eqn">E = kQ / r²</div>
+      <div class="example">
+        <span class="tag">Worked example 4.2</span>
+        <p>Calculate the electric field strength 20 cm from a point charge of +5.0 nC, and state its direction.</p>
+        <p><strong>Answer:</strong> E = kQ/r² = (8.99 × 10⁹ × 5.0 × 10⁻⁹) / (0.20)² = <strong>1.1 × 10³ N C⁻¹</strong>, directed away from the charge (it is positive).</p>
       </div>
 
       <div class="sim-embed">
@@ -4931,12 +4944,12 @@ draw();
     <!-- ================= SECTION 6 ================= -->
     <section class="topic" id="s6">
       <h2>6. Magnetic field lines</h2>
-      <p>A magnetic field exists anywhere a magnetic force acts. Just like electric fields, we represent magnetic fields on paper using field lines — but the rules for drawing them are slightly different.</p>
+      <p>A magnetic field is a region where a magnetic force acts on <b>moving charges, currents or magnetic materials</b>. It exerts no force on a charge at rest. Just like electric fields, we represent magnetic fields on paper using field lines — but the rules for drawing them are slightly different.</p>
 
       <div class="keybox">
         <ul style="margin:0; padding-left:1.2rem;">
           <li>Magnetic field lines always form <b>closed loops</b> — they never simply start or stop.</li>
-          <li>Outside a magnet, field lines point from the <b>north pole</b> to the <b>south pole</b>.</li>
+          <li>Outside a magnet, field lines point from the <b>north pole</b> to the <b>south pole</b>. Inside the magnet the lines run from S to N, completing each loop.</li>
           <li>Like electric field lines, they never cross, and are closest together where the field is strongest.</li>
         </ul>
       </div>
